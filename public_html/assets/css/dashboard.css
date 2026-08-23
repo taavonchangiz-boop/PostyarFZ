@@ -20,10 +20,11 @@ body{
   border:1px solid rgba(255,255,255,.1)!important;
   border-radius:14px!important;overflow:hidden;
   background:
-    radial-gradient(220px 160px at 100% 0,rgba(26,187,156,.35),transparent 70%),
-    radial-gradient(260px 180px at 0 100%,rgba(66,153,225,.25),transparent 72%),
-    linear-gradient(145deg,#141d2b,#1e2c42)!important;
-  box-shadow:0 12px 30px rgba(15,23,42,.25);
+    radial-gradient(240px 170px at 100% 0,rgba(214,172,99,.32),transparent 70%),
+    radial-gradient(280px 190px at 0 100%,rgba(192,168,232,.14),transparent 72%),
+    linear-gradient(145deg,#141110,#241C10)!important;
+  border:1px solid rgba(214,172,99,.3)!important;
+  box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 30px rgba(214,172,99,.07);
   cursor:pointer;
   transition:transform 200ms cubic-bezier(.2,0,0,1),box-shadow 200ms;
   color:#e6ebf2;
@@ -32,11 +33,12 @@ body{
 .credit-card-number{
   font-size:clamp(1.05rem,2vw,1.4rem)!important;font-weight:800!important;
   letter-spacing:.08em!important;direction:ltr;text-align:left!important;
-  margin:18px 0;color:#fff!important;font-variant-numeric:tabular-nums;
+  margin:18px 0;color:#F3DCA8!important;font-variant-numeric:tabular-nums;
+  text-shadow:0 1px 0 rgba(0,0,0,.4);
 }
 .credit-card-chip{
   width:40px!important;height:30px!important;border-radius:6px!important;
-  background:linear-gradient(135deg,#f4d03f,#c9a227)!important;
+  background:linear-gradient(135deg,#F3DCA8,#B08A3E)!important;
   box-shadow:inset 0 0 0 1px rgba(120,83,10,.3);
 }
 .credit-card-holder{color:#c5d0dc!important;font-size:12.5px!important}
@@ -73,8 +75,8 @@ body{
 .plan-card ul li{padding:.1rem 0;border-bottom:1px dashed var(--border-color-light)}
 .plan-card ul li:last-child{border-bottom:none}
 .plan-card.featured-plan{
-  border:1.5px solid var(--primary);
-  box-shadow:0 0 0 3px var(--primary-lt),var(--shadow);
+  border:1.5px solid #D6AC63;
+  box-shadow:0 0 0 3px rgba(214,172,99,.12),0 10px 30px rgba(0,0,0,.45),0 0 26px rgba(214,172,99,.07);
 }
 .plan-card.featured-plan:before{
   content:"محبوب‌ترین";position:absolute;top:-12px;right:50%;transform:translateX(50%);

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title><?php echo htmlspecialchars($title ?? 'آموزش استفاده از پُست‌یار'); ?> | پُست‌یار</title>
-    <meta name="theme-color" content="#141D2B">
+    <meta name="theme-color" content="#1E1A14">
     <?php $baseUrl = rtrim(str_replace(['/assets', '/public/assets'], '', \WHCM\Core\Bootstrap::getAssetsUrl()), '/'); ?>
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $baseUrl; ?>/assets/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo $baseUrl; ?>/assets/icons/favicon-16x16.png">
@@ -17,46 +17,46 @@
         html { scroll-behavior:smooth; }
         body {
             font-family:'Vazirmatn',system-ui,-apple-system,sans-serif;
-            background-color:#0F1623;
-            background-image:radial-gradient(ellipse 60% 40% at 85% -5%,rgba(26,187,156,.07),transparent);
-            color:#E6EBF2; line-height:1.9; direction:rtl;
+            background-color:#0C0A08;
+            background-image:radial-gradient(ellipse 60% 40% at 85% -5%,rgba(214,172,99,.07),transparent);
+            color:#F5EFE3; line-height:1.9; direction:rtl;
             min-height:100vh; display:flex; flex-direction:column;
         }
-        a { color:#3CCDB2; text-decoration:none; transition:color 0.2s; }
-        a:hover { color:#1ABB9C; }
+        a { color:#E9C77E; text-decoration:none; transition:color 0.2s; }
+        a:hover { color:#D6AC63; }
         ::-webkit-scrollbar { width:6px; }
-        ::-webkit-scrollbar-track { background:#0F1623; }
+        ::-webkit-scrollbar-track { background:#0C0A08; }
         ::-webkit-scrollbar-thumb { background:#c9ced6; border-radius:99px; }
-        ::-webkit-scrollbar-thumb:hover { background:#5A6473; }
+        ::-webkit-scrollbar-thumb:hover { background:#7A7062; }
         .container { max-width:860px; margin:0 auto; padding:0 1rem; }
         @media (min-width:640px) { .container { padding:0 1.5rem; } }
         @media (min-width:768px) { .container { padding:0 2rem; } }
         .step-section {
-            background:#1A2332; border:1px solid #26324A; border-radius:8px;
+            background:#171310; border:1px solid #2B241B; border-radius:8px;
             padding:1.4rem; margin-bottom:1rem;
             box-shadow:rgba(10,15,26,.04) 0 2px 4px 0;
             transition:box-shadow .2s, transform .2s, border-color .2s;
             position:relative; overflow:hidden;
         }
-        .step-section:hover { border-color:rgba(26,187,156,.35); box-shadow:rgba(10,15,26,.07) 0 4px 10px 0; transform:translateY(-1px); }
+        .step-section:hover { border-color:rgba(214,172,99,.35); box-shadow:rgba(10,15,26,.07) 0 4px 10px 0; transform:translateY(-1px); }
         .step-header { display:flex; align-items:center; gap:0.85rem; margin-bottom:0.9rem; }
         .step-icon {
             display:flex; align-items:center; justify-content:center;
             width:42px; height:42px; border-radius:6px; font-size:1.15rem; flex-shrink:0;
         }
-        .step-num { font-size:0.7rem; color:#8A93A3; font-weight:600; letter-spacing:.3px; }
-        .step-title { font-size:1.02rem; font-weight:800; color:#E6EBF2; line-height:1.5; }
-        .step-body { color:#B3BCCB; font-size:0.87rem; line-height:2.1; }
-        .step-body strong { color:#E6EBF2; }
+        .step-num { font-size:0.7rem; color:#A99E8E; font-weight:600; letter-spacing:.3px; }
+        .step-title { font-size:1.02rem; font-weight:800; color:#F5EFE3; line-height:1.5; }
+        .step-body { color:#DCD3C4; font-size:0.87rem; line-height:2.1; }
+        .step-body strong { color:#F5EFE3; }
         .step-body ul { padding-right:1.25rem; margin:0.5rem 0; }
         .step-body li { margin-bottom:0.3rem; }
         .tip-box {
-            background:rgba(26,187,156,.06); border:1px solid rgba(26,187,156,.2);
+            background:rgba(214,172,99,.06); border:1px solid rgba(214,172,99,.2);
             border-radius:6px; padding:0.85rem 1rem; margin-top:0.8rem;
-            font-size:0.8rem; color:#3CCDB2; line-height:1.9;
+            font-size:0.8rem; color:#E9C77E; line-height:1.9;
         }
         .warn-box {
-            background:rgba(245,159,0,.06); border:1px solid rgba(245,159,0,.25);
+            background:rgba(239,164,91,.06); border:1px solid rgba(239,164,91,.25);
             border-radius:6px; padding:0.85rem 1rem; margin-top:0.8rem;
             font-size:0.8rem; color:#FFC078; line-height:1.9;
         }
@@ -71,15 +71,15 @@
 <body>
 
 <!-- Header -->
-<header style="position:sticky; top:0; z-index:100; background:rgba(10,15,26,0.1); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid #26324A; padding:0.75rem 0;">
+<header style="position:sticky; top:0; z-index:100; background:rgba(10,15,26,0.1); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid #2B241B; padding:0.75rem 0;">
     <div class="container" style="display:flex; align-items:center; justify-content:space-between;">
-        <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" style="display:flex; align-items:center; gap:0.5rem; color:#B3BCCB; font-size:0.85rem; font-weight:500; padding:0.4rem 0.8rem; border-radius:8px; border:1px solid #26324A; transition:all 0.2s;"
-           onmouseover="this.style.borderColor='#3CCDB2'; this.style.color='#E6EBF2';"
-           onmouseout="this.style.borderColor='#26324A'; this.style.color='#B3BCCB';">
+        <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" style="display:flex; align-items:center; gap:0.5rem; color:#DCD3C4; font-size:0.85rem; font-weight:500; padding:0.4rem 0.8rem; border-radius:8px; border:1px solid #2B241B; transition:all 0.2s;"
+           onmouseover="this.style.borderColor='#E9C77E'; this.style.color='#F5EFE3';"
+           onmouseout="this.style.borderColor='#2B241B'; this.style.color='#DCD3C4';">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="transform:scaleX(-1);"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
             بازگشت
         </a>
-        <span style="font-size:0.78rem; color:#5A6473;">پُست‌یار</span>
+        <span style="font-size:0.78rem; color:#7A7062;">پُست‌یار</span>
     </div>
 </header>
 
@@ -89,23 +89,23 @@
         <!-- Hero -->
         <div style="text-align:center; margin-bottom:2rem;">
             <div style="margin-bottom:1rem;">
-                <img src="<?php echo $baseUrl; ?>/assets/images/asovin.webp" alt="آسوین - پُست‌یار" style="height:140px; width:auto; filter:drop-shadow(0 8px 24px rgba(26,187,156,0.3));">
+                <img src="<?php echo $baseUrl; ?>/assets/images/asovin.webp" alt="آسوین - پُست‌یار" style="height:140px; width:auto; filter:drop-shadow(0 8px 24px rgba(214,172,99,0.3));">
             </div>
-            <div style="display:inline-flex; align-items:center; justify-content:center; width:52px; height:52px; border-radius:14px; background:linear-gradient(135deg, #3CCDB2 0%, #C069DD 100%); box-shadow:0 8px 32px rgba(26,187,156,0.3); margin-bottom:1rem;">📖</div>
-            <h1 style="font-size:1.5rem; font-weight:900; color:#E6EBF2; margin-bottom:0.4rem;">راهنمای استفاده از داشبورد</h1>
-            <p style="font-size:0.88rem; color:#B3BCCB; max-width:500px; margin:0 auto; line-height:1.8;">آموزش گام‌به‌گام تمام امکانات پنل مدیریت کانال‌های شما</p>
+            <div style="display:inline-flex; align-items:center; justify-content:center; width:52px; height:52px; border-radius:14px; background:linear-gradient(135deg, #E9C77E 0%, #C0A8E8 100%); box-shadow:0 8px 32px rgba(214,172,99,0.3); margin-bottom:1rem;">📖</div>
+            <h1 style="font-size:1.5rem; font-weight:900; color:#F5EFE3; margin-bottom:0.4rem;">راهنمای استفاده از داشبورد</h1>
+            <p style="font-size:0.88rem; color:#DCD3C4; max-width:500px; margin:0 auto; line-height:1.8;">آموزش گام‌به‌گام تمام امکانات پنل مدیریت کانال‌های شما</p>
         </div>
 
         <!-- فهرست -->
-        <div style="background:#141D2B; border:1px solid #26324A; border-radius:14px; padding:1.25rem; margin-bottom:2rem;">
-            <div style="font-size:0.88rem; font-weight:700; color:#3CCDB2; margin-bottom:0.75rem;">📑 فهرست مطالب</div>
+        <div style="background:#1E1A14; border:1px solid #2B241B; border-radius:14px; padding:1.25rem; margin-bottom:2rem;">
+            <div style="font-size:0.88rem; font-weight:700; color:#E9C77E; margin-bottom:0.75rem;">📑 فهرست مطالب</div>
             <div style="display:grid; grid-template-columns:1fr; gap:0.35rem;" id="toc-list"></div>
         </div>
 
         <!-- ===== مرحله ۱: افزودن کانال ===== -->
         <section class="step-section" id="s1">
             <div class="step-header">
-                <div class="step-icon" style="background:linear-gradient(135deg, #3CCDB2, #3CCDB2);">📻</div>
+                <div class="step-icon" style="background:linear-gradient(135deg, #E9C77E, #E9C77E);">📻</div>
                 <div><div class="step-num">مرحله ۱</div><div class="step-title">افزودن کانال تلگرام و بله</div></div>
             </div>
             <div class="step-body">
@@ -122,7 +122,7 @@
         <!-- ===== مرحله ۲: تنظیم لینک ===== -->
         <section class="step-section" id="s2">
             <div class="step-header">
-                <div class="step-icon" style="background:linear-gradient(135deg, #2FB344, #2FB344);">🔗</div>
+                <div class="step-icon" style="background:linear-gradient(135deg, #55C47E, #55C47E);">🔗</div>
                 <div><div class="step-num">مرحله ۲</div><div class="step-title">تنظیم لینک‌ها و دکمه‌های تعاملی</div></div>
             </div>
             <div class="step-body">
@@ -139,7 +139,7 @@
         <!-- ===== مرحله ۳: ارسال پست ===== -->
         <section class="step-section" id="s3">
             <div class="step-header">
-                <div class="step-icon" style="background:linear-gradient(135deg, #F5A93B, #F5A93B);">✉</div>
+                <div class="step-icon" style="background:linear-gradient(135deg, #F5BC82, #F5BC82);">✉</div>
                 <div><div class="step-num">مرحله ۳</div><div class="step-title">ارسال پست جدید</div></div>
             </div>
             <div class="step-body">
@@ -157,7 +157,7 @@
         <!-- ===== مرحله ۴: زمانبندی ===== -->
         <section class="step-section" id="s4">
             <div class="step-header">
-                <div class="step-icon" style="background:linear-gradient(135deg, #F0645C, #F0645C);">⏰</div>
+                <div class="step-icon" style="background:linear-gradient(135deg, #E4686F, #E4686F);">⏰</div>
                 <div><div class="step-num">مرحله ۴</div><div class="step-title">زمانبندی ارسال پست‌ها</div></div>
             </div>
             <div class="step-body">
@@ -174,7 +174,7 @@
         <!-- ===== مرحله ۵: صندوق پیام ===== -->
         <section class="step-section" id="s5">
             <div class="step-header">
-                <div class="step-icon" style="background:linear-gradient(135deg, #74B9F2, #74B9F2);">📩</div>
+                <div class="step-icon" style="background:linear-gradient(135deg, #AEC4DC, #AEC4DC);">📩</div>
                 <div><div class="step-num">مرحله ۵</div><div class="step-title">صندوق پیام کانال‌ها</div></div>
             </div>
             <div class="step-body">
@@ -191,7 +191,7 @@
         <!-- ===== مرحله ۶: تیکت ===== -->
         <section class="step-section" id="s6">
             <div class="step-header">
-                <div class="step-icon" style="background:linear-gradient(135deg, #C069DD, #C069DD);">🎫</div>
+                <div class="step-icon" style="background:linear-gradient(135deg, #C0A8E8, #C0A8E8);">🎫</div>
                 <div><div class="step-num">مرحله ۶</div><div class="step-title">سیستم تیکت پشتیبانی</div></div>
             </div>
             <div class="step-body">
@@ -208,7 +208,7 @@
         <!-- ===== مرحله ۷: اشتراک ===== -->
         <section class="step-section" id="s7">
             <div class="step-header">
-                <div class="step-icon" style="background:linear-gradient(135deg, #2FB344, #51CF66);">💎</div>
+                <div class="step-icon" style="background:linear-gradient(135deg, #55C47E, #82D9A2);">💎</div>
                 <div><div class="step-num">مرحله ۷</div><div class="step-title">خرید و تمدید اشتراک</div></div>
             </div>
             <div class="step-body">
@@ -227,7 +227,7 @@
         <!-- ===== مرحله ۸: زیرمجموعه و کیف پول ===== -->
         <section class="step-section" id="s8">
             <div class="step-header">
-                <div class="step-icon" style="background:linear-gradient(135deg, #F5A93B, #F5A93B);">🎯</div>
+                <div class="step-icon" style="background:linear-gradient(135deg, #F5BC82, #F5BC82);">🎯</div>
                 <div><div class="step-num">مرحله ۸</div><div class="step-title">زیرمجموعه‌گیری و کیف پول</div></div>
             </div>
             <div class="step-body">
@@ -244,7 +244,7 @@
         <!-- ===== مرحله ۹: تنظیمات پیشرفته ===== -->
         <section class="step-section" id="s9">
             <div class="step-header">
-                <div class="step-icon" style="background:linear-gradient(135deg, #3CCDB2, #3CCDB2);">⚙</div>
+                <div class="step-icon" style="background:linear-gradient(135deg, #E9C77E, #E9C77E);">⚙</div>
                 <div><div class="step-num">مرحله ۹</div><div class="step-title">تنظیمات پیشرفته</div></div>
             </div>
             <div class="step-body">
@@ -263,9 +263,9 @@
 </main>
 
 <!-- Footer -->
-<footer style="background:#141D2B; border-top:1px solid #26324A; padding:1.25rem 0; text-align:center; margin-top:auto;">
+<footer style="background:#1E1A14; border-top:1px solid #2B241B; padding:1.25rem 0; text-align:center; margin-top:auto;">
     <div class="container">
-        <p style="color:#2E3B55; font-size:0.75rem;">© تمامی حقوق محفوظ است | پُست‌یار</p>
+        <p style="color:#3A3025; font-size:0.75rem;">© تمامی حقوق محفوظ است | پُست‌یار</p>
     </div>
 </footer>
 
@@ -273,16 +273,16 @@
 (function(){
     const sections = document.querySelectorAll('.step-section');
     const tocContainer = document.getElementById('toc-list');
-    const colors = ['#3CCDB2','#2FB344','#F5A93B','#F0645C','#74B9F2','#C069DD','#2FB344','#F5A93B','#3CCDB2'];
+    const colors = ['#E9C77E','#55C47E','#F5BC82','#E4686F','#AEC4DC','#C0A8E8','#55C47E','#F5BC82','#E9C77E'];
     sections.forEach(function(sec, i){
         const title = sec.querySelector('.step-title');
         if(!title) return;
         const a = document.createElement('a');
         a.href = '#' + sec.id;
-        a.style.cssText = 'display:flex;align-items:center;gap:0.6rem;padding:0.45rem 0.7rem;border-radius:8px;font-size:0.85rem;color:#B3BCCB;transition:all 0.2s;';
+        a.style.cssText = 'display:flex;align-items:center;gap:0.6rem;padding:0.45rem 0.7rem;border-radius:8px;font-size:0.85rem;color:#DCD3C4;transition:all 0.2s;';
         a.innerHTML = '<span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:' + colors[i] + '22;color:' + colors[i] + ';font-size:0.7rem;font-weight:700;flex-shrink:0;">' + (i+1) + '</span>' + title.textContent;
-        a.onmouseover = function(){ this.style.background=colors[i]+'15'; this.style.color='#E6EBF2'; };
-        a.onmouseout = function(){ this.style.background='transparent'; this.style.color='#B3BCCB'; };
+        a.onmouseover = function(){ this.style.background=colors[i]+'15'; this.style.color='#F5EFE3'; };
+        a.onmouseout = function(){ this.style.background='transparent'; this.style.color='#DCD3C4'; };
         tocContainer.appendChild(a);
     });
 })();
