@@ -1,0 +1,18 @@
+# Build tooling caches
+.tailwind-build/node_modules/
+.tailwind-build/input.css
+.tailwind-build/bun.lock
+.tailwind-build/package.json
+.php-rt/
+.tools/__pycache__/
+
+# Runtime artifacts (should not be committed)
+error_log
+*.log
+storage/
+postyar-private/config/config.php
+postyar-private/storage/
+
+# Sensitive user data (runtime payment receipts — keep out of VCS)
+postyar-private/public/assets/receipts/
+public_html/assets/receipts/

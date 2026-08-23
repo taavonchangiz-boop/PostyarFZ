@@ -1,0 +1,1028 @@
+/* ============================================================
+   پُست‌یار — سامانه طراحی «زرّین» v3.0 (2025)
+   داشبورد کاربری — بازطراحی کامل · RTL-first
+   ساختار، هوک‌های JS و کلاس‌ها حفظ شده؛ فقط پوسته تازه‌سازی شده است.
+   ============================================================ */
+
+/* ---------- توکن‌های محلی داشبورد ---------- */
+:root{
+  --py-bg:#0D0B08;
+  --py-bg2:#14110D;
+  --py-s0:#1B1712;
+  --py-s1:#241F18;
+  --py-s2:#2E2820;
+  --py-s3:#3B342A;
+  --py-text:#FBF8F3;
+  --py-text2:#E9E2D6;
+  --py-muted:#B0A695;
+  --py-faint:#7D7365;
+  --py-line:rgba(233,226,214,.10);
+  --py-line-strong:rgba(229,180,78,.32);
+  --py-primary:#E5B44E;
+  --py-primary-strong:#D9A036;
+  --py-primary-deep:#BC8623;
+  --py-primary-light:#EFC968;
+  --py-primary-text:#1F1502;
+  --py-primary-soft:rgba(229,180,78,.12);
+  --py-cyan:#4AD6BE;
+  --py-success:#3DD68C;
+  --py-warning:#F98E3F;
+  --py-danger:#F0645C;
+  --py-radius:18px;
+  --py-radius-lg:26px;
+  --py-shadow:0 18px 48px rgba(6,4,2,.26);
+  --py-shadow-gold:0 12px 28px rgba(217,160,54,.22);
+  --py-ease:cubic-bezier(.22,.8,.24,1);
+  --py-grad:linear-gradient(135deg,#EDBE55,#D9A036);
+  --py-grad-deep:linear-gradient(145deg,#EFC968,#BC8623);
+}
+
+/* ---------- پایه ---------- */
+*{box-sizing:border-box}
+html{direction:rtl;background:var(--py-bg);scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
+  direction:rtl;
+  text-align:right;
+  font-family:Vazirmatn,Tahoma,sans-serif!important;
+  color:var(--py-text);
+  background:
+    radial-gradient(920px 560px at 100% -8%,rgba(217,160,54,.13),transparent 62%),
+    radial-gradient(760px 520px at -4% 100%,rgba(74,214,190,.055),transparent 62%),
+    var(--py-bg);
+}
+body:before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,248,230,.012) 50%,transparent);
+  opacity:.5;
+}
+
+/* ============================================================
+   هدر چسبان شیشه‌ای
+   ============================================================ */
+header{
+  height:76px;
+  padding:0 clamp(16px,3vw,38px);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  position:sticky;top:0;z-index:500;
+  background:rgba(13,11,8,.8);
+  border-bottom:1px solid var(--py-line);
+  backdrop-filter:blur(22px) saturate(150%);
+  -webkit-backdrop-filter:blur(22px) saturate(150%);
+}
+.logo-container{display:flex;align-items:center;gap:12px;min-width:0}
+.logo-frame{
+  width:44px;height:44px;padding:2px;border-radius:15px;
+  background:var(--py-grad-deep);
+  box-shadow:0 12px 30px rgba(217,160,54,.28);
+  flex:none;
+}
+.logo-frame-inner{
+  width:100%;height:100%;display:grid;place-items:center;
+  border-radius:13px;background:var(--py-bg2);overflow:hidden;
+}
+.logo-img{width:100%;height:100%;object-fit:contain}
+.logo-text{
+  font-size:1.16rem;font-weight:800;color:#FBF8F3;letter-spacing:-.02em;
+  background:linear-gradient(120deg,#FBF8F3,#EFC968);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.user-badge{
+  background:rgba(20,17,13,.78)!important;
+  border:1px solid var(--py-line-strong)!important;
+  border-radius:14px!important;
+  box-shadow:inset 0 1px 0 rgba(255,248,230,.04)!important;
+  color:var(--py-text)!important;
+}
+
+/* ============================================================
+   پوسته اصلی: سایدبار + محتوا — بهینه دسکتاپ تا اولتراواید
+   ============================================================ */
+.wrapper{
+  width:min(1600px,100%);
+  margin:0 auto;
+  padding:28px clamp(16px,3vw,38px) 56px;
+  display:grid;
+  grid-template-columns:286px minmax(0,1fr);
+  gap:28px;
+  align-items:start;
+}
+.wrapper>aside{
+  position:sticky;top:100px;
+  max-height:calc(100svh - 128px);
+  overflow:auto;
+  padding:10px;
+  background:linear-gradient(185deg,rgba(36,31,24,.94),rgba(16,13,10,.96));
+  border:1px solid var(--py-line);
+  border-radius:var(--py-radius-lg);
+  box-shadow:var(--py-shadow);
+  scrollbar-width:thin;
+}
+main{min-width:0;width:100%;display:flex;flex-direction:column;gap:18px}
+
+/* برچسب «ناوبری» بالای سایدبار */
+.wrapper>aside:before{
+  content:"ناوبری";
+  display:block;
+  padding:9px 12px 7px;
+  color:var(--py-faint);
+  font-size:.7rem;font-weight:800;letter-spacing:.06em;
+}
+
+/* ---------- آیتم‌های منو ---------- */
+.menu-item{
+  width:100%;min-height:48px;
+  display:flex;align-items:center;gap:12px;
+  padding:11px 13px;margin:2px 0;
+  border:1px solid transparent;border-radius:13px;
+  color:var(--py-muted);
+  background:transparent;
+  text-decoration:none;text-align:right;
+  line-height:1.45;font-size:.88rem;font-weight:600;
+  font-family:inherit;cursor:pointer;
+  transition:background .2s var(--py-ease),color .2s var(--py-ease),border-color .2s var(--py-ease),transform .2s var(--py-ease);
+}
+.menu-item:hover{
+  background:rgba(229,180,78,.07);
+  border-color:rgba(229,180,78,.16);
+  color:#F6E7C2;
+}
+.menu-item.active{
+  position:relative;
+  background:linear-gradient(135deg,rgba(229,180,78,.2),rgba(188,134,35,.08));
+  border-color:rgba(229,180,78,.26);
+  color:#FFF6DE;
+  box-shadow:inset -3px 0 0 var(--py-primary),0 8px 20px rgba(6,4,2,.16);
+}
+.menu-item.active:after{
+  content:"";width:5px;height:5px;border-radius:50%;
+  background:var(--py-primary-light);
+  margin-inline-start:auto;
+  box-shadow:0 0 12px var(--py-primary);
+}
+.menu-item.logout-btn{
+  margin-top:12px;color:#F9A39D;
+  border-top:1px solid var(--py-line);border-radius:0;padding-top:18px;
+}
+.menu-item.logout-btn:hover{background:rgba(240,100,92,.08);color:#FFD9D6}
+.logout-form{margin:0;padding:0;display:block}
+
+/* ---------- تب‌ها ---------- */
+.tab-content{display:none!important}
+.tab-content.active{display:block!important;animation:pySection .3s var(--py-ease)}
+@keyframes pySection{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:none}
+}
+
+/* ============================================================
+   کارت‌ها
+   ============================================================ */
+.card{
+  position:relative;
+  margin:0!important;
+  padding:clamp(18px,2vw,28px)!important;
+  overflow:hidden;
+  background:linear-gradient(165deg,rgba(46,40,32,.92),rgba(17,14,11,.96))!important;
+  border:1px solid var(--py-line)!important;
+  border-radius:var(--py-radius)!important;
+  box-shadow:0 14px 38px rgba(6,4,2,.18),inset 0 1px 0 rgba(255,248,230,.03);
+  transition:border-color .24s var(--py-ease),box-shadow .24s var(--py-ease);
+}
+.card:hover{border-color:rgba(229,180,78,.22)}
+.card:has(.card-stat),.card:has(.grid-stats){
+  background:transparent!important;border-color:transparent!important;
+  box-shadow:none!important;padding:0!important;
+}
+
+h1,h2,h3,h4{margin:0;color:#FBF8F3;letter-spacing:-.02em;line-height:1.55}
+h1{font-size:clamp(1.55rem,2.8vw,2.45rem);font-weight:800}
+h2{font-size:clamp(1.18rem,2vw,1.6rem);font-weight:800}
+h3{font-size:1.04rem;font-weight:700}
+p{color:var(--py-muted)}
+
+/* تیتر بخش با کیکر طلایی */
+.section-title{
+  position:relative;
+  margin:2px 0 6px;padding-right:16px;
+  font-size:clamp(1.15rem,1.8vw,1.42rem);font-weight:800;color:#FBF8F3;
+  display:flex;align-items:center;gap:.5rem;
+}
+.section-title:before{
+  content:"";position:absolute;right:0;top:50%;
+  transform:translateY(-50%);
+  width:4px;height:1.15em;border-radius:99px;
+  background:var(--py-grad);
+  box-shadow:0 0 14px rgba(217,160,54,.4);
+}
+.subsection{
+  margin:1.25rem 0;padding:1.15rem;
+  border:1px solid var(--py-line);border-radius:14px;
+  background:rgba(20,17,13,.5);
+}
+
+/* ============================================================
+   گرید آمار (KPI) — بنتو
+   ============================================================ */
+.grid-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.card-stat{
+  position:relative;min-width:0;min-height:138px;padding:18px;
+  border:1px solid var(--py-line);border-radius:18px;
+  background:linear-gradient(150deg,rgba(46,40,32,.9),rgba(17,14,11,.95));
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(6,4,2,.12);
+  transition:transform .24s var(--py-ease),border-color .24s var(--py-ease),box-shadow .24s var(--py-ease);
+}
+.card-stat:before{
+  content:"";position:absolute;inset:0 0 auto;width:100%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--py-primary),transparent);
+  opacity:.75;
+}
+.card-stat:hover{
+  transform:translateY(-3px);
+  border-color:rgba(229,180,78,.28);
+  box-shadow:0 22px 46px rgba(6,4,2,.24);
+}
+.card-stat-info{min-width:0}
+.card-stat-info .title{display:block;color:var(--py-muted);font-size:.76rem;font-weight:600}
+.card-stat-info .value{
+  display:block;margin-top:10px;color:#FBF8F3;
+  font-size:clamp(1.4rem,2.5vw,2.2rem);font-weight:900;line-height:1.1;
+  font-variant-numeric:tabular-nums;
+  background:linear-gradient(120deg,#FBF8F3 30%,#EFC968);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.card-stat-icon{
+  position:absolute;left:15px;bottom:15px;
+  width:38px;height:38px;display:grid;place-items:center;
+  border-radius:12px;
+  background:var(--py-primary-soft);
+  border:1px solid rgba(229,180,78,.18);
+  font-size:1.25rem;
+}
+
+/* نمودار تحلیلی */
+.analytics-graph{
+  margin-top:1rem;padding:1rem;
+  border:1px solid var(--py-line);border-radius:16px;
+  background:rgba(13,11,8,.45);
+  direction:ltr;
+}
+.analytics-graph svg{width:100%;height:auto;display:block}
+
+/* ============================================================
+   فرم‌ها
+   ============================================================ */
+.form-group{margin:0 0 18px}
+.form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.form-grid label{grid-column:auto}
+.form-group-checkbox{display:flex;align-items:center;gap:.6rem}
+label{
+  display:block;margin-bottom:8px;
+  color:#DCD3C5;font-size:.82rem;font-weight:700;text-align:right;
+}
+input[type="text"],input[type="email"],input[type="number"],input[type="url"],
+input[type="password"],input[type="date"],input[type="tel"],select,textarea{
+  width:100%;min-height:48px;padding:12px 14px!important;
+  direction:rtl;text-align:right;
+  color:var(--py-text)!important;
+  background:rgba(8,6,4,.55)!important;
+  border:1px solid var(--py-line)!important;
+  border-radius:12px!important;outline:0;
+  box-shadow:inset 0 1px 0 rgba(255,248,230,.02);
+  font-family:inherit;
+  transition:border-color .18s var(--py-ease),box-shadow .18s var(--py-ease),background .18s var(--py-ease);
+}
+textarea{min-height:124px;resize:vertical;line-height:1.9}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--py-primary)!important;
+  background:rgba(8,6,4,.82)!important;
+  box-shadow:0 0 0 4px rgba(229,180,78,.14)!important;
+}
+input::placeholder,textarea::placeholder{color:#6E6457!important}
+select{
+  appearance:none;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23B0A695' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;
+  background-position:left 12px center!important;
+  padding-left:38px!important;
+}
+input[type="checkbox"],input[type="radio"]{width:auto;min-height:0}
+input[type="file"]{
+  color:var(--py-muted);
+  cursor:pointer;
+}
+input[type="file"]::file-selector-button{
+  margin-left:.8rem;padding:.55rem 1rem;
+  border:1px solid rgba(229,180,78,.3);border-radius:10px;
+  background:var(--py-primary-soft);color:#F2DCA0;
+  font-family:inherit;font-weight:700;cursor:pointer;
+  transition:background .16s;
+}
+input[type="file"]::file-selector-button:hover{background:rgba(229,180,78,.2)}
+
+/* ---------- کلید تعاملی (Toggle) ---------- */
+.toggle-container{
+  display:inline-flex;align-items:center;gap:.65rem;
+  padding:.65rem .9rem;
+  border:1px solid var(--py-line);border-radius:12px;
+  background:rgba(20,17,13,.5);
+  cursor:pointer;user-select:none;
+  transition:border-color .18s,background .18s;
+}
+.toggle-container:hover{border-color:rgba(229,180,78,.28)}
+.toggle-container:hover span:not(.toggle-track):not(.toggle-thumb){color:#F6E7C2}
+.toggle-container span{color:var(--py-text2);font-size:.84rem;font-weight:600}
+.toggle-input{accent-color:var(--py-primary);width:1.05rem;height:1.05rem;cursor:pointer}
+.responder-toggle{display:inline-flex;align-items:center;gap:.6rem;cursor:pointer}
+.toggle-track{background:#4A4237!important}
+.toggle-thumb{background:#F5EFE4!important}
+
+/* ============================================================
+   دکمه‌ها
+   ============================================================ */
+.btn,.primary-btn,.action-btn{
+  min-height:44px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 18px;
+  border-radius:12px;border:1px solid transparent;
+  font-family:inherit;font-weight:700;font-size:.88rem;
+  cursor:pointer;text-decoration:none;color:var(--py-text);
+  transition:transform .16s var(--py-ease),box-shadow .16s var(--py-ease),background .16s var(--py-ease),border-color .16s var(--py-ease),filter .16s;
+}
+.btn:hover,.primary-btn:hover{transform:translateY(-1px)}
+.btn:active,.primary-btn:active{transform:translateY(0) scale(.985)}
+.btn[disabled],.btn:disabled{opacity:.45;pointer-events:none}
+.btn-sm{min-height:36px;padding:6px 12px;font-size:.78rem;border-radius:10px}
+.btn-block{width:100%}
+
+/* دکمه اصلی (پیش‌فرض .btn = طلایی) */
+.btn{
+  color:var(--py-primary-text);
+  background:var(--py-grad)!important;
+  box-shadow:var(--py-shadow-gold);
+}
+.btn:hover{filter:brightness(1.06);box-shadow:0 16px 34px rgba(217,160,54,.3)}
+
+.btn-primary,.primary-btn{
+  color:var(--py-primary-text);
+  background:var(--py-grad)!important;
+  box-shadow:var(--py-shadow-gold);
+}
+.btn-primary:hover,.primary-btn:hover{filter:brightness(1.06);box-shadow:0 16px 34px rgba(217,160,54,.3)}
+
+.btn-success{
+  color:#05291A!important;
+  background:linear-gradient(135deg,#57E3A0,#2BB377)!important;
+  box-shadow:0 10px 24px rgba(43,179,119,.2);
+}
+.btn-success:hover{filter:brightness(1.05)}
+
+.btn-danger,.danger-btn{
+  color:#330805!important;
+  background:linear-gradient(135deg,#F5837C,#DC4B44)!important;
+  box-shadow:0 10px 24px rgba(220,75,68,.2);
+}
+.btn-danger:hover{filter:brightness(1.05)}
+
+.btn-outline{
+  color:#F0E8DB!important;
+  background:rgba(233,226,214,.05)!important;
+  border-color:var(--py-line)!important;
+}
+.btn-outline:hover{
+  border-color:var(--py-line-strong)!important;
+  background:rgba(229,180,78,.1)!important;
+  color:#FFF6DE!important;
+}
+button[type="submit"]{
+  min-height:44px;padding:10px 18px;border-radius:12px;border:1px solid transparent;
+  font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;
+  color:var(--py-primary-text);background:var(--py-grad);
+  box-shadow:var(--py-shadow-gold);
+  transition:transform .16s var(--py-ease),box-shadow .16s,filter .16s;
+}
+button[type="submit"]:hover{filter:brightness(1.06);box-shadow:0 16px 34px rgba(217,160,54,.3)}
+button[type="submit"]:active{transform:scale(.985)}
+
+/* دکمه بستن مودال */
+.close-btn{
+  width:34px;height:34px;display:grid;place-items:center;
+  border:1px solid var(--py-line);border-radius:10px;
+  background:rgba(233,226,214,.05);color:var(--py-muted);
+  font-size:.9rem;cursor:pointer;
+  transition:background .16s,color .16s,border-color .16s;
+}
+.close-btn:hover{background:rgba(240,100,92,.12);color:#F9A39D;border-color:rgba(240,100,92,.3)}
+
+/* ============================================================
+   جدول‌ها
+   ============================================================ */
+.table-wrapper,.table-container,.table-responsive{overflow:auto;border:1px solid var(--py-line);border-radius:16px;background:rgba(13,11,8,.3)}
+table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  direction:rtl;text-align:right;background:transparent;
+}
+th,td{
+  padding:13px 15px;text-align:right;
+  border-bottom:1px solid var(--py-line);
+  font-size:.84rem;color:#D6CCC0;vertical-align:middle;white-space:nowrap;
+}
+th{
+  color:#C9BFAF;font-weight:700;
+  background:rgba(229,180,78,.06);
+  position:sticky;top:0;z-index:2;
+  backdrop-filter:blur(8px);
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr{transition:background .15s var(--py-ease)}
+tbody tr:hover{background:rgba(229,180,78,.05)}
+.data-table{width:100%}
+td:has(.badge){white-space:normal}
+
+/* ============================================================
+   نشان‌ها (Badge)
+   ============================================================ */
+.badge,.status{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:5px 11px;border-radius:999px;
+  font-size:.71rem;font-weight:700;white-space:nowrap;
+}
+.badge-success,.status-success{
+  background:rgba(61,214,140,.12);color:#8CEBB8;
+  border:1px solid rgba(61,214,140,.22);
+}
+.badge-warning,.badge-pending,.status-warning{
+  background:rgba(249,142,63,.12);color:#FBB47E;
+  border:1px solid rgba(249,142,63,.22);
+}
+.badge-danger,.badge-failed,.status-danger{
+  background:rgba(240,100,92,.12);color:#F9A39D;
+  border:1px solid rgba(240,100,92,.22);
+}
+.badge-info,.badge-telegram,.status-info{
+  background:rgba(74,214,190,.12);color:#8FE8D8;
+  border:1px solid rgba(74,214,190,.22);
+}
+.badge-scheduled{
+  background:rgba(229,180,78,.12);color:#F0D68A;
+  border:1px solid rgba(229,180,78,.24);
+}
+.badge-approved{
+  background:rgba(61,214,140,.12);color:#8CEBB8;
+  border:1px solid rgba(61,214,140,.22);
+}
+
+/* ============================================================
+   کارت بانکی (کارت به کارت)
+   ============================================================ */
+.credit-card{
+  position:relative;min-height:205px;padding:22px!important;
+  border:1px solid rgba(239,201,104,.36)!important;
+  border-radius:22px!important;overflow:hidden;
+  background:
+    radial-gradient(220px 160px at 0 0,rgba(74,214,190,.14),transparent 70%),
+    radial-gradient(260px 180px at 100% 100%,rgba(229,180,78,.28),transparent 72%),
+    linear-gradient(145deg,#241D12,#3A2E14)!important;
+  box-shadow:0 24px 54px rgba(6,4,2,.34),inset 0 1px 0 rgba(255,248,230,.09);
+  cursor:pointer;
+  transition:transform .22s var(--py-ease),box-shadow .22s var(--py-ease);
+}
+.credit-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 30px 65px rgba(6,4,2,.44),0 0 32px rgba(217,160,54,.14);
+}
+.credit-card-number{
+  font-size:clamp(1.12rem,2vw,1.55rem)!important;
+  font-weight:800!important;letter-spacing:.08em!important;
+  direction:ltr;text-align:left!important;margin:22px 0;
+  color:#FBF3DD!important;
+  font-variant-numeric:tabular-nums;
+}
+.credit-card-chip{
+  width:42px!important;height:31px!important;border-radius:8px!important;
+  background:linear-gradient(135deg,#FBF3DD,#D9A036)!important;
+  box-shadow:inset 0 0 0 1px rgba(120,83,10,.25);
+}
+.credit-card-holder{color:#E9E2D6!important;font-size:.85rem!important}
+.payment-box{
+  border:1px solid var(--py-line-strong)!important;
+  border-radius:var(--py-radius)!important;
+  background:linear-gradient(165deg,rgba(46,40,32,.92),rgba(17,14,11,.96))!important;
+  padding:1.4rem!important;
+  box-shadow:var(--py-shadow);
+}
+.payment-provider-card{
+  border:1px solid var(--py-line)!important;border-radius:14px!important;
+  background:rgba(20,17,13,.55)!important;padding:1rem!important;
+  transition:border-color .2s,background .2s;
+}
+.payment-provider-card:hover{border-color:rgba(229,180,78,.28)!important;background:rgba(24,20,15,.75)!important}
+
+/* ============================================================
+   توستر
+   ============================================================ */
+.toast{
+  position:fixed!important;right:50%!important;left:auto!important;
+  bottom:calc(24px + env(safe-area-inset-bottom))!important;
+  z-index:99999!important;
+  max-width:calc(100vw - 32px);
+  padding:12px 16px!important;
+  border:1px solid rgba(61,214,140,.35)!important;
+  border-radius:14px!important;
+  background:rgba(10,26,19,.96)!important;
+  color:#D8F5E6!important;
+  box-shadow:0 20px 50px rgba(6,4,2,.4)!important;
+  backdrop-filter:blur(18px);
+  transform:translate(50%,20px)!important;
+  opacity:0!important;visibility:hidden!important;pointer-events:none!important;
+  transition:opacity .24s var(--py-ease),transform .24s var(--py-ease),visibility .24s!important;
+}
+.toast.show{opacity:1!important;visibility:visible!important;transform:translate(50%,0)!important}
+.toast:before{
+  content:"✓";display:inline-grid;place-items:center;
+  width:20px;height:20px;margin-left:7px;border-radius:50%;
+  background:rgba(61,214,140,.18);color:#8CEBB8;font-weight:900;
+}
+
+/* هشدار سیستمی */
+.alert{
+  position:relative;
+  padding:14px 18px;border-radius:14px;
+  background:rgba(61,214,140,.1);
+  border:1px solid rgba(61,214,140,.28);
+  color:#D8F5E6;font-size:.88rem;font-weight:600;
+}
+.broadcast-alert{
+  position:relative;
+  padding:18px 20px;border-radius:16px;
+  background:linear-gradient(135deg,rgba(229,180,78,.12),rgba(17,14,11,.9));
+  border:1px solid rgba(229,180,78,.3);
+  box-shadow:var(--py-shadow);
+}
+.broadcast-alert-close{
+  position:absolute;top:10px;left:12px;
+  background:none;border:none;color:var(--py-muted);
+  font-size:1rem;cursor:pointer;transition:color .16s;
+}
+.broadcast-alert-close:hover{color:#F9A39D}
+
+/* ============================================================
+   پاپ‌آپ زنگوله
+   ============================================================ */
+#user-bell-popup{
+  direction:rtl;text-align:right;
+  background:rgba(27,23,18,.98)!important;
+  border-color:var(--py-line-strong)!important;
+  border-radius:18px!important;
+  box-shadow:var(--py-shadow)!important;
+}
+.notif-list-item:hover{background:rgba(229,180,78,.08)!important}
+
+/* ============================================================
+   اسلایدر تبلیغات
+   ============================================================ */
+.postyar-global-ad-slot{margin:0}
+.ad-slider-card{
+  position:relative;overflow:hidden;
+  border:1px solid var(--py-line);border-radius:18px;
+  background:linear-gradient(165deg,rgba(46,40,32,.85),rgba(13,11,8,.92));
+  box-shadow:0 12px 32px rgba(6,4,2,.14);
+}
+.ad-slides{position:relative;min-height:120px}
+.postyar-ad-slide{
+  position:relative;display:none;
+  width:100%;
+}
+.postyar-ad-slide.is-active{display:block;animation:pyAdIn .35s var(--py-ease)}
+@keyframes pyAdIn{from{opacity:0;transform:scale(.99)}to{opacity:1;transform:none}}
+.postyar-ad-slide img{
+  display:block;width:100%;height:auto;max-height:230px;object-fit:cover;
+}
+.postyar-ad-slide span{
+  position:absolute;bottom:0;right:0;left:0;
+  padding:10px 16px;
+  background:linear-gradient(0deg,rgba(13,11,8,.92),transparent);
+  color:#F0E8DB;font-size:.82rem;font-weight:600;
+}
+.ad-dots{
+  position:absolute;bottom:10px;left:14px;z-index:5;
+  display:flex;gap:6px;
+}
+.ad-dots i{
+  width:7px;height:7px;border-radius:99px;
+  background:rgba(233,226,214,.35);cursor:pointer;
+  transition:background .18s,width .18s;
+}
+.ad-dots i.on{background:var(--py-primary);width:18px}
+.ad-empty{
+  padding:26px;text-align:center;
+  color:var(--py-faint);font-size:.84rem;
+}
+
+/* ---------- پنل صاحب آگهی ---------- */
+.ad-owner-summary{
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;
+  margin:14px 0 4px;
+}
+.ad-owner-summary>div{
+  padding:13px 14px;border-radius:14px;
+  background:rgba(20,17,13,.6);border:1px solid var(--py-line);
+  transition:border-color .2s;
+}
+.ad-owner-summary>div:hover{border-color:rgba(229,180,78,.26)}
+.ad-owner-summary span{display:block;color:var(--py-muted);font-size:.72rem;font-weight:600}
+.ad-owner-summary strong{
+  display:block;margin-top:5px;color:#FBF8F3;
+  font-size:1.25rem;font-weight:900;font-variant-numeric:tabular-nums;
+}
+.ad-order-intro{color:var(--py-muted);font-size:.86rem;line-height:1.9}
+.ad-help-panel{
+  display:flex;gap:14px;align-items:flex-start;
+  margin:1rem 0;padding:14px 16px;border-radius:14px;
+  background:rgba(74,214,190,.07);border:1px solid rgba(74,214,190,.18);
+}
+.ad-help-icon{font-size:1.3rem;line-height:1}
+.ad-help-panel strong{color:#8FE8D8;font-size:.86rem}
+.ad-help-panel ul{margin:.5rem 0 0;padding-right:1.1rem;color:var(--py-muted);font-size:.78rem;line-height:2}
+.ad-field-heading{display:flex;flex-direction:column;gap:2px;margin-bottom:.6rem}
+.ad-field-heading strong{color:#FBF8F3;font-size:.9rem}
+.ad-field-heading span{color:var(--py-faint);font-size:.74rem}
+.ad-date-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ad-date-field label{font-size:.78rem}
+.ad-date-control{display:flex;gap:.5rem}
+.ad-jalali-input{cursor:pointer!important}
+.ad-time-display{
+  min-width:74px;padding:0 12px;min-height:48px;
+  border:1px solid var(--py-line)!important;border-radius:12px;
+  background:rgba(20,17,13,.7);color:#F0D68A;
+  font-family:inherit;font-weight:800;font-size:.88rem;cursor:pointer;
+  font-variant-numeric:tabular-nums;
+  transition:border-color .18s;
+}
+.ad-time-display:hover{border-color:rgba(229,180,78,.35)!important}
+.ad-placement-section{grid-column:1/-1}
+.ad-placement-option{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-radius:14px;
+  border:1px solid rgba(229,180,78,.26);
+  background:rgba(229,180,78,.07);
+}
+.ad-placement-option.is-fixed{cursor:default}
+.ad-placement-check{
+  width:22px;height:22px;display:grid;place-items:center;
+  border-radius:99px;background:var(--py-grad);
+  color:var(--py-primary-text);font-size:.72rem;font-weight:900;
+  flex:none;
+}
+.ad-placement-option b{display:block;color:#FBF8F3;font-size:.88rem}
+.ad-placement-option small{color:var(--py-muted);font-size:.72rem}
+.ad-creative-card{
+  border:1px solid var(--py-line);border-radius:16px;
+  padding:16px;background:rgba(20,17,13,.5);
+}
+.ad-creative-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.ad-creative-head h4{font-size:.92rem}
+.ad-creative-head span{color:var(--py-faint);font-size:.72rem}
+.ad-image-help{
+  margin:.35rem 0 .5rem;padding:.5rem .7rem;
+  border-radius:10px;background:rgba(74,214,190,.06);
+  color:#9CCDC0;font-size:.7rem;line-height:1.8;
+  border:1px dashed rgba(74,214,190,.18);
+}
+.ad-preview-panel{
+  border:1px solid var(--py-line);border-radius:16px;
+  padding:16px;background:rgba(13,11,8,.45);
+}
+.ad-preview-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:12px}
+.ad-preview-kicker{
+  display:inline-block;margin-bottom:4px;
+  color:var(--py-primary);font-size:.7rem;font-weight:800;letter-spacing:.04em;
+}
+.ad-preview-head h4{font-size:.95rem}
+.ad-preview-note{color:var(--py-faint);font-size:.68rem;max-width:280px;text-align:left;line-height:1.7}
+.ad-preview-slides{display:grid;gap:10px}
+.ad-preview-placeholder,.ad-preview-empty{
+  padding:22px;border-radius:14px;text-align:center;
+  border:1px dashed var(--py-line);color:var(--py-faint);font-size:.8rem;
+}
+.ad-preview-media{border-radius:12px;overflow:hidden;max-height:150px}
+.ad-preview-media img{width:100%;height:100%;object-fit:cover;display:block}
+.ad-preview-content{padding:.8rem 1rem}
+.ad-preview-content b{color:#FBF8F3;display:block;margin-bottom:.25rem}
+.ad-preview-content span{color:var(--py-muted);font-size:.78rem}
+.ad-preview-destination{
+  display:block;margin-top:.4rem;direction:ltr;text-align:left;
+  color:#8FE8D8;font-size:.72rem;
+}
+.ad-submit-btn{grid-column:auto}
+.ad-payment-card{margin-top:1rem}
+.ad-time-panel-fields{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+.ad-time-panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.ad-time-panel-hint{color:var(--py-faint);font-size:.72rem}
+.ad-time-panel-confirm,.ad-time-panel-close{min-height:38px}
+.ad-popup-hour,.ad-popup-minute{direction:ltr;text-align:center}
+
+/* ============================================================
+   پیکر اموجی
+   ============================================================ */
+.emoji-picker-container{position:relative}
+.emoji-picker-btn{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:8px 14px;border-radius:11px;
+  border:1px solid rgba(229,180,78,.26);
+  background:var(--py-primary-soft);color:#F2DCA0;
+  font-family:inherit;font-size:.76rem;font-weight:700;cursor:pointer;
+  transition:background .16s,border-color .16s;
+}
+.emoji-picker-btn:hover{background:rgba(229,180,78,.2);border-color:rgba(229,180,78,.4)}
+.emoji-popup{
+  display:none;position:absolute;top:calc(100% + 10px);left:0;z-index:800;
+  width:290px;padding:12px;
+  border:1px solid var(--py-line-strong);border-radius:16px;
+  background:rgba(27,23,18,.98);
+  box-shadow:var(--py-shadow);
+}
+.emoji-tabs{
+  display:flex;gap:6px;padding-bottom:10px;margin-bottom:10px;
+  border-bottom:1px solid var(--py-line);
+}
+.emoji-tab{
+  width:36px;height:36px;display:grid;place-items:center;
+  border-radius:10px;cursor:pointer;font-size:1.1rem;
+  background:transparent;border:1px solid transparent;
+  transition:background .16s,border-color .16s;
+}
+.emoji-tab:hover{background:rgba(229,180,78,.1)}
+.emoji-tab.active{background:rgba(229,180,78,.16);border-color:rgba(229,180,78,.32)}
+.emoji-grid{
+  display:grid;grid-template-columns:repeat(8,1fr);gap:4px;
+  max-height:180px;overflow-y:auto;
+}
+.emoji-item{
+  display:grid;place-items:center;height:34px;
+  border-radius:8px;font-size:1.15rem;cursor:pointer;
+  transition:background .14s,transform .14s;
+}
+.emoji-item:hover{background:rgba(229,180,78,.14);transform:scale(1.12)}
+
+/* ============================================================
+   کانال‌ها
+   ============================================================ */
+.grid-content{display:grid;gap:1rem}
+.grid-channels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.channel-box{
+  border:1px solid var(--py-line);border-radius:16px;
+  padding:1.1rem;background:rgba(20,17,13,.55);
+  transition:border-color .2s;
+}
+.channel-box:hover{border-color:rgba(229,180,78,.24)}
+.channel-box-title{
+  font-size:.95rem;font-weight:800;color:#FBF8F3;margin-bottom:.85rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.channel-item{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.8rem 1rem;border-radius:12px;
+  border:1px solid var(--py-line);background:rgba(13,11,8,.4);
+  margin-bottom:.6rem;transition:border-color .18s,background .18s;
+}
+.channel-item:hover{border-color:rgba(229,180,78,.26);background:rgba(24,20,15,.6)}
+
+/* ============================================================
+   تیکت‌ها
+   ============================================================ */
+.contact-card{
+  display:flex;flex-direction:column;gap:.4rem;
+  padding:1.1rem;border-radius:16px;
+  border:1px solid var(--py-line);background:rgba(20,17,13,.55);
+  transition:border-color .2s,transform .2s var(--py-ease);
+  cursor:pointer;text-align:right;font-family:inherit;
+}
+.contact-card:hover{border-color:rgba(229,180,78,.28);transform:translateY(-2px)}
+.ticket-filter-btn{
+  padding:.45rem 1rem;border-radius:99px;
+  border:1px solid var(--py-line);background:rgba(20,17,13,.55);
+  color:var(--py-muted);font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;
+  transition:all .18s;
+}
+.ticket-filter-btn:hover{color:#F6E7C2;border-color:rgba(229,180,78,.3)}
+.ticket-filter-btn.active{
+  background:var(--py-primary-soft);color:#F2DCA0;
+  border-color:rgba(229,180,78,.36);
+}
+.ticket-card-row{
+  display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;
+  padding:1rem;border-radius:14px;
+  border:1px solid var(--py-line);background:rgba(20,17,13,.5);
+  transition:border-color .18s;
+  cursor:pointer;
+}
+.ticket-card-row:hover{border-color:rgba(229,180,78,.28)}
+.ticket-avatar{
+  width:42px;height:42px;border-radius:12px;
+  display:grid;place-items:center;font-size:1.1rem;
+  background:var(--py-primary-soft);border:1px solid rgba(229,180,78,.2);
+}
+.ticket-card-header{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.ticket-card-subject{font-weight:700;color:#FBF8F3;font-size:.9rem}
+.ticket-card-preview{color:var(--py-muted);font-size:.76rem;margin-top:.25rem;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}
+.ticket-card-actions{display:flex;align-items:center;gap:.5rem}
+.ticket-card-user{color:var(--py-faint);font-size:.74rem}
+
+/* مودال تیکت (#ticketModal دارای استایل اینلاین چیدمان است — پوسته‌سازی) */
+#ticketModal{backdrop-filter:blur(6px)}
+#ticketModal .t-modal{background:linear-gradient(165deg,rgba(36,31,24,.98),rgba(17,14,11,.99))!important}
+
+/* ============================================================
+   پاسخگوی خودکار
+   ============================================================ */
+.responder-table{margin-top:1rem}
+
+/* ============================================================
+   صف پست‌ها — ردیف انیمیت‌شونده
+   ============================================================ */
+#queue-row-...{}
+
+/* ============================================================
+   مودال عمومی (پشتیبانی از .modal/.modal-content در داشبورد)
+   ============================================================ */
+.modal{
+  position:fixed;inset:0;z-index:1200;
+  display:none;align-items:center;justify-content:center;
+  padding:1rem;background:rgba(6,4,2,.78);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  overflow-y:auto;
+}
+.modal.show{display:flex;animation:pyModalIn .28s var(--py-ease)}
+@keyframes pyModalIn{from{opacity:0}to{opacity:1}}
+.modal-content{
+  position:relative;width:min(100%,480px);max-height:calc(100svh - 40px);
+  overflow-y:auto;margin:auto;
+  padding:26px;border-radius:var(--py-radius-lg);
+  background:linear-gradient(170deg,#241F18,#15110D);
+  border:1px solid var(--py-line-strong);
+  box-shadow:var(--py-shadow);
+  animation:pyModalCard .32s var(--py-ease);
+}
+@keyframes pyModalCard{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+.modal-content .close-btn{position:absolute;top:14px;left:14px}
+.modal-content h2{font-size:1.15rem}
+
+/* ============================================================
+   موبایل: نوار تب پایین + دراور
+   ============================================================ */
+.mobile-nav{display:none}
+.mobile-more-overlay,.mobile-more-drawer{display:none}
+
+@media (max-width:1180px){
+  .wrapper{grid-template-columns:238px minmax(0,1fr);gap:18px}
+  .grid-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ad-owner-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+@media (min-width:1920px){
+  .wrapper{width:min(1720px,100%);gap:34px}
+  .grid-stats{gap:18px}
+}
+
+@media (max-width:992px){
+  body{padding-bottom:92px}
+  .wrapper{display:block;margin:0;padding:18px 14px 34px}
+  .wrapper>aside{display:none}
+  main{gap:14px}
+  header{height:66px;padding:0 14px}
+  .logo-frame{width:40px;height:40px}
+  .logo-text{font-size:1rem}
+  .grid-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card{padding:17px!important;border-radius:16px!important}
+  .card-stat{min-height:126px;padding:15px;border-radius:16px}
+  .card-stat:hover{transform:none}
+  .ad-owner-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-channels{grid-template-columns:1fr}
+  .form-row,.form-grid{grid-template-columns:1fr;gap:12px}
+  .form-grid label[style*="1/-1"]{grid-column:1/-1}
+  .table-wrapper,.table-container,.table-responsive{border-radius:14px}
+  #user-bell-popup{
+    position:fixed!important;top:76px!important;
+    left:12px!important;right:12px!important;width:auto!important;
+    max-height:calc(100svh - 174px)!important;
+  }
+  .toast{bottom:calc(94px + env(safe-area-inset-bottom))!important}
+  .credit-card{min-height:190px}
+  .emoji-popup{position:fixed;right:12px;left:12px;width:auto}
+
+  /* نوار تب بومی موبایل */
+  .mobile-nav{
+    position:fixed;right:0;left:0;bottom:0;z-index:900;
+    min-height:76px;display:flex;align-items:center;justify-content:space-around;
+    padding:7px 7px calc(8px + env(safe-area-inset-bottom));
+    background:rgba(13,11,8,.92);
+    border-top:1px solid var(--py-line);
+    box-shadow:0 -10px 34px rgba(6,4,2,.2);
+    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  }
+  .mobile-nav-item{
+    min-width:0;flex:1;min-height:56px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    padding:6px 4px;border-radius:14px;
+    color:var(--py-muted);text-decoration:none;
+    font-size:.61rem;font-weight:600;
+    transition:background .18s,color .18s;
+  }
+  .mobile-nav-item.active{
+    color:#FFF6DE;
+    background:linear-gradient(180deg,rgba(229,180,78,.18),rgba(229,180,78,.05));
+  }
+  .mobile-nav-item.active svg{filter:drop-shadow(0 4px 9px rgba(217,160,54,.5))}
+  .mobile-nav-item svg{width:21px;height:21px}
+
+  /* دراور شیت «بیشتر» */
+  .mobile-more-overlay{
+    position:fixed;inset:0;z-index:950;
+    background:rgba(6,4,2,.66);
+    backdrop-filter:blur(4px);
+    opacity:0;visibility:hidden;transition:.22s;
+  }
+  .mobile-more-overlay.active{opacity:1;visibility:visible}
+  .mobile-more-drawer{
+    position:fixed;right:0;left:0;bottom:0;z-index:960;
+    display:block;max-height:80svh;
+    padding:12px 16px calc(18px + env(safe-area-inset-bottom));
+    transform:translateY(105%);
+    transition:transform .3s var(--py-ease);
+    overflow:auto;
+    background:linear-gradient(180deg,#241F18,#120F0B);
+    border:1px solid var(--py-line);
+    border-radius:26px 26px 0 0;
+    box-shadow:0 -22px 70px rgba(6,4,2,.5);
+  }
+  .mobile-more-drawer.open{transform:translateY(0)}
+  .mobile-more-handle{
+    width:44px;height:4px;margin:2px auto 14px;border-radius:999px;
+    background:#57493A;
+  }
+  .mobile-more-title{text-align:right;margin:0 0 14px;font-weight:800}
+  .mobile-more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+  .mobile-more-item{
+    min-height:96px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
+    padding:10px 6px;border:1px solid var(--py-line);border-radius:16px;
+    background:rgba(233,226,214,.045);
+    color:#EDE6D9;text-decoration:none;text-align:center;
+    font-size:.71rem;font-weight:600;
+    transition:background .16s,border-color .16s,transform .16s;
+  }
+  .mobile-more-item:active{
+    transform:scale(.98);
+    background:rgba(229,180,78,.12);
+    border-color:var(--py-line-strong);
+  }
+  .mobile-more-icon{font-size:1.3rem}
+  .mobile-more-admin,.mobile-more-logout{grid-column:1/-1;min-height:48px;flex-direction:row}
+  .mobile-more-logout{color:#F9A39D}
+}
+
+@media (max-width:480px){
+  header{gap:8px}
+  .logo-text{font-size:.94rem}
+  .user-badge{max-width:205px!important;padding:.3rem .55rem!important}
+  .header-username{max-width:90px;overflow:hidden;text-overflow:ellipsis}
+  .header-plan-badge{display:none!important}
+  .grid-stats{grid-template-columns:1fr}
+  .mobile-more-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card{padding:15px!important}
+  .card-stat{min-height:112px}
+  .card-stat-icon{width:34px;height:34px;left:12px;bottom:12px}
+  th,td{padding:11px 10px;font-size:.78rem}
+  table{min-width:620px}
+  .credit-card-number{font-size:1.02rem!important;letter-spacing:.04em!important}
+  .ad-owner-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ad-date-fields{grid-template-columns:1fr}
+}
+
+/* موبایل افقی کوتاه */
+@media (orientation:landscape) and (max-height:700px) and (max-width:992px){
+  body{padding-bottom:68px}
+  header{height:56px}
+  .mobile-nav{min-height:60px;padding-top:4px;padding-bottom:4px}
+  .mobile-nav-item{min-height:48px;flex-direction:row;gap:6px;font-size:.67rem}
+  .mobile-more-drawer{max-height:88svh}
+  .wrapper{padding-top:12px}
+  .toast{bottom:72px!important}
+}
+
+/* کاهش حرکت */
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+}
