@@ -1,4 +1,4 @@
-const CACHE_NAME = 'postyar-pwa-v7';
+const CACHE_NAME = 'postyar-pwa-v8';
 
 // مسیر پایه پویا — از لوکیشن خود سرویس ورکر استخراج می‌شود
 // چون SW در کنار index.php قرار دارد، مسیر آن برابر scope است

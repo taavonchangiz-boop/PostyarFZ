@@ -10,19 +10,19 @@ body{
   overflow-x:hidden;
 }
 .wrapper{
-  width:100%;max-width:100%;
+  width:auto;min-width:0;max-width:none;
   display:flex;flex-direction:column;
 }
 
 /* ---------- کارت بانکی (شخصیت بصری تیره کارت فیزیکی) ---------- */
 .credit-card{
   position:relative;min-height:200px;padding:20px!important;
-  border:1px solid rgba(255,255,255,.08)!important;
+  border:1px solid rgba(255,255,255,.1)!important;
   border-radius:14px!important;overflow:hidden;
   background:
     radial-gradient(220px 160px at 100% 0,rgba(26,187,156,.35),transparent 70%),
     radial-gradient(260px 180px at 0 100%,rgba(66,153,225,.25),transparent 72%),
-    linear-gradient(145deg,#1a2332,#233046)!important;
+    linear-gradient(145deg,#141d2b,#1e2c42)!important;
   box-shadow:0 12px 30px rgba(15,23,42,.25);
   cursor:pointer;
   transition:transform 200ms cubic-bezier(.2,0,0,1),box-shadow 200ms;
@@ -95,9 +95,9 @@ body{
 .neon-badge-emerald{background:var(--green-lt);color:#1e7e34;border:1px solid rgba(47,179,68,.35)}
 .neon-badge-cyan{background:var(--azure-lt);color:#0b5ed7;border:1px solid rgba(66,153,225,.35)}
 .fallback-plan-banner{
-  background:linear-gradient(135deg,var(--primary-lt),#fff)!important;
+  background:linear-gradient(135deg,var(--primary-lt),var(--bg-surface))!important;
 }
-.fallback-plan-banner span[style*="e9d5ff"],.fallback-plan-banner span{color:var(--primary-dk)!important}
+.fallback-plan-banner span[style*="e9d5ff"],.fallback-plan-banner span{color:#3CCDB2!important}
 
 /* ---------- اسلایدر تبلیغات ---------- */
 .postyar-global-ad-slot{margin:0}
@@ -113,7 +113,7 @@ body{
 .postyar-ad-slide img{display:block;width:100%;height:auto;max-height:220px;object-fit:cover}
 .postyar-ad-slide span{
   position:absolute;bottom:0;right:0;left:0;padding:8px 14px;
-  background:linear-gradient(0deg,rgba(30,38,51,.85),transparent);
+  background:linear-gradient(0deg,rgba(10,15,26,.88),transparent);
   color:#fff;font-size:12.5px;font-weight:600;
 }
 .ad-dots{position:absolute;bottom:10px;left:14px;z-index:5;display:flex;gap:6px}
@@ -315,69 +315,6 @@ body{
 .notif-list-item{border-radius:var(--radius-sm)!important}
 .notif-list-item:hover{background:var(--bg-surface-secondary)!important}
 
-/* ---------- نوار تب موبایل (روشن) ---------- */
-.mobile-nav{
-  position:fixed;right:0;left:0;bottom:0;z-index:900;
-  min-height:66px;display:flex;align-items:center;justify-content:space-around;
-  padding:6px 6px calc(8px + env(safe-area-inset-bottom));
-  background:rgba(255,255,255,.94);
-  border-top:1px solid var(--border-color);
-  box-shadow:0 -6px 24px rgba(15,23,42,.08);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-}
-.mobile-nav-item{
-  min-width:0;flex:1;min-height:50px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-  padding:5px 4px;border-radius:8px;
-  color:var(--text-muted);text-decoration:none;
-  font-size:.6rem;font-weight:600;cursor:pointer;
-  transition:background 150ms,color 150ms;
-}
-.mobile-nav-item.active{
-  color:var(--primary-dk);
-  background:var(--primary-lt);
-}
-.mobile-nav-item.active svg{filter:none;color:var(--primary-dk)}
-.mobile-nav-item svg{width:20px;height:20px}
-
-/* ---------- دراور شیت «بیشتر» (روشن) ---------- */
-.mobile-more-overlay{
-  position:fixed;inset:0;z-index:950;
-  background:rgba(15,23,42,.4);
-  backdrop-filter:blur(2px);
-  opacity:0;visibility:hidden;transition:.2s;
-}
-.mobile-more-overlay.active{opacity:1;visibility:visible}
-.mobile-more-drawer{
-  position:fixed;right:0;left:0;bottom:0;z-index:960;
-  display:block;max-height:80svh;
-  padding:12px 16px calc(18px + env(safe-area-inset-bottom));
-  transform:translateY(105%);
-  transition:transform .3s cubic-bezier(.2,0,0,1);
-  overflow:auto;
-  background:#fff;
-  border:1px solid var(--border-color);
-  border-radius:16px 16px 0 0;
-  box-shadow:0 -16px 50px rgba(15,23,42,.18);
-}
-.mobile-more-drawer.open{transform:translateY(0)}
-.mobile-more-handle{width:44px;height:4px;margin:2px auto 12px;border-radius:99px;background:#d5d8dd}
-.mobile-more-title{text-align:start;margin:0 0 12px;font-weight:800;color:var(--text);font-size:15px}
-.mobile-more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.mobile-more-item{
-  min-height:88px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-  padding:9px 6px;border:1px solid var(--border-color-light);border-radius:10px;
-  background:var(--bg-surface-secondary);
-  color:var(--text-secondary);text-decoration:none;text-align:center;
-  font-size:.7rem;font-weight:600;cursor:pointer;
-  transition:background 120ms,border-color 120ms,transform 120ms;
-}
-.mobile-more-item:active{transform:scale(.97);background:var(--primary-lt);border-color:rgba(26,187,156,.4)}
-.mobile-more-icon{font-size:1.2rem}
-.mobile-more-admin,.mobile-more-logout{grid-column:1/-1;min-height:44px;flex-direction:row}
-.mobile-more-logout{color:var(--red)}
-
 /* ---------- پوسته‌سازی عناصر با استایل اینلاین تیره‌ی قبلی ---------- */
 .user-badge{
   background:var(--bg-surface)!important;
@@ -385,6 +322,7 @@ body{
   border-radius:99px!important;box-shadow:var(--shadow)!important;
   color:var(--text)!important;
 }
+.brand-icon{background:transparent}
 .header-username{color:var(--text)!important}
 .header-plan-badge{
   background:var(--primary)!important;color:#fff!important;

@@ -10,7 +10,7 @@ body{
   font-size:13.5px;
 }
 .wrapper{
-  width:100%;max-width:100%;
+  width:auto;min-width:0;max-width:none;
   display:flex;flex-direction:column;
 }
 
@@ -106,32 +106,6 @@ body{
 .ad-creative-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .ad-creative-head h4{font-size:12.5px}
 .ad-creative-head span{color:var(--text-muted);font-size:10.5px}
-
-/* دراور موبایل ادمین (کشوی راست) — پوسته Gentelella تیره */
-.drawer-overlay{
-  position:fixed;inset:0;z-index:950;
-  background:rgba(15,23,42,.45);
-  backdrop-filter:blur(2px);
-  opacity:0;visibility:hidden;transition:.22s;
-}
-.drawer-overlay.show{opacity:1;visibility:visible}
-.drawer-menu{
-  position:fixed;top:0;right:0;bottom:0;z-index:960;
-  width:min(84vw,300px);
-  padding:14px 10px calc(16px + env(safe-area-inset-bottom));
-  overflow-y:auto;
-  transform:translateX(105%);
-  transition:transform .3s cubic-bezier(.2,0,0,1);
-  background:var(--sidebar-bg);
-  border-left:1px solid var(--sidebar-border);
-  box-shadow:-14px 0 44px rgba(15,23,42,.3);
-  display:flex;flex-direction:column;
-}
-.drawer-menu.show{transform:translateX(0)}
-.drawer-menu .menu-item{color:var(--sidebar-text)}
-.drawer-menu .menu-item:hover{color:var(--sidebar-text-hover);background:var(--sidebar-hover)}
-.drawer-menu .menu-item.active{color:#fff;background:var(--sidebar-active)}
-.drawer-menu .menu-item.logout-btn{color:#e2a9a4;border-top:1px solid var(--sidebar-border);border-radius:0;padding-top:12px}
 
 /* پوسته‌سازی عناصر اینلاین قدیمی */
 #admin-bell-popup{

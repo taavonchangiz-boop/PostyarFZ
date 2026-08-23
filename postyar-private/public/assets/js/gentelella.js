@@ -6,6 +6,17 @@
    ============================================================ */
 (function () {
   'use strict';
+  // ═══ نوار تب پایین: اتصال عمومی (برای پنل ادمین که binder اختصاصی ندارد) ═══
+  document.addEventListener('click', function (e) {
+    var item = e.target.closest ? e.target.closest('.mobile-nav-item[data-target]') : null;
+    if (!item) return;
+    var id = item.getAttribute('data-target');
+    if (window.switchSection) { try { window.switchSection(id); } catch (err) {} }
+    var items = document.querySelectorAll('.mobile-nav-item');
+    for (var i = 0; i < items.length; i++) items[i].classList.remove('active');
+    item.classList.add('active');
+  });
+
   var RAIL_KEY = 'postyar:sidebar-rail';
   var body = document.body;
   var sidebar = document.querySelector('.g-sidebar');

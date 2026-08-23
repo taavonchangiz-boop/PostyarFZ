@@ -229,7 +229,7 @@ function selectPlan(id, title, price, paymentUrl) {
     }
     for (var j = 0; j < allBtns.length; j++) {
         allBtns[j].textContent = 'انتخاب این پلن';
-        allBtns[j].style.background = 'linear-gradient(135deg, #2FB344 0%, #28993B 100%)';
+        allBtns[j].style.background = 'linear-gradient(135deg, #2FB344 0%, #51CF66 100%)';
     }
     // قفل کردن پلن انتخاب‌شده
     var selectedCard = document.getElementById('plan-card-' + id);
@@ -242,7 +242,7 @@ function selectPlan(id, title, price, paymentUrl) {
     }
     if (selectedBtn) {
         selectedBtn.textContent = '✅ این پلن انتخاب شد (قفل شده)';
-        selectedBtn.style.background = 'linear-gradient(135deg, #28993B 0%, #28993B 100%)';
+        selectedBtn.style.background = 'linear-gradient(135deg, #51CF66 0%, #51CF66 100%)';
     }
     document.getElementById('payment-box').classList.remove('hidden');
     document.getElementById('sel-title').textContent = title;
@@ -290,30 +290,30 @@ function openTicketModal(t) {
         bubble.style.lineHeight = "1.8";
         bubble.style.fontSize = "0.9rem";
         if (i === 0) {
-            bubble.style.background = "#F9FAFB";
-            bubble.style.border = "1px solid #E6E7EB";
-            bubble.style.color = "#1E2633";
+            bubble.style.background = "#141D2B";
+            bubble.style.border = "1px solid #26324A";
+            bubble.style.color = "#E6EBF2";
             // بررسی پیام ادمین (تیکت ایجاد شده توسط ادمین)
             var adminMatch = text.match(/^\[پیام مدیر سیستم \(([^)]+)\) در تاریخ ([^\]]+)\]:\s*([\s\S]*)$/m);
             if (adminMatch) {
-                bubble.innerHTML = '<div style="font-size:0.8rem; color:#B45309; font-weight:900; margin-bottom:0.4rem;">👑 پیام مدیر سیستم (' + adminMatch[1] + '):</div><div style="font-size:0.7rem; color:#AEB6C0; margin-bottom:0.5rem;">📅 ' + adminMatch[2] + '</div>' + adminMatch[3].replace(/\n/g, "<br>");
+                bubble.innerHTML = '<div style="font-size:0.8rem; color:#F5A93B; font-weight:900; margin-bottom:0.4rem;">👑 پیام مدیر سیستم (' + adminMatch[1] + '):</div><div style="font-size:0.7rem; color:#5A6473; margin-bottom:0.5rem;">📅 ' + adminMatch[2] + '</div>' + adminMatch[3].replace(/\n/g, "<br>");
             } else {
-                bubble.innerHTML = '<div style="font-size:0.75rem; color:#0F6E5D; font-weight:bold; margin-bottom:0.4rem;">👤 پیام شما:</div>' + text.replace(/\n/g, "<br>");
+                bubble.innerHTML = '<div style="font-size:0.75rem; color:#3CCDB2; font-weight:bold; margin-bottom:0.4rem;">👤 پیام شما:</div>' + text.replace(/\n/g, "<br>");
             }
         } else {
-            bubble.style.background = "linear-gradient(135deg, rgba(26,187,156,0.15) 0%, rgba(30,38,51,0.1) 100%)";
-            bubble.style.border = "1px solid #169F85";
-            bubble.style.color = "#ffffff";
+            bubble.style.background = "linear-gradient(135deg, rgba(26,187,156,0.15) 0%, rgba(10,15,26,0.1) 100%)";
+            bubble.style.border = "1px solid #3CCDB2";
+            bubble.style.color = "#1A2332";
             // استخراج تاریخ و نوع پاسخ از براکت
             var supportMatch = text.match(/^\[پاسخ پشتیبان در تاریخ ([^\]]+)\]:\s*([\s\S]*)$/m);
             var userReplyMatch = text.match(/^\[پاسخ کاربر در تاریخ ([^\]]+)\]:\s*([\s\S]*)$/m);
             var headerHtml = '';
             var bodyText = text;
             if (supportMatch) {
-                headerHtml = '<div style="font-size:0.8rem; color:#2FB344; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ کارشناس پشتیبانی پُست‌یار:</div><div style="font-size:0.7rem; color:#AEB6C0; margin-bottom:0.5rem;">📅 ' + supportMatch[1] + '</div>';
+                headerHtml = '<div style="font-size:0.8rem; color:#2FB344; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ کارشناس پشتیبانی پُست‌یار:</div><div style="font-size:0.7rem; color:#5A6473; margin-bottom:0.5rem;">📅 ' + supportMatch[1] + '</div>';
                 bodyText = supportMatch[2];
             } else if (userReplyMatch) {
-                headerHtml = '<div style="font-size:0.8rem; color:#0F6E5D; font-weight:900; margin-bottom:0.4rem;">👤 پاسخ شما:</div><div style="font-size:0.7rem; color:#AEB6C0; margin-bottom:0.5rem;">📅 ' + userReplyMatch[1] + '</div>';
+                headerHtml = '<div style="font-size:0.8rem; color:#3CCDB2; font-weight:900; margin-bottom:0.4rem;">👤 پاسخ شما:</div><div style="font-size:0.7rem; color:#5A6473; margin-bottom:0.5rem;">📅 ' + userReplyMatch[1] + '</div>';
                 bodyText = userReplyMatch[2];
             } else {
                 headerHtml = '<div style="font-size:0.8rem; color:#2FB344; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ کارشناس پشتیبانی پُست‌یار:</div>';
@@ -498,9 +498,9 @@ function toggleResponder(channelId, enabled) {
     var parentCard = label ? label.closest('div[style*="border"]') : null;
     
     // به‌روزرسانی فوری ظاهر
-    if (track) track.style.background = enabled ? '#2FB344' : '#D5D8DD';
+    if (track) track.style.background = enabled ? '#2FB344' : '#2E3B55';
     if (thumb) thumb.style.left = enabled ? '25px' : '3px';
-    if (parentCard) parentCard.style.borderColor = enabled ? '#2FB344' : '#E6E7EB';
+    if (parentCard) parentCard.style.borderColor = enabled ? '#2FB344' : '#26324A';
     
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
@@ -508,9 +508,9 @@ function toggleResponder(channelId, enabled) {
                 var res = JSON.parse(xhr.responseText);
                 if (!res.success) {
                     // برگرداندن به وضعیت قبلی در صورت خطا
-                    if (track) track.style.background = enabled ? '#D5D8DD' : '#2FB344';
+                    if (track) track.style.background = enabled ? '#2E3B55' : '#2FB344';
                     if (thumb) thumb.style.left = enabled ? '3px' : '25px';
-                    if (parentCard) parentCard.style.borderColor = '#E6E7EB';
+                    if (parentCard) parentCard.style.borderColor = '#26324A';
                     var cb = label ? label.querySelector('input[type="checkbox"]') : null;
                     if (cb) cb.checked = !enabled;
                     alert(res.message || 'خطا در تغییر وضعیت');
@@ -666,7 +666,7 @@ function showToast(msg) {
     var toast = document.createElement('div');
     toast.id = 'ajax-toast';
     toast.textContent = msg;
-    toast.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#2FB344,#28993B);color:#fff;padding:0.75rem 1.5rem;border-radius:12px;font-size:0.85rem;font-weight:700;z-index:99999;box-shadow:0 8px 25px rgba(0,0,0,0.5);opacity:0;transition:opacity 0.3s;font-family:inherit;';
+    toast.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#2FB344,#51CF66);color:#fff;padding:0.75rem 1.5rem;border-radius:12px;font-size:0.85rem;font-weight:700;z-index:99999;box-shadow:0 8px 25px rgba(0,0,0,0.5);opacity:0;transition:opacity 0.3s;font-family:inherit;';
     document.body.appendChild(toast);
     setTimeout(function(){ toast.style.opacity = '1'; }, 10);
     setTimeout(function(){ toast.style.opacity = '0'; setTimeout(function(){ toast.remove(); }, 300); }, 3000);

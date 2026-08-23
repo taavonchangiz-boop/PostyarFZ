@@ -11,7 +11,7 @@ $tf = \WHCM\Domain\TextFormat::class;
     </p>
 
     <?php if (!$enabled): ?>
-        <div style="background:rgba(214,57,57,0.15); border:1px solid rgba(214,57,57,0.3); border-radius:12px; padding:1rem; color:#D63939; text-align:center; margin-bottom:1.5rem;">
+        <div style="background:rgba(214,57,57,0.15); border:1px solid rgba(214,57,57,0.3); border-radius:12px; padding:1rem; color:#F0645C; text-align:center; margin-bottom:1.5rem;">
             ⚠ سیستم زیرمجموعه‌گیری در حال حاضر غیرفعال است.
         </div>
     <?php endif; ?>
@@ -19,21 +19,21 @@ $tf = \WHCM\Domain\TextFormat::class;
     <!-- کد و لینک معرف -->
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.5rem;">
         <div class="form-group">
-            <label style="color:#626D7D; font-size:0.85rem;">کد معرف شما:</label>
+            <label style="color:#B3BCCB; font-size:0.85rem;">کد معرف شما:</label>
             <div style="display:flex; align-items:center; gap:0.5rem;">
                 <input type="text" id="ref-code" value="<?php echo htmlspecialchars($referralCode); ?>" readonly
-                    style="flex:1; background:#F9FAFB; color:#0B5ED7; font-weight:900; font-size:1.05rem; border:1px solid #169F85; border-radius:10px; padding:0.65rem; text-align:center; direction:ltr;">
+                    style="flex:1; background:#141D2B; color:#74B9F2; font-weight:900; font-size:1.05rem; border:1px solid #3CCDB2; border-radius:10px; padding:0.65rem; text-align:center; direction:ltr;">
                 <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('ref-code').value).then(function(){ document.getElementById('copy-ref-toast').style.display='block'; setTimeout(function(){ document.getElementById('copy-ref-toast').style.display='none'; }, 2000); })" 
-                    style="background:#169F85; color:white; border:none; border-radius:10px; padding:0.65rem 1rem; cursor:pointer; font-weight:700; white-space:nowrap;">📋 کپی</button>
+                    style="background:#3CCDB2; color:white; border:none; border-radius:10px; padding:0.65rem 1rem; cursor:pointer; font-weight:700; white-space:nowrap;">📋 کپی</button>
             </div>
         </div>
         <div class="form-group">
-            <label style="color:#626D7D; font-size:0.85rem;">لینک دعوت:</label>
+            <label style="color:#B3BCCB; font-size:0.85rem;">لینک دعوت:</label>
             <div style="display:flex; align-items:center; gap:0.5rem;">
                 <input type="text" id="ref-link" value="<?php echo htmlspecialchars($referralLink); ?>" readonly
-                    style="flex:1; background:#F9FAFB; color:#2FB344; font-size:0.85rem; border:1px solid #28993B; border-radius:10px; padding:0.65rem; direction:ltr; overflow:hidden; text-overflow:ellipsis;">
+                    style="flex:1; background:#141D2B; color:#2FB344; font-size:0.85rem; border:1px solid #51CF66; border-radius:10px; padding:0.65rem; direction:ltr; overflow:hidden; text-overflow:ellipsis;">
                 <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('ref-link').value).then(function(){ document.getElementById('copy-ref-toast').style.display='block'; setTimeout(function(){ document.getElementById('copy-ref-toast').style.display='none'; }, 2000); })" 
-                    style="background:#28993B; color:white; border:none; border-radius:10px; padding:0.65rem 1rem; cursor:pointer; font-weight:700; white-space:nowrap;">🔗 کپی</button>
+                    style="background:#51CF66; color:white; border:none; border-radius:10px; padding:0.65rem 1rem; cursor:pointer; font-weight:700; white-space:nowrap;">🔗 کپی</button>
             </div>
         </div>
     </div>
@@ -45,36 +45,36 @@ $tf = \WHCM\Domain\TextFormat::class;
     <!-- آمار زیرمجموعه‌ها -->
     <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; margin-bottom:1.5rem;">
         <div style="background:linear-gradient(135deg, rgba(26,187,156,0.2) 0%, rgba(26,187,156,0.05) 100%); border:1px solid rgba(26,187,156,0.3); border-radius:12px; padding:1rem; text-align:center;">
-            <div style="font-size:1.8rem; font-weight:900; color:#0F6E5D;"><?php echo $tf::fa_num($stats['total']); ?></div>
-            <div style="font-size:0.8rem; color:#626D7D; margin-top:0.25rem;">کل زیرمجموعه‌ها</div>
+            <div style="font-size:1.8rem; font-weight:900; color:#3CCDB2;"><?php echo $tf::fa_num($stats['total']); ?></div>
+            <div style="font-size:0.8rem; color:#B3BCCB; margin-top:0.25rem;">کل زیرمجموعه‌ها</div>
         </div>
         <div style="background:linear-gradient(135deg, rgba(47,179,68,0.2) 0%, rgba(47,179,68,0.05) 100%); border:1px solid rgba(47,179,68,0.3); border-radius:12px; padding:1rem; text-align:center;">
             <div style="font-size:1.8rem; font-weight:900; color:#2FB344;"><?php echo $tf::fa_num($stats['rewarded']); ?></div>
-            <div style="font-size:0.8rem; color:#626D7D; margin-top:0.25rem;">پاداش‌داده‌شده</div>
+            <div style="font-size:0.8rem; color:#B3BCCB; margin-top:0.25rem;">پاداش‌داده‌شده</div>
         </div>
         <div style="background:linear-gradient(135deg, rgba(245,159,0,0.2) 0%, rgba(245,159,0,0.05) 100%); border:1px solid rgba(245,159,0,0.3); border-radius:12px; padding:1rem; text-align:center;">
-            <div style="font-size:1.8rem; font-weight:900; color:#B45309;"><?php echo $tf::fa_num($stats['pending']); ?></div>
-            <div style="font-size:0.8rem; color:#626D7D; margin-top:0.25rem;">در انتظار خرید</div>
+            <div style="font-size:1.8rem; font-weight:900; color:#F5A93B;"><?php echo $tf::fa_num($stats['pending']); ?></div>
+            <div style="font-size:0.8rem; color:#B3BCCB; margin-top:0.25rem;">در انتظار خرید</div>
         </div>
     </div>
 
     <!-- امتیازات و تبدیل -->
-    <div style="background:#F9FAFB; border:1px dashed #169F85; border-radius:12px; padding:1rem; margin-bottom:1.5rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+    <div style="background:#141D2B; border:1px dashed #3CCDB2; border-radius:12px; padding:1rem; margin-bottom:1.5rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
         <div>
-            <span style="color:#626D7D; font-size:0.85rem;">امتیازات فعلی شما:</span>
-            <span style="font-size:1.3rem; font-weight:900; color:#B45309; margin-right:0.5rem;"><?php echo $tf::fa_num($points); ?></span>
-            <span style="color:#AEB6C0; font-size:0.8rem;">امتیاز (هر ۱۰ امتیاز = ۱۰ تومان)</span>
+            <span style="color:#B3BCCB; font-size:0.85rem;">امتیازات فعلی شما:</span>
+            <span style="font-size:1.3rem; font-weight:900; color:#F5A93B; margin-right:0.5rem;"><?php echo $tf::fa_num($points); ?></span>
+            <span style="color:#5A6473; font-size:0.8rem;">امتیاز (هر ۱۰ امتیاز = ۱۰ تومان)</span>
         </div>
         <form action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard/convert-points'); ?>" method="POST" style="display:flex; align-items:center; gap:0.5rem;">
             <?php echo \WHCM\Core\Csrf::field(); ?>
             <input type="number" name="points" min="1" max="<?php echo (int)$points; ?>" placeholder="تعداد امتیاز" required
-                style="width:120px; background:#F9FAFB; color:white; border:1px solid #E6E7EB; border-radius:8px; padding:0.5rem; text-align:center;">
+                style="width:120px; background:#141D2B; color:white; border:1px solid #26324A; border-radius:8px; padding:0.5rem; text-align:center;">
             <button type="submit" class="btn btn-success" style="padding:0.5rem 1rem; font-size:0.85rem;">💰 تبدیل به کیف پول</button>
         </form>
     </div>
 
     <!-- تاریخچه زیرمجموعه‌ها -->
-    <h3 style="font-size:0.95rem; margin-bottom:0.75rem; border-bottom:1px dashed var(--border); padding-bottom:0.4rem; color:#128771;">📋 تاریخچه زیرمجموعه‌ها</h3>
+    <h3 style="font-size:0.95rem; margin-bottom:0.75rem; border-bottom:1px dashed var(--border); padding-bottom:0.4rem; color:#3CCDB2;">📋 تاریخچه زیرمجموعه‌ها</h3>
     <?php if (empty($history)): ?>
         <p style="color:var(--text-muted); text-align:center; padding:1.5rem 0;">هنوز زیرمجموعه‌ای ثبت‌نام نکرده است. لینک خود را به اشتراک بگذارید! 🚀</p>
     <?php else: ?>
@@ -97,7 +97,7 @@ $tf = \WHCM\Domain\TextFormat::class;
                             <?php if ($h['status'] === 'rewarded'): ?>
                                 <span style="background:rgba(47,179,68,0.2); color:#2FB344; padding:0.2rem 0.75rem; border-radius:8px; font-size:0.8rem; font-weight:700;">✅ پاداش داده شده</span>
                             <?php else: ?>
-                                <span style="background:rgba(245,159,0,0.2); color:#B45309; padding:0.2rem 0.75rem; border-radius:8px; font-size:0.8rem; font-weight:700;">⏳ در انتظار خرید</span>
+                                <span style="background:rgba(245,159,0,0.2); color:#F5A93B; padding:0.2rem 0.75rem; border-radius:8px; font-size:0.8rem; font-weight:700;">⏳ در انتظار خرید</span>
                             <?php endif; ?>
                         </td>
                         <td style="font-size:0.85rem;"><?php echo $tf::mysql_to_jalali($h['created_at']); ?></td>

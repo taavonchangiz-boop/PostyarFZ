@@ -55,15 +55,15 @@
         banner.setAttribute('aria-label', 'نصب اپلیکیشن پُست‌یار');
 
         var html = '<div style="display:flex;align-items:center;gap:0.75rem;padding:0.875rem 1rem;">' +
-            '<div style="width:3rem;height:3rem;border-radius:0.75rem;background:linear-gradient(135deg,#169F85 0%,#732088 50%,#D6336C 100%);padding:0.125rem;flex-shrink:0;">' +
+            '<div style="width:3rem;height:3rem;border-radius:0.75rem;background:linear-gradient(135deg,#3CCDB2 0%,#C069DD 50%,#D6336C 100%);padding:0.125rem;flex-shrink:0;">' +
                 '<img src="/assets/icons/icon-192x192.png" alt="پُست‌یار" style="width:100%;height:100%;border-radius:0.625rem;object-fit:contain;">' +
             '</div>' +
             '<div style="flex:1;min-width:0;">' +
                 '<div style="font-weight:800;color:#f1f5f9;font-size:0.875rem;margin-bottom:0.125rem;font-family:Vazirmatn,Tahoma,sans-serif;">پُست‌یار را نصب کنید</div>' +
-                '<div id="pwa-desc" style="color:#626D7D;font-size:0.75rem;line-height:1.6;font-family:Vazirmatn,Tahoma,sans-serif;"></div>' +
+                '<div id="pwa-desc" style="color:#B3BCCB;font-size:0.75rem;line-height:1.6;font-family:Vazirmatn,Tahoma,sans-serif;"></div>' +
             '</div>' +
             '<button id="pwa-action-btn" style="font-family:Vazirmatn,Tahoma,sans-serif;"></button>' +
-            '<button id="pwa-dismiss" aria-label="بستن" style="background:none;border:none;color:#AEB6C0;font-size:1.25rem;cursor:pointer;padding:0.5rem;flex-shrink:0;line-height:1;">&#10005;</button>' +
+            '<button id="pwa-dismiss" aria-label="بستن" style="background:none;border:none;color:#5A6473;font-size:1.25rem;cursor:pointer;padding:0.5rem;flex-shrink:0;line-height:1;">&#10005;</button>' +
         '</div>';
 
         banner.innerHTML = html;
@@ -71,7 +71,7 @@
         // استایل بنر
         banner.style.cssText =
             'position:fixed;bottom:0;left:0;right:0;z-index:99999;' +
-            'background:linear-gradient(135deg,#F9FAFB 0%,#F9FAFB 100%);' +
+            'background:linear-gradient(135deg,#141D2B 0%,#141D2B 100%);' +
             'border-top:1px solid rgba(26,187,156,0.3);' +
             'box-shadow:0 -0.25rem 1.5rem rgba(0,0,0,0.4);' +
             'font-family:Vazirmatn,Tahoma,Arial,sans-serif;' +
@@ -88,13 +88,13 @@
         var dismissBtn = document.getElementById('pwa-dismiss');
 
         if (ios) {
-            desc.innerHTML = 'روی دکمه <b style="color:#169F85;">اشتراک‌گذاری</b> بزنید و سپس <b style="color:#169F85;">افزودن به صفحه اصلی</b> را انتخاب کنید';
+            desc.innerHTML = 'روی دکمه <b style="color:#3CCDB2;">اشتراک‌گذاری</b> بزنید و سپس <b style="color:#3CCDB2;">افزودن به صفحه اصلی</b> را انتخاب کنید';
             actionBtn.style.cssText = 'display:none;';
         } else {
             desc.textContent = 'دسترسی سریع مثل اپلیکیشن واقعی — بدون نیاز به مرورگر';
             actionBtn.textContent = 'نصب';
             actionBtn.style.cssText =
-                'background:linear-gradient(135deg,#169F85 0%,#169F85 100%);' +
+                'background:linear-gradient(135deg,#3CCDB2 0%,#3CCDB2 100%);' +
                 'color:#fff;border:none;padding:0.5rem 1.25rem;border-radius:0.625rem;' +
                 'font-size:0.8125rem;font-weight:700;cursor:pointer;flex-shrink:0;' +
                 'box-shadow:0 0.25rem 0.75rem rgba(26,187,156,0.3);' +

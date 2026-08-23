@@ -6,7 +6,7 @@
     <meta name="robots" content="index,follow">
     <link rel="canonical" href="https://asovin.ir/privacy">
     <meta name="description" content="سیاست حفظ حریم خصوصی کاربران پُست‌یار و نحوه جمع‌آوری، استفاده، نگهداری و حذف اطلاعات.">
-    <meta name="theme-color" content="#F5F7FB">
+    <meta name="theme-color" content="#141D2B">
     <title><?php echo htmlspecialchars($title ?? 'حریم خصوصی کاربران پُست‌یار'); ?></title>
     <?php
         $assetsUrl = \WHCM\Core\Bootstrap::getAssetsUrl();
@@ -18,24 +18,24 @@
         @font-face{font-family:Vazirmatn;src:url('<?php echo $assetsUrl; ?>/fonts/Vazirmatn-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
         @font-face{font-family:Vazirmatn;src:url('<?php echo $assetsUrl; ?>/fonts/Vazirmatn-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
         @font-face{font-family:Vazirmatn;src:url('<?php echo $assetsUrl; ?>/fonts/Vazirmatn-Black.woff2') format('woff2');font-weight:900;font-display:swap}
-        :root{color-scheme:light;--bg:#f5f7fb;--surface:#fff;--text:#1e2633;--text2:#626d7d;--muted:#7e8896;--line:#e6e7eb;--line-lt:#eff0f3;--primary:#1ABB9C;--primary-dk:#169F85;--primary-tx:#0F6E5D;--green:#2fb344;--red:#d63939;--shadow:rgba(30,38,51,.04) 0 2px 4px 0}
+        :root{color-scheme:dark;--bg:#0f1623;--surface:#1a2332;--surface2:#141d2b;--text:#e6ebf2;--text2:#b3bccb;--muted:#8a93a3;--line:rgba(255,255,255,.08);--line-lt:rgba(255,255,255,.05);--primary:#1ABB9C;--primary-dk:#169F85;--primary-tx:#3CCDB2;--green:#2fb344;--red:#f0645c;--shadow:rgba(0,0,0,.4) 0 2px 4px 0}
         *{box-sizing:border-box}
         html{scroll-behavior:smooth}
         body{margin:0;background:radial-gradient(ellipse 60% 40% at 90% -5%,rgba(26,187,156,.07),transparent),radial-gradient(ellipse 40% 30% at 0% 25%,rgba(66,153,225,.05),transparent),var(--bg);color:var(--text);font-family:Vazirmatn,Tahoma,sans-serif;line-height:2}
         a{color:var(--primary-tx);text-decoration:none}
         a:hover{text-decoration:underline}
         .container{width:min(1120px,calc(100% - 32px));margin-inline:auto}
-        .site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+        .site-header{position:sticky;top:0;z-index:50;background:rgba(15,22,35,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
         .top-nav{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
         .brand{display:flex;align-items:center;gap:12px;color:var(--text);font-size:1.1rem;font-weight:900}
         .brand:hover{text-decoration:none}
         .brand img{width:40px;height:40px;object-fit:contain;border-radius:8px}
-        .back{border:1px solid var(--line);color:var(--text2);padding:7px 14px;border-radius:6px;font-size:.9rem;background:#fff;transition:all .2s}
+        .back{border:1px solid var(--line);color:var(--text2);padding:7px 14px;border-radius:6px;font-size:.9rem;background:var(--surface);transition:all .2s}
         .back:hover{border-color:rgba(26,187,156,.4);color:var(--primary-tx);text-decoration:none;box-shadow:var(--shadow)}
         main{padding:56px 0 72px}
         .hero{text-align:center;max-width:850px;margin:0 auto 36px}
         .badge{display:inline-flex;color:var(--primary-tx);border:1px solid rgba(26,187,156,.3);background:rgba(26,187,156,.07);padding:5px 13px;border-radius:999px;font-size:.82rem;font-weight:700}
-        h1{font-size:clamp(1.9rem,5vw,3.1rem);line-height:1.5;margin:16px 0 12px;font-weight:900;background:linear-gradient(100deg,#1e2633,#0F6E5D 55%,#066FD1);-webkit-background-clip:text;color:transparent}
+        h1{font-size:clamp(1.9rem,5vw,3.1rem);line-height:1.5;margin:16px 0 12px;font-weight:900;background:linear-gradient(100deg,#e6ebf2,#3CCDB2 55%,#74b9f2);-webkit-background-clip:text;color:transparent}
         .lead{color:var(--text2);font-size:1.02rem;margin:0}
         .meta{margin-top:14px;color:var(--muted);font-size:.9rem;font-weight:700}
         .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
@@ -53,18 +53,18 @@
         article{display:block;min-width:0;position:relative;z-index:2}
         section{display:block;scroll-margin-top:88px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:24px;margin:0 0 16px;overflow:hidden;position:relative;box-shadow:var(--shadow)}
         h2{font-size:1.25rem;margin:0 0 13px;color:var(--text)}
-        h3{font-size:1.02rem;color:#333e4e;margin:22px 0 7px}
+        h3{font-size:1.02rem;color:#B3BCCB;margin:22px 0 7px}
         p{margin:8px 0;color:var(--text2)}
         ul,ol{margin:9px 0;padding-right:24px;color:var(--text2)}
         li{margin:5px 0}
         .notice{border-inline-start:3px solid var(--primary);background:rgba(26,187,156,.06);padding:12px 14px;border-radius:6px;color:#0F5C4D;margin-top:14px}
-        .notice.success{border-inline-start-color:var(--green);background:rgba(47,179,68,.06);color:#1e7e34}
+        .notice.success{border-inline-start-color:var(--green);background:rgba(47,179,68,.06);color:#51CF66}
         .subsection{padding-top:5px}
         .contact-card{background:linear-gradient(120deg,rgba(26,187,156,.06),rgba(66,153,225,.05));border:1px solid rgba(26,187,156,.25)}
         .signature{text-align:center;padding:28px}
         .signature img{display:block;max-width:190px;max-height:80px;object-fit:contain;margin:0 auto 12px}
         .signature strong{font-size:1.2rem}
-        footer{border-top:1px solid var(--line-lt);padding:26px 0;color:var(--muted);text-align:center;font-size:.85rem;background:#fff}
+        footer{border-top:1px solid var(--line-lt);padding:26px 0;color:var(--muted);text-align:center;font-size:.85rem;background:var(--surface)}
         @media(max-width:850px){.page-layout{grid-template-columns:1fr}.toc{position:relative;top:auto;max-height:none}.toc-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 10px}.summary{grid-template-columns:1fr}.hero{margin-bottom:26px}main{padding-top:36px}}
         @media(max-width:540px){.container{width:min(100% - 22px,1120px)}section{padding:19px 16px}.brand span{display:none}.toc-list{grid-template-columns:1fr}h1{font-size:1.9rem}.back{font-size:.8rem;padding:6px 10px}}
     </style>

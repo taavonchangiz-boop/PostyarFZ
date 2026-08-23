@@ -14,35 +14,35 @@
 @font-face{font-family:Vazirmatn;src:url('../fonts/Vazirmatn-ExtraBold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
 @font-face{font-family:Vazirmatn;src:url('../fonts/Vazirmatn-Black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
 
-/* ---------- ۲) پوسته روشن تقویم شمسی (Jalali DatePicker) ---------- */
+/* ---------- ۲) پوسته تیره تقویم شمسی (Jalali DatePicker) ---------- */
 .jdp-container{
   direction:rtl!important;
-  background:#fff!important;
-  border:1px solid var(--border-color,#e6e7eb)!important;
+  background:#1a2332!important;
+  border:1px solid rgba(255,255,255,.12)!important;
   border-radius:8px!important;
-  box-shadow:0 8px 24px rgba(15,23,42,.12),0 0 0 1px rgba(4,32,69,.08)!important;
-  color:#1e2633!important;
+  box-shadow:0 12px 32px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05)!important;
+  color:#e6ebf2!important;
   font-family:Vazirmatn,Tahoma,sans-serif!important;
   z-index:9999999!important;padding:10px!important;
 }
 .jdp-container .jdp-icon-plus,.jdp-container .jdp-icon-minus{fill:#1ABB9C!important}
-.jdp-container .jdp-months,.jdp-container .jdp-years{background:#f9fafb!important;border-radius:6px!important}
+.jdp-container .jdp-months,.jdp-container .jdp-years{background:#141d2b!important;border-radius:6px!important}
 .jdp-container .jdp-day,.jdp-container .jdp-month,.jdp-container .jdp-year{
   border-radius:5px!important;
   transition:background .15s,color .15s!important;
 }
 .jdp-container .jdp-day:hover,.jdp-container .jdp-month:hover,.jdp-container .jdp-year:hover{
-  background:rgba(26,187,156,.12)!important;color:#0f6e5d!important;
+  background:rgba(26,187,156,.18)!important;color:#fff!important;
 }
 .jdp-container .jdp-day.selected,.jdp-container .jdp-month.selected,.jdp-container .jdp-year.selected{
   background:#1ABB9C!important;color:#fff!important;font-weight:700!important;
-  box-shadow:0 4px 12px rgba(26,187,156,.3)!important;
+  box-shadow:0 4px 12px rgba(26,187,156,.35)!important;
 }
-.jdp-container .jdp-day.today{border:1px solid rgba(47,179,68,.6)!important;color:#1e7e34!important}
-.jdp-container .jdp-footer{background:#f9fafb!important;border-top:1px solid #e6e7eb!important;border-radius:0 0 6px 6px!important}
+.jdp-container .jdp-day.today{border:1px solid rgba(47,179,68,.6)!important;color:#51cf66!important}
+.jdp-container .jdp-footer{background:#141d2b!important;border-top:1px solid rgba(255,255,255,.08)!important;border-radius:0 0 6px 6px!important}
 .jdp-container .jdp-btn-today{
-  background:rgba(47,179,68,.08)!important;color:#1e7e34!important;
-  border:1px solid rgba(47,179,68,.3)!important;border-radius:5px!important;
+  background:rgba(47,179,68,.12)!important;color:#51cf66!important;
+  border:1px solid rgba(47,179,68,.35)!important;border-radius:5px!important;
   font-weight:700!important;padding:6px 12px!important;
 }
 
@@ -61,7 +61,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 input[type=number]{-moz-appearance:textfield}
 
 /* ---------- ۴) دکمه اختصاصی بلوبانک (برند بانک — آبی فولادی) ---------- */
-.btn-bluebank{border-color:rgba(63,127,204,.45)!important;color:#2c5fa6!important;background:linear-gradient(135deg,#eaf2fb,#d7e7f8)!important;box-shadow:0 1px 3px rgba(44,95,166,.12)}
+.btn-bluebank{border-color:rgba(74,144,220,.5)!important;color:#a8ccf2!important;background:linear-gradient(135deg,rgba(74,144,220,.18),rgba(44,95,166,.12))!important;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .btn-bluebank:hover{filter:brightness(1.02)}
 
 /* ---------- ۵) احترام به کاهش حرکت ---------- */
