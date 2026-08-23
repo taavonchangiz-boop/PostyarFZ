@@ -9,7 +9,7 @@
 
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="<?php echo $baseUrl; ?>/manifest.json">
-    <meta name="theme-color" content="#D9A036">
+    <meta name="theme-color" content="#169F85">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="پُست‌یار">
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $baseUrl; ?>/assets/icons/favicon-32x32.png">
@@ -21,7 +21,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="پُست‌یار">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/css/admin.css">
+    <link rel="stylesheet" href="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/css/gentelella.css?v=1">
+    <link rel="stylesheet" href="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/css/components.css?v=16">
+    <link rel="stylesheet" href="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/css/admin.css?v=16">
     <link rel="stylesheet" href="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/css/components.css">
     <link rel="stylesheet" href="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/css/jalalidatepicker.min.css">
 </head>
@@ -61,13 +63,15 @@
 </form>
     </div>
 
-    <!-- هدر بالای صفحه مدیریت ارشد پُست‌یار -->
-    <header>
-        <div class="logo-container">
-            <img src="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/images/logo-white-bg.webp" alt="پُست‌یار" class="logo-img">
-            <span class="logo-text" style="background: linear-gradient(135deg, #ffffff 0%, #FBAF6B 50%, #F98E3F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">پُست‌یار ارشد</span>
+    <!-- هدر Gentelella ادمین -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <button type="button" class="sidebar-toggle" id="g-sidebar-toggle" aria-label="جمع کردن منو" aria-pressed="false">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div class="breadcrumb"><span class="current"><?php echo $is_support ? 'پنل پشتیبانی' : 'مرکز فرماندهی مدیریت'; ?></span></div>
         </div>
-        <div style="display:flex; align-items:center; gap:1rem;">
+        <div class="topbar-right">
             <?php 
                 $pending_p_count = 0;
                 foreach ($payments as $pay) { if($pay['status'] === 'pending') $pending_p_count++; }
@@ -75,75 +79,111 @@
                 foreach ($tickets as $tick) { if($tick['status'] === 'open') $open_t_count++; }
                 $total_notifs = $pending_p_count + $open_t_count;
             ?>
-            <!-- دکمه زنگوله اعلان بالای صفحه — دقیقاً مشابه داشبورد کاربر -->
+            <!-- زنگوله اعلان‌های سیستمی مدیر -->
             <div style="position:relative;">
-                <button type="button" onclick="var p=document.getElementById('admin-bell-popup'); p.style.display=(p.style.display==='flex'?'none':'flex');" style="background:rgba(23,19,16,0.85); border:1px solid rgba(217,160,54,0.4); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; color:white; font-size:1.15rem; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.4);">
-                    <span>🔔</span>
+                <button type="button" onclick="var p=document.getElementById('admin-bell-popup'); p.style.display=(p.style.display==='flex'?'none':'flex');" class="tb-btn" style="background:#fff;border:1px solid #E6E7EB;border-radius:8px;" aria-label="اعلان‌های مدیر">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                     <?php if ($total_notifs > 0): ?>
-                        <span style="position:absolute; top:2px; right:2px; width:10px; height:10px; background:#F0645C; border-radius:50%; border:2px solid #171310;"></span>
+                        <span class="dot" style="position:absolute;top:4px;right:4px;width:9px;height:9px;background:#D63939;border-radius:50%;border:2px solid #fff;"></span>
                     <?php endif; ?>
                 </button>
-                <div id="admin-bell-popup" style="display:none; position:absolute; left:0; top:60px; width:290px; background:#171310; border:1px solid #BC8623; border-radius:16px; box-shadow:0 15px 35px rgba(0,0,0,0.85); z-index:9999; flex-direction:column; padding:1rem;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dashed #3B342A; padding-bottom:0.6rem; margin-bottom:0.75rem;">
-                        <strong style="color:white; font-size:0.9rem;">🔔 اعلان‌های سیستمی مدیر</strong>
-                        <span style="font-size:0.75rem; color:#E5B44E;"><?php echo \WHCM\Domain\TextFormat::fa_digits($total_notifs); ?> مورد</span>
+                <div id="admin-bell-popup" style="display:none;position:absolute;left:0;top:44px;width:290px;background:#fff;border:1px solid #E6E7EB;border-radius:8px;box-shadow:0 8px 24px rgba(15,23,42,.12),0 0 0 1px rgba(4,32,69,.08);z-index:9999;flex-direction:column;padding:14px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #EFF0F3;padding-bottom:10px;margin-bottom:10px;">
+                        <strong style="color:#1E2633;font-size:13px;">🔔 اعلان‌های سیستمی مدیر</strong>
+                        <span style="font-size:11.5px;color:#0F6E5D;font-weight:700;"><?php echo \WHCM\Domain\TextFormat::fa_digits($total_notifs); ?> مورد</span>
                     </div>
                     <?php if ($total_notifs === 0): ?>
-                        <div style="color:#B0A695; font-size:0.8rem; text-align:center; padding:0.5rem 0;">همه موارد بررسی شده است ✔</div>
+                        <div style="color:#7E8896;font-size:12.5px;text-align:center;padding:.5rem 0;">همه موارد بررسی شده است ✔</div>
                     <?php else: ?>
                         <?php if ($pending_p_count > 0): ?>
-                            <div style="padding:0.5rem; background:#241F18; border-radius:8px; margin-bottom:0.5rem; font-size:0.8rem; color:#D6CCC0; cursor:pointer;" onclick="switchSection('payments'); document.getElementById('admin-bell-popup').style.display='none';">
+                            <div style="padding:8px 10px;background:#F9FAFB;border:1px solid #EFF0F3;border-radius:6px;margin-bottom:6px;font-size:12.5px;color:#626D7D;cursor:pointer;" onclick="switchSection('payments'); document.getElementById('admin-bell-popup').style.display='none';">
                                 💳 <?php echo \WHCM\Domain\TextFormat::fa_digits($pending_p_count); ?> فیش واریزی در انتظار تأیید
                             </div>
                         <?php endif; ?>
                         <?php if ($open_t_count > 0): ?>
-                            <div style="padding:0.5rem; background:#241F18; border-radius:8px; font-size:0.8rem; color:#D6CCC0; cursor:pointer;" onclick="switchSection('tickets'); document.getElementById('admin-bell-popup').style.display='none';">
+                            <div style="padding:8px 10px;background:#F9FAFB;border:1px solid #EFF0F3;border-radius:6px;font-size:12.5px;color:#626D7D;cursor:pointer;" onclick="switchSection('tickets'); document.getElementById('admin-bell-popup').style.display='none';">
                                 🎫 <?php echo \WHCM\Domain\TextFormat::fa_digits($open_t_count); ?> تیکت پشتیبانی باز
                             </div>
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>
-            <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" class="admin-badge" style="text-decoration:none;color:white;">🏠 داشبورد کاربری</a>
-            <div class="admin-badge"><?php echo $is_support ? 'پشتیبان پُست‌یار 🎧' : 'مدیر ارشد پلتفرم 👑'; ?></div>
+            <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" class="admin-badge" style="text-decoration:none;">🏠 داشبورد کاربری</a>
+            <div class="admin-badge"><?php echo $is_support ? '🎧 پشتیبان' : '👑 مدیر ارشد'; ?></div>
             <!-- دکمه بازکردن همبرگری کشویی موبایل -->
-            <button class="hamburger-btn">☰</button>
+            <button class="hamburger-btn" aria-label="منوی موبایل">☰</button>
         </div>
     </header>
 
     <!-- کانتینر اصلی محتوا -->
-    <div class="wrapper">
+    <div class="wrapper g-main">
         
-        <!-- سایدبار دسکتاپی -->
-        <aside class="sidebar-desktop">
-            <div class="menu-item active" data-target="dashboard">📊 وضعیت کلی و آمارگیری حرفه‌ای</div>
-            <div class="menu-item" data-target="users">👥 مدیریت کاربران و هدیه اشتراک</div>
-            <div class="menu-item" data-target="payments">💳 تایید فیش‌های واریزی</div>
-            <div class="menu-item" data-target="subscriptions">🎫 لیست اشتراک‌های فعال</div>
-            <div class="menu-item" data-target="plans">💎 مدیریت پلن‌های اشتراکی</div>
-            <div class="menu-item" data-target="ads">📣 مدیریت تبلیغات</div>
-            <div class="menu-item" data-target="admin-gold">🪙 تنظیمات ربات طلا و سکه</div>
-            <div class="menu-item" data-target="admin-ai">🧠 تنظیمات سراسری هوش مصنوعی</div>
-            <div class="menu-item" data-target="discounts">🎁 کدهای تخفیف</div>
-            <div class="menu-item" data-target="admin-responder">🤖 تنظیمات پاسخگوی هوشمند</div>
-            <div class="menu-item" data-target="admin-woo">🛍 تنظیمات اتصال ووکامرس</div>
-            <div class="menu-item" data-target="broadcast">📢 ارسال اعلان همگانی</div>
-            <div class="menu-item" data-target="bank">💳 تنظیمات کارت بانکی</div>
-            <div class="menu-item" data-target="provider-settings">🔌 تنظیمات درگاه‌های پرداخت</div>
-            <div class="menu-item" data-target="tickets">🎫 تیکت‌های پشتیبانی</div>
-            <div class="menu-item" data-target="referral-settings">🎯 تنظیمات زیرمجموعه‌گیری</div>
-            <div class="menu-item" data-target="sms-settings">📱 تنظیمات پنل‌های پیامک</div>
-            <div class="menu-item" data-target="email-settings">📧 تنظیمات ایمیل</div>
-            <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" class="menu-item" style="color:var(--primary); border-top:1px solid var(--border); padding-top:1rem; border-radius:0; margin-top:1.5rem;">🏠 رفتن به پیشخوان کاربری</a>
-            <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/logout'); ?>" class="logout-form"
+        <!-- سایدبار Gentelella مدیریت -->
+        <aside class="g-sidebar sidebar-desktop" id="g-sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <img src="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/images/logo-white-bg.webp" alt="نشان پُست‌یار">
+                </div>
+                <div class="brand-name">پُست‌یار <small>مدیریت ارشد</small></div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-group">
+                    <div class="nav-label">وضعیت و کاربران</div>
+                    <div class="menu-item active" data-target="dashboard"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg><span class="nav-text">وضعیت کلی و آمارگیری</span></div>
+                    <div class="menu-item" data-target="users"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg><span class="nav-text">مدیریت کاربران</span></div>
+                    <div class="menu-item" data-target="payments"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h.01M11 15h.01M3 4h18a2 2 0 012 2v12a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2z"></path></svg><span class="nav-text">تأیید فیش‌های واریزی</span></div>
+                    <div class="menu-item" data-target="subscriptions"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg><span class="nav-text">اشتراک‌های فعال</span></div>
+                    <div class="menu-item" data-target="plans"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4h12l4 5-10 11L2 9l4-5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 9h20M6 4l6 16L18 4"></path></svg><span class="nav-text">پلن‌های اشتراکی</span></div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-label">درآمد و تبلیغات</div>
+                    <div class="menu-item" data-target="ads"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882v9.412a2 2 0 11-4 0v-2.39l-3.26-.943a.5.5 0 01-.24-.847l1.5-1.4"></path><circle cx="16" cy="8" r="3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg><span class="nav-text">مدیریت تبلیغات</span></div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-label">تنظیمات هوشمند</div>
+                    <div class="menu-item" data-target="admin-gold"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m9-5a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span class="nav-text">ربات طلا و سکه</span></div>
+                    <div class="menu-item" data-target="admin-ai"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg><span class="nav-text">هوش مصنوعی</span></div>
+                    <div class="menu-item" data-target="discounts"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg><span class="nav-text">کدهای تخفیف</span></div>
+                    <div class="menu-item" data-target="admin-responder"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4-.8l-3.6 1a1 1 0 01-1.3-1.3l1-2.5C2.8 14.8 2 13.5 2 12c0-4.4 4-8 9-8s9 3.6 9 8z"></path></svg><span class="nav-text">پاسخگوی هوشمند</span></div>
+                    <div class="menu-item" data-target="admin-woo"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg><span class="nav-text">اتصال ووکامرس</span></div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-label">ارتباطات</div>
+                    <div class="menu-item" data-target="broadcast"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882L19.591 3.7a.5.5 0 01.656.585l-2.4 10a.5.5 0 01-.736.31l-3.06-1.767M11 5.882v9.412a2 2 0 11-4 0v-2.39l-3.26-.943a.5.5 0 01-.24-.847l1.5-1.4"></path></svg><span class="nav-text">اعلان همگانی</span></div>
+                    <div class="menu-item" data-target="tickets"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg><span class="nav-text">تیکت‌های پشتیبانی</span></div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-label">مالی و سیستمی</div>
+                    <div class="menu-item" data-target="bank"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h.01M11 15h.01M3 4h18a2 2 0 012 2v12a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2z"></path></svg><span class="nav-text">کارت بانکی</span></div>
+                    <div class="menu-item" data-target="provider-settings"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg><span class="nav-text">درگاه‌های پرداخت</span></div>
+                    <div class="menu-item" data-target="referral-settings"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12m9 0a9 9 0 11-18 0 9 9 0 0118 0zm0 0a5 5 0 11-10 0 5 5 0 0110 0zm0 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg><span class="nav-text">زیرمجموعه‌گیری</span></div>
+                    <div class="menu-item" data-target="sms-settings"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg><span class="nav-text">پنل‌های پیامک</span></div>
+                    <div class="menu-item" data-target="email-settings"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg><span class="nav-text">ایمیل</span></div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-label">حساب</div>
+                    <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" class="menu-item" style="color:#5ED4BE;"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg><span class="nav-text">رفتن به پیشخوان کاربری</span></a>
+                    <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/logout'); ?>" class="logout-form"
       onsubmit="return confirm('آیا می‌خواهید از حساب خارج شوید؟');">
     <?php echo \WHCM\Core\Csrf::field(); ?>
-    <button type="submit" class="menu-item logout-btn" style="margin-top:0.5rem; padding-top:0;">🚪 خروج از حساب</button>
+    <button type="submit" class="menu-item logout-btn"><svg class="g-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg><span class="nav-text">خروج از حساب</span></button>
 </form>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="avatar"><?php echo $is_support ? '🎧' : '👑'; ?><span class="online"></span></div>
+                    <div class="sidebar-user-info">
+                        <div class="name">مدیریت پُست‌یار</div>
+                        <div class="role"><?php echo $is_support ? 'کارشناس پشتیبانی' : 'مدیر ارشد پلتفرم'; ?></div>
+                    </div>
+                </div>
+            </div>
         </aside>
+        <div class="sidebar-backdrop" id="g-sidebar-backdrop"></div>
 
         <!-- محتوای اصلی -->
-        <main>
+        <main class="page-wrapper">
             
             <!-- نمایش سریع گزارش وضعیت سیستم (اعلان بالا صفحه) -->
             <?php 
@@ -226,7 +266,7 @@ $ad_admin_status = static function($status): string {
 
                 <div class="card ad-admin-card" style="margin-top:1rem;">
                     <h3>💳 درخواست‌های تبلیغات و صف پرداخت</h3>
-                    <p style="color:#B0A695;font-size:.82rem;line-height:1.7;">مدیر ابتدا مبلغ نهایی را تعیین می‌کند. فقط پس از تایید رسید/تراکنش، کمپین به وضعیت قابل‌نمایش منتقل می‌شود.</p>
+                    <p style="color:#626D7D;font-size:.82rem;line-height:1.7;">مدیر ابتدا مبلغ نهایی را تعیین می‌کند. فقط پس از تایید رسید/تراکنش، کمپین به وضعیت قابل‌نمایش منتقل می‌شود.</p>
                     <table class="data-table"><thead><tr><th>درخواست</th><th>پیش‌نمایش</th><th>کاربر</th><th>بازه</th><th>وضعیت</th><th>مبلغ</th><th>قیمت‌گذاری</th><th>تایید پرداخت</th></tr></thead><tbody>
                     <?php foreach (($ad_orders ?? []) as $order): ?>
                     <tr>
@@ -241,14 +281,14 @@ $ad_admin_status = static function($status): string {
                             <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/ads/quote'); ?>" style="display:grid;gap:.35rem;min-width:210px;">
                                 <?php echo $csrf_field; ?><input type="hidden" name="order_id" value="<?php echo (int)$order['id']; ?>"><input required min="1" step="1" type="number" name="quoted_amount" placeholder="مبلغ نهایی (تومان)"><input name="admin_notes" maxlength="1000" placeholder="یادداشت مدیر"><button class="primary-btn" type="submit">تایید مبلغ و ارسال به کاربر</button>
                             </form>
-                            <?php else: ?><span style="color:#B0A695;">قیمت‌گذاری انجام شده</span><?php endif; ?>
+                            <?php else: ?><span style="color:#626D7D;">قیمت‌گذاری انجام شده</span><?php endif; ?>
                         </td>
                         <td>
                             <?php if (($order['status']??'') === 'payment_submitted' && ($order['payment_status']??'') === 'pending_verification'): ?>
                             <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/ads/payment-approve'); ?>" onsubmit="return confirm('پس از تایید، کمپین واجد شرایط نمایش می‌شود. آیا رسید را بررسی کرده‌اید؟');">
                                 <?php echo $csrf_field; ?><input type="hidden" name="order_id" value="<?php echo (int)$order['id']; ?>"><button class="primary-btn" type="submit">تایید پرداخت و فعال‌سازی</button>
                             </form>
-                            <?php else: ?><span style="color:#B0A695;">—</span><?php endif; ?>
+                            <?php else: ?><span style="color:#626D7D;">—</span><?php endif; ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -328,7 +368,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                 <div class="grid-stats">
                     <a href="javascript:switchSection('users')" style="text-decoration:none;">
                         <div class="card-stat" style="cursor:pointer;">
-                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(217,160,54,0.2) 0%, rgba(217,160,54,0.05) 100%); color:#E5B44E;">👥</div>
+                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(26,187,156,0.2) 0%, rgba(26,187,156,0.05) 100%); color:#0F6E5D;">👥</div>
                             <div class="card-stat-info">
                                 <span class="title">کل کاربران ثبت‌نام شده</span>
                                 <span class="value"><?php echo \WHCM\Domain\TextFormat::fa_digits($total_users); ?> نفر</span>
@@ -337,7 +377,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     </a>
                     <a href="javascript:switchSection('users')" style="text-decoration:none;">
                         <div class="card-stat" style="cursor:pointer;">
-                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(53,196,126,0.2) 0%, rgba(53,196,126,0.05) 100%); color:#35C47E;">✅</div>
+                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(47,179,68,0.2) 0%, rgba(47,179,68,0.05) 100%); color:#2FB344;">✅</div>
                             <div class="card-stat-info">
                                 <span class="title">کاربران فعال</span>
                                 <span class="value"><?php echo \WHCM\Domain\TextFormat::fa_digits($active_users_count); ?> نفر</span>
@@ -346,7 +386,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     </a>
                     <a href="javascript:switchSection('payments')" style="text-decoration:none;">
                         <div class="card-stat" style="cursor:pointer;">
-                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(249,142,63,0.2) 0%, rgba(249,142,63,0.05) 100%); color:#F98E3F;">💳</div>
+                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(245,159,0,0.2) 0%, rgba(245,159,0,0.05) 100%); color:#B45309;">💳</div>
                             <div class="card-stat-info">
                                 <span class="title">پرداخت‌های در انتظار تایید</span>
                                 <span class="value"><?php echo \WHCM\Domain\TextFormat::fa_digits($pending_p_count); ?> فیش</span>
@@ -355,7 +395,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     </a>
                     <a href="javascript:switchSection('tickets')" style="text-decoration:none;">
                         <div class="card-stat" style="cursor:pointer;">
-                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(240,100,92,0.2) 0%, rgba(240,100,92,0.05) 100%); color:#F0645C;">🎟</div>
+                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(214,57,57,0.2) 0%, rgba(214,57,57,0.05) 100%); color:#D63939;">🎟</div>
                             <div class="card-stat-info">
                                 <span class="title">تیکت‌های باز منتظر پاسخ</span>
                                 <span class="value"><?php echo \WHCM\Domain\TextFormat::fa_digits($open_t_count); ?> تیکت</span>
@@ -364,7 +404,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     </a>
                     <a href="javascript:switchSection('plans')" style="text-decoration:none;">
                         <div class="card-stat" style="cursor:pointer;">
-                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(199,126,60,0.2) 0%, rgba(199,126,60,0.05) 100%); color:#C77E3C;">💎</div>
+                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(174,62,201,0.2) 0%, rgba(174,62,201,0.05) 100%); color:#732088;">💎</div>
                             <div class="card-stat-info">
                                 <span class="title">پلن‌های اشتراک</span>
                                 <span class="value"><?php echo \WHCM\Domain\TextFormat::fa_digits(count($plans)); ?> پلن</span>
@@ -373,7 +413,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     </a>
                     <a href="javascript:switchSection('subscriptions')" style="text-decoration:none;">
                         <div class="card-stat" style="cursor:pointer;">
-                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(74,214,190,0.2) 0%, rgba(74,214,190,0.05) 100%); color:#4AD6BE;">🎯</div>
+                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(66,153,225,0.2) 0%, rgba(66,153,225,0.05) 100%); color:#0B5ED7;">🎯</div>
                             <div class="card-stat-info">
                                 <span class="title">اشتراک‌های فعال</span>
                                 <span class="value"><?php echo \WHCM\Domain\TextFormat::fa_digits($active_subs_count); ?> اشتراک</span>
@@ -382,7 +422,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     </a>
                     <a href="javascript:switchSection('users')" style="text-decoration:none;">
                         <div class="card-stat" style="cursor:pointer;">
-                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(74,214,190,0.2) 0%, rgba(74,214,190,0.05) 100%); color:#4AD6BE;">📱</div>
+                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(66,153,225,0.2) 0%, rgba(66,153,225,0.05) 100%); color:#0B5ED7;">📱</div>
                             <div class="card-stat-info">
                                 <span class="title">کل کانال‌های ثبت شده</span>
                                 <span class="value"><?php echo \WHCM\Domain\TextFormat::fa_digits($total_channels); ?> کانال</span>
@@ -391,7 +431,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     </a>
                     <a href="javascript:switchSection('payments')" style="text-decoration:none;">
                         <div class="card-stat" style="cursor:pointer;">
-                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(251,175,107,0.2) 0%, rgba(251,175,107,0.05) 100%); color:#FBAF6B;">💰</div>
+                            <div class="card-stat-icon" style="background:linear-gradient(135deg, rgba(245,159,0,0.2) 0%, rgba(245,159,0,0.05) 100%); color:#B45309;">💰</div>
                             <div class="card-stat-info">
                                 <span class="title">کل درآمد تایید شده</span>
                                 <span class="value"><?php echo \WHCM\Domain\TextFormat::fa_num($total_revenue); ?> تومان</span>
@@ -419,8 +459,8 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     <?php if (empty($users)): ?>
                         <p style="color: var(--text-muted); text-align: center; padding: 2rem 0;">کاربری یافت نشد.</p>
                     <?php else: ?>
-                        <div style="margin-bottom:0.75rem; display:flex; gap:0.5rem;"><input type="text" id="admin-user-search" placeholder="جستجوی نام یا ایمیل یا کسب‌وکار..." oninput="filterAdminUsers(this.value)" style="flex:1; padding:0.6rem 0.85rem; border-radius:10px; border:1px solid #3B342A; background:#171310; color:white;"></div>
-                        <div class="table-responsive" style="max-height:520px; overflow:auto; border:1px solid #241F18; border-radius:12px;">
+                        <div style="margin-bottom:0.75rem; display:flex; gap:0.5rem;"><input type="text" id="admin-user-search" placeholder="جستجوی نام یا ایمیل یا کسب‌وکار..." oninput="filterAdminUsers(this.value)" style="flex:1; padding:0.6rem 0.85rem; border-radius:10px; border:1px solid #E6E7EB; background:#F9FAFB; color:white;"></div>
+                        <div class="table-responsive" style="max-height:520px; overflow:auto; border:1px solid #F9FAFB; border-radius:12px;">
                             <table>
                                 <thead>
                                     <tr>
@@ -451,29 +491,29 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                                             <td data-label="اشتراک فعلی و اعتبار">
                                                 <?php if (!empty($u['plan_title'])): ?>
                                                     <span class="badge badge-success" style="font-size:0.75rem; margin-bottom:0.25rem; display:inline-block;">💎 <?php echo htmlspecialchars($u['plan_title']); ?></span><br>
-                                                    <span style="font-size:0.7rem; color: #EFC968;">اعتبار تا: <?php echo \WHCM\Domain\TextFormat::mysql_to_jalali($u['end_date'], false); ?></span>
+                                                    <span style="font-size:0.7rem; color: #128771;">اعتبار تا: <?php echo \WHCM\Domain\TextFormat::mysql_to_jalali($u['end_date'], false); ?></span>
                                                 <?php else: ?>
-                                                    <span class="badge" style="background:rgba(255,255,255,0.08); color:#D6CCC0; font-size:0.75rem;">رایگان / بدون اشتراک</span>
+                                                    <span class="badge" style="background:rgba(30,38,51,0.06); color:#626D7D; font-size:0.75rem;">رایگان / بدون اشتراک</span>
                                                 <?php endif; ?>
                                             </td>
                                             <td data-label="تاریخ عضویت">
-                                                <span style="font-size:0.8rem; color:#D6CCC0;"><?php echo \WHCM\Domain\TextFormat::mysql_to_jalali($u['created_at']); ?></span>
+                                                <span style="font-size:0.8rem; color:#626D7D;"><?php echo \WHCM\Domain\TextFormat::mysql_to_jalali($u['created_at']); ?></span>
                                             </td>
                                             <td data-label="کانال‌ها"><strong><?php echo \WHCM\Domain\TextFormat::fa_digits($u['channel_count']); ?> کانال</strong></td>
                                             <td data-label="وضعیت حساب">
-                                                <span style="color: <?php echo $u['status'] === 'active' ? '#35C47E' : '#F0645C'; ?>; font-weight: bold;">
+                                                <span style="color: <?php echo $u['status'] === 'active' ? '#2FB344' : '#D63939'; ?>; font-weight: bold;">
                                                     <?php echo $u['status'] === 'active' ? 'فعال' : 'مسدود'; ?>
                                                 </span>
                                             </td>
                                             <td data-label="اقدامات مدیریتی">
                                                 <div style="display:flex; gap:0.25rem; flex-wrap:wrap;">
-                                                    <button type="button" class="btn btn-sm" style="padding:0.35rem 0.6rem; background:linear-gradient(135deg, #D9A036 0%, #BC8623 100%); color:white; border:none; font-weight:bold;" onclick='openUserProfileModal(<?php echo json_encode($u, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP|JSON_UNESCAPED_UNICODE); ?>)'>👁 پروفایل ۳۶۰ درجه</button>
-                                                    <button type="button" class="btn btn-success btn-sm" style="padding:0.35rem 0.6rem; background:#35C47E; color:white; border:none;" onclick="openGiftModal(<?php echo $u['id']; ?>, '<?php echo htmlspecialchars(addslashes($u['name'])); ?>')">🎁 هدیه اشتراک</button>
+                                                    <button type="button" class="btn btn-sm" style="padding:0.35rem 0.6rem; background:linear-gradient(135deg, #169F85 0%, #169F85 100%); color:white; border:none; font-weight:bold;" onclick='openUserProfileModal(<?php echo json_encode($u, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP|JSON_UNESCAPED_UNICODE); ?>)'>👁 پروفایل ۳۶۰ درجه</button>
+                                                    <button type="button" class="btn btn-success btn-sm" style="padding:0.35rem 0.6rem; background:#2FB344; color:white; border:none;" onclick="openGiftModal(<?php echo $u['id']; ?>, '<?php echo htmlspecialchars(addslashes($u['name'])); ?>')">🎁 هدیه اشتراک</button>
                                                     <?php if ($u['status'] === 'active'): ?>
                                                         <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/suspend-user'); ?>" style="display:inline">
     <?php echo \WHCM\Core\Csrf::field(); ?>
     <input type="hidden" name="user_id" value="<?php echo (int)$u['id']; ?>">
-    <button type="submit" class="btn btn-danger btn-sm" style="background:#F98E3F; padding:0.35rem 0.6rem;">تعلیق 🚫</button>
+    <button type="submit" class="btn btn-danger btn-sm" style="background:#B45309; padding:0.35rem 0.6rem;">تعلیق 🚫</button>
 </form>
                                                     <?php else: ?>
                                                         <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/activate-user'); ?>" style="display:inline">
@@ -565,7 +605,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-success" style="width:100%; margin-top:2.5rem; background: linear-gradient(135deg, #35C47E 0%, #2BB377 100%); border:none;">فعال‌سازی آنی اشتراک برای کاربر 🎫</button>
+                            <button type="submit" class="btn btn-success" style="width:100%; margin-top:2.5rem; background: linear-gradient(135deg, #2FB344 0%, #28993B 100%); border:none;">فعال‌سازی آنی اشتراک برای کاربر 🎫</button>
                         </form>
                     </div>
                 </div>
@@ -601,11 +641,11 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                                                 <span style="font-size: 0.8rem; color: var(--text-muted);"><?php echo htmlspecialchars($p['user_email']); ?></span>
                                             </td>
                                             <td data-label="پلن درخواستی"><strong><?php echo htmlspecialchars($p['plan_title']); ?></strong></td>
-                                            <td data-label="مبلغ واریزی"><strong style="color:#EFC968;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['amount']); ?> تومان</strong></td>
+                                            <td data-label="مبلغ واریزی"><strong style="color:#128771;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['amount']); ?> تومان</strong></td>
                                             <td data-label="کد رهگیری تراکنش"><code><?php echo \WHCM\Domain\TextFormat::fa_digits($p['reference_num']); ?></code></td>
                                             <td data-label="تصویر رسید">
                                                 <?php if (!empty($p['receipt_photo'])): ?>
-                                                    <a href="<?php echo htmlspecialchars($p['receipt_photo']); ?>" target="_blank" class="btn btn-sm" style="background:#C77E3C; padding:0.35rem 0.6rem; font-size:0.75rem;">🔎 مشاهده فیش</a>
+                                                    <a href="<?php echo htmlspecialchars($p['receipt_photo']); ?>" target="_blank" class="btn btn-sm" style="background:#732088; padding:0.35rem 0.6rem; font-size:0.75rem;">🔎 مشاهده فیش</a>
                                                 <?php else: ?>
                                                     <span style="font-size:0.8rem; color:var(--text-muted);">فاقد تصویر</span>
                                                 <?php endif; ?>
@@ -676,9 +716,9 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                                         <td data-label="کسب و کار"><strong><?php echo htmlspecialchars($s['business_name'] ?: 'ثبت نشده'); ?></strong></td>
                                         <td data-label="پلن اشتراک"><span class="badge badge-approved"><?php echo htmlspecialchars($s['plan_title']); ?></span></td>
                                         <td data-label="شروع اشتراک"><span style="font-size:0.8rem;"><?php echo \WHCM\Domain\TextFormat::mysql_to_jalali($s['start_date'], false); ?></span></td>
-                                        <td data-label="اتمام اشتراک"><span style="font-size:0.8rem; color:#F9A39D;"><?php echo \WHCM\Domain\TextFormat::mysql_to_jalali($s['end_date'], false); ?></span></td>
+                                        <td data-label="اتمام اشتراک"><span style="font-size:0.8rem; color:#D63939;"><?php echo \WHCM\Domain\TextFormat::mysql_to_jalali($s['end_date'], false); ?></span></td>
                                         <td data-label="وضعیت نهایی">
-                                            <span style="color: <?php echo $s['status'] === 'active' ? '#35C47E' : '#F0645C'; ?>; font-weight:bold;">
+                                            <span style="color: <?php echo $s['status'] === 'active' ? '#2FB344' : '#D63939'; ?>; font-weight:bold;">
                                                 <?php echo $s['status'] === 'active' ? 'فعال' : 'منقضی'; ?>
                                             </span>
                                         </td>
@@ -808,7 +848,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                             <?php if ($edit_plan): ?>
                                 <div style="display:flex; gap:1rem;">
                                     <button type="submit" class="btn btn-success btn-block" style="flex:1;">بروزرسانی نهایی پلن ⚙</button>
-                                    <a href="?" class="btn btn-danger" style="background:#8A7F72; color:white;">انصراف</a>
+                                    <a href="?" class="btn btn-danger" style="background:#AEB6C0; color:white;">انصراف</a>
                                 </div>
                             <?php else: ?>
                                 <button type="submit" class="btn btn-block">ثبت و ایجاد پلن جدید 🚀</button>
@@ -835,13 +875,13 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                                     <?php foreach ($plans as $p): ?>
                                         <tr>
                                             <td data-label="نام پلن"><strong><?php echo htmlspecialchars($p['title']); ?></strong></td>
-                                            <td data-label="قیمت"><strong style="color:#3DD68C;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['price']); ?> تومان</strong></td>
+                                            <td data-label="قیمت"><strong style="color:#2FB344;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['price']); ?> تومان</strong></td>
                                             <td data-label="مدت"><?php echo \WHCM\Domain\TextFormat::fa_digits($p['duration_days']); ?> روز</td>
                                             <td data-label="سهمیه کانال"><?php echo \WHCM\Domain\TextFormat::fa_digits($p['max_channels']); ?> کانال</td>
                                             <td data-label="سهمیه پست"><?php echo $p['max_posts'] === 0 ? 'نامحدود' : \WHCM\Domain\TextFormat::fa_digits($p['max_posts']) . ' پست'; ?></td>
                                             <td data-label="عملیات">
                                                 <div style="display:flex; gap:0.5rem;">
-                                                    <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh'); ?>&edit_plan=<?php echo $p['id']; ?>" class="btn btn-sm" style="background:#4A8FD0;">⚙ ویرایش</a>
+                                                    <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh'); ?>&edit_plan=<?php echo $p['id']; ?>" class="btn btn-sm" style="background:#066FD1;">⚙ ویرایش</a>
                                                     <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/delete-plan'); ?>" style="display:inline" onsubmit="return confirm('آیا از حذف این پلن اشتراک اطمینان دارید؟');">
     <?php echo \WHCM\Core\Csrf::field(); ?>
     <input type="hidden" name="plan_id" value="<?php echo (int)$p['id']; ?>">
@@ -956,14 +996,14 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                             </div>
                         </div>
 
-                        <div style="background: rgba(217,160,54,0.1); border: 1px solid rgba(217,160,54,0.3); padding: 1rem 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                        <div style="background: rgba(26,187,156,0.1); border: 1px solid rgba(26,187,156,0.3); padding: 1rem 1.25rem; border-radius: 12px; margin-bottom: 1.5rem;">
                             <label style="display:flex; align-items:center; gap:0.5rem; color:white; cursor:pointer; margin:0;">
                                 <input type="checkbox" name="ai_active_by_default" value="1" <?php echo (empty($admin_settings['ai_active_by_default']) || $admin_settings['ai_active_by_default'] === '1') ? 'checked' : ''; ?> style="width:18px; height:18px;">
                                 <span>فعال‌سازی دستیار نگارش هوشمند (AI Writer) برای کاربران دارای اشتراک مجاز</span>
                             </label>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.9rem; font-size: 1rem; background-color: #C77E3C;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.9rem; font-size: 1rem; background-color: #732088;">
                             💾 ذخیره پیکربندی و مدل‌های سراسری هوش مصنوعی
                         </button>
                     </form>
@@ -1047,7 +1087,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                             </div>
                             <div class="form-group">
                                 <label>تاریخ انقضا (انتخاب از تقویم شمسی - خالی برای بدون انقضا):</label>
-                                <input type="text" name="expires_at" id="admin-discount-date" data-jdp placeholder="مثلاً: 1405/01/15 23:59" class="dir-ltr" readonly style="cursor: pointer; background: var(--bg-dark); color: #3DD68C; font-weight: bold; border: 2px solid #3DD68C;">
+                                <input type="text" name="expires_at" id="admin-discount-date" data-jdp placeholder="مثلاً: 1405/01/15 23:59" class="dir-ltr" readonly style="cursor: pointer; background: var(--bg-dark); color: #2FB344; font-weight: bold; border: 2px solid #2FB344;">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success" style="width: 100%;">ثبت و فعال‌سازی کد تخفیف 🎁</button>
@@ -1119,7 +1159,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
             </div>
 
             <div id="section-broadcast" class="tab-content">
-                <div class="card" style="border: 1px solid rgba(217,160,54,0.25); background: linear-gradient(135deg, rgba(217,160,54,0.05) 0%, rgba(23,19,16,0.6) 100%);">
+                <div class="card" style="border: 1px solid rgba(26,187,156,0.25); background: linear-gradient(135deg, rgba(26,187,156,0.05) 0%, rgba(30,38,51,0.084) 100%);">
                     <h2>📢 ارسال اعلان همگانی درون‌برنامه‌ای</h2>
                     <form action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/broadcast-announcement'); ?>" method="POST">
                         <?php echo $csrf_field; ?>
@@ -1129,13 +1169,13 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                         </div>
                         <div class="form-group">
                             <label>انتخاب جامعه هدف (پلن‌های اشتراکی):</label>
-                            <div style="display:flex; gap:1rem; flex-wrap:wrap; background:rgba(23,19,16,0.6); padding:1rem; border-radius:12px; border:1px solid #3B342A;">
+                            <div style="display:flex; gap:1rem; flex-wrap:wrap; background:rgba(30,38,51,0.084); padding:1rem; border-radius:12px; border:1px solid #E6E7EB;">
                                 <label style="display:flex; align-items:center; gap:0.4rem; color:white; cursor:pointer;">
                                     <input type="radio" name="target_plans" value="all" checked style="width:16px; height:16px;">
                                     <span>همه کاربران پلتفرم</span>
                                 </label>
                                 <?php foreach ($plans as $p_opt): ?>
-                                    <label style="display:flex; align-items:center; gap:0.4rem; color:#EFC968; cursor:pointer;">
+                                    <label style="display:flex; align-items:center; gap:0.4rem; color:#128771; cursor:pointer;">
                                         <input type="radio" name="target_plans" value="<?php echo $p_opt['id']; ?>" style="width:16px; height:16px;">
                                         <span>کاربران پلن «<?php echo htmlspecialchars($p_opt['title']); ?>»</span>
                                     </label>
@@ -1146,7 +1186,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                             <label for="ann-msg">متن پیام اعلان:</label>
                             <textarea name="message" id="ann-msg" rows="5" required placeholder="متن پیام شما برای نمایش در بالای پیشخوان کاربران منتخب..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width:100%; background:linear-gradient(135deg, #D9A036 0%, #BC8623 100%);">ارسال اعلان به کاربران هدف 📢</button>
+                        <button type="submit" class="btn btn-primary" style="width:100%; background:linear-gradient(135deg, #169F85 0%, #169F85 100%);">ارسال اعلان به کاربران هدف 📢</button>
                     </form>
                 </div>
                 <div class="card" style="margin-top:2rem;">
@@ -1179,8 +1219,8 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                                                     ?>
                                                 </span>
                                             </td>
-                                            <td><span style="font-size:0.8rem; color:#EFC968;"><?php echo htmlspecialchars($ann_item['created_at']); ?></span></td>
-                                            <td><span style="font-size:0.8rem; color:#D6CCC0;"><?php echo htmlspecialchars(mb_substr($ann_item['message'], 0, 60)) . '...'; ?></span></td>
+                                            <td><span style="font-size:0.8rem; color:#128771;"><?php echo htmlspecialchars($ann_item['created_at']); ?></span></td>
+                                            <td><span style="font-size:0.8rem; color:#626D7D;"><?php echo htmlspecialchars(mb_substr($ann_item['message'], 0, 60)) . '...'; ?></span></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -1238,7 +1278,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                         </div>
 
                         <!-- تنظیمات پویای سایر روش‌های تماس با پشتیبانی -->
-                        <h3 style="font-size: 0.95rem; margin-top: 1.5rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#EFC968;">📞 تنظیمات راه‌های ارتباطی فرعی پشتیبانی کاربران</h3>
+                        <h3 style="font-size: 0.95rem; margin-top: 1.5rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#128771;">📞 تنظیمات راه‌های ارتباطی فرعی پشتیبانی کاربران</h3>
                         <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:1rem; margin-bottom: 1.5rem;">
                             <div class="form-group">
                                 <label for="sup-tele">آدرس پشتیبانی تلگرام:</label>
@@ -1337,24 +1377,24 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                         <p style="color:var(--text-muted); font-size:0.8rem; margin-bottom:1rem;">دسته‌بندی‌ها در فرم ثبت تیکت کاربران نمایش داده می‌شوند. می‌توانید هر دسته را به یک پشتیبان اختصاص دهید.</p>
                         <div id="cat-editor-area"></div>
                         <div style="display:flex; gap:0.5rem; margin-top:0.75rem;">
-                            <button type="button" class="btn btn-sm" style="background:rgba(217,160,54,0.2); color:#EFC968; border:1px solid rgba(217,160,54,0.3);" onclick="addCategoryRow()">➕ افزودن دسته‌بندی</button>
-                            <button type="button" class="btn btn-sm" style="background:rgba(53,196,126,0.2); color:#3DD68C; border:1px solid rgba(53,196,126,0.3);" onclick="saveCategories()">💾 ذخیره تغییرات</button>
+                            <button type="button" class="btn btn-sm" style="background:rgba(26,187,156,0.2); color:#128771; border:1px solid rgba(26,187,156,0.3);" onclick="addCategoryRow()">➕ افزودن دسته‌بندی</button>
+                            <button type="button" class="btn btn-sm" style="background:rgba(47,179,68,0.2); color:#2FB344; border:1px solid rgba(47,179,68,0.3);" onclick="saveCategories()">💾 ذخیره تغییرات</button>
                         </div>
                     </div>
                     <div class="card">
                         <h2 style="font-size:1rem; margin-bottom:1rem;">🎧 لیست کاربران پشتیبان</h2>
                         <p style="color:var(--text-muted); font-size:0.8rem; margin-bottom:1rem;">کاربران با نقش «پشتیبان» فقط به بخش تیکت‌ها دسترسی دارند.</p>
                         <?php if (empty($support_agents)): ?>
-                            <p style="color:#B0A695; font-size:0.85rem; text-align:center; padding:1rem;">هیچ پشتیبانی ثبت نشده است. از بخش «مدیریت کاربران» با نقش «پشتیبان» بسازید.</p>
+                            <p style="color:#626D7D; font-size:0.85rem; text-align:center; padding:1rem;">هیچ پشتیبانی ثبت نشده است. از بخش «مدیریت کاربران» با نقش «پشتیبان» بسازید.</p>
                         <?php else: ?>
                             <div style="display:flex; flex-direction:column; gap:0.5rem;">
                                 <?php foreach ($support_agents as $agent): ?>
-                                    <div style="display:flex; justify-content:space-between; align-items:center; background:#241F18; border:1px solid #3B342A; border-radius:10px; padding:0.75rem 1rem;">
+                                    <div style="display:flex; justify-content:space-between; align-items:center; background:#F9FAFB; border:1px solid #E6E7EB; border-radius:10px; padding:0.75rem 1rem;">
                                         <div>
                                             <strong style="color:white; font-size:0.9rem;"><?php echo htmlspecialchars($agent['name']); ?></strong>
-                                            <div style="color:#B0A695; font-size:0.75rem;"><?php echo htmlspecialchars($agent['email']); ?></div>
+                                            <div style="color:#626D7D; font-size:0.75rem;"><?php echo htmlspecialchars($agent['email']); ?></div>
                                         </div>
-                                        <span style="background:rgba(217,160,54,0.2); color:#EFC968; padding:0.25rem 0.75rem; border-radius:8px; font-size:0.75rem; font-weight:700;">🎧 پشتیبان</span>
+                                        <span style="background:rgba(26,187,156,0.2); color:#128771; padding:0.25rem 0.75rem; border-radius:8px; font-size:0.75rem; font-weight:700;">🎧 پشتیبان</span>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -1365,29 +1405,29 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
 
                 <!-- کارت آمار تیکت‌ها -->
                 <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:1rem; margin-bottom:1.5rem;">
-                    <div style="background:linear-gradient(135deg, rgba(217,160,54,0.15) 0%, rgba(23,19,16,0.8) 100%); border:1px solid rgba(217,160,54,0.3); border-radius:16px; padding:1.25rem; text-align:center;">
+                    <div style="background:linear-gradient(135deg, rgba(26,187,156,0.15) 0%, rgba(30,38,51,0.1) 100%); border:1px solid rgba(26,187,156,0.3); border-radius:16px; padding:1.25rem; text-align:center;">
                         <div style="font-size:2rem;">🎟</div>
-                        <div style="font-size:0.8rem; color:#B0A695; margin:0.3rem 0;">کل تیکت‌ها</div>
-                        <strong style="color:#EFC968; font-size:1.4rem;"><?php echo \WHCM\Domain\TextFormat::fa_digits(count($tickets)); ?></strong>
+                        <div style="font-size:0.8rem; color:#626D7D; margin:0.3rem 0;">کل تیکت‌ها</div>
+                        <strong style="color:#128771; font-size:1.4rem;"><?php echo \WHCM\Domain\TextFormat::fa_digits(count($tickets)); ?></strong>
                     </div>
-                    <div style="background:linear-gradient(135deg, rgba(249,142,63,0.15) 0%, rgba(23,19,16,0.8) 100%); border:1px solid rgba(249,142,63,0.3); border-radius:16px; padding:1.25rem; text-align:center;">
+                    <div style="background:linear-gradient(135deg, rgba(245,159,0,0.15) 0%, rgba(30,38,51,0.1) 100%); border:1px solid rgba(245,159,0,0.3); border-radius:16px; padding:1.25rem; text-align:center;">
                         <div style="font-size:2rem;">⏳</div>
-                        <div style="font-size:0.8rem; color:#B0A695; margin:0.3rem 0;">در انتظار پاسخ</div>
-                        <strong style="color:#FBAF6B; font-size:1.4rem;"><?php echo \WHCM\Domain\TextFormat::fa_digits($open_t_count); ?></strong>
+                        <div style="font-size:0.8rem; color:#626D7D; margin:0.3rem 0;">در انتظار پاسخ</div>
+                        <strong style="color:#B45309; font-size:1.4rem;"><?php echo \WHCM\Domain\TextFormat::fa_digits($open_t_count); ?></strong>
                     </div>
-                    <div style="background:linear-gradient(135deg, rgba(53,196,126,0.15) 0%, rgba(23,19,16,0.8) 100%); border:1px solid rgba(53,196,126,0.3); border-radius:16px; padding:1.25rem; text-align:center;">
+                    <div style="background:linear-gradient(135deg, rgba(47,179,68,0.15) 0%, rgba(30,38,51,0.1) 100%); border:1px solid rgba(47,179,68,0.3); border-radius:16px; padding:1.25rem; text-align:center;">
                         <div style="font-size:2rem;">✔</div>
-                        <div style="font-size:0.8rem; color:#B0A695; margin:0.3rem 0;">پاسخ داده شده</div>
-                        <strong style="color:#3DD68C; font-size:1.4rem;"><?php
+                        <div style="font-size:0.8rem; color:#626D7D; margin:0.3rem 0;">پاسخ داده شده</div>
+                        <strong style="color:#2FB344; font-size:1.4rem;"><?php
                             $replied_count = 0;
                             foreach ($tickets as $tc) { if($tc['status'] === 'replied') $replied_count++; }
                             echo \WHCM\Domain\TextFormat::fa_digits($replied_count);
                         ?></strong>
                     </div>
-                    <div style="background:linear-gradient(135deg, rgba(240,100,92,0.12) 0%, rgba(23,19,16,0.8) 100%); border:1px solid rgba(240,100,92,0.2); border-radius:16px; padding:1.25rem; text-align:center;">
+                    <div style="background:linear-gradient(135deg, rgba(214,57,57,0.12) 0%, rgba(30,38,51,0.1) 100%); border:1px solid rgba(214,57,57,0.2); border-radius:16px; padding:1.25rem; text-align:center;">
                         <div style="font-size:2rem;">🔒</div>
-                        <div style="font-size:0.8rem; color:#B0A695; margin:0.3rem 0;">بسته شده</div>
-                        <strong style="color:#F5837C; font-size:1.4rem;"><?php
+                        <div style="font-size:0.8rem; color:#626D7D; margin:0.3rem 0;">بسته شده</div>
+                        <strong style="color:#D63939; font-size:1.4rem;"><?php
                             $closed_count = 0;
                             foreach ($tickets as $tc) { if($tc['status'] === 'closed') $closed_count++; }
                             echo \WHCM\Domain\TextFormat::fa_digits($closed_count);
@@ -1399,7 +1439,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                 <div class="card">
                     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem; border-bottom:1px solid var(--border); padding-bottom:1rem;">
                         <h2 style="margin:0; border:none; padding:0;">🎫 مرکز تیکت‌ها و پیام‌رسانی</h2>
-                        <button type="button" class="btn" style="background:linear-gradient(135deg, #D9A036 0%, #BC8623 100%); font-size:0.85rem; padding:0.7rem 1.2rem;" onclick="document.getElementById('newTicketModal').style.display='flex'">✉️ ارسال پیام جدید به کاربر</button>
+                        <button type="button" class="btn" style="background:linear-gradient(135deg, #169F85 0%, #169F85 100%); font-size:0.85rem; padding:0.7rem 1.2rem;" onclick="document.getElementById('newTicketModal').style.display='flex'">✉️ ارسال پیام جدید به کاربر</button>
                     </div>
 
                     <!-- فیلتر وضعیت -->
@@ -1415,7 +1455,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                             <div style="font-size:4rem; margin-bottom:1rem;">📭</div>
                             <p style="color:var(--text-muted); font-size:1.05rem; margin-bottom:0.75rem; font-weight:bold;">هنوز هیچ تیکتی ثبت نشده است</p>
                             <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.8; margin-bottom:1.5rem;">کاربران از بخش «پشتیبانی» در پیشخوان خود تیکت ثبت می‌کنند.<br>همچنین می‌توانید با دکمه بالا پیام مستقیم به هر کاربر ارسال کنید.</p>
-                            <button type="button" class="btn" style="background:linear-gradient(135deg, #D9A036 0%, #BC8623 100%);" onclick="document.getElementById('newTicketModal').style.display='flex'">✉️ ارسال پیام به کاربر</button>
+                            <button type="button" class="btn" style="background:linear-gradient(135deg, #169F85 0%, #169F85 100%);" onclick="document.getElementById('newTicketModal').style.display='flex'">✉️ ارسال پیام به کاربر</button>
                         </div>
                     <?php else: ?>
                         <div class="table-responsive" style="border:none; background:transparent; border-radius:0;">
@@ -1427,12 +1467,12 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                                             <div class="ticket-avatar"><?php echo mb_substr(htmlspecialchars($t['user_name'] ?? '؟'), 0, 1); ?></div>
                                             <div>
                                                 <strong style="color:#fff; font-size:0.9rem;"><?php echo htmlspecialchars($t['user_name'] ?? 'نامشخص'); ?></strong><br>
-                                                <span style="font-size:0.75rem; color:#B0A695;"><?php echo htmlspecialchars($t['user_email'] ?? ''); ?></span>
+                                                <span style="font-size:0.75rem; color:#626D7D;"><?php echo htmlspecialchars($t['user_email'] ?? ''); ?></span>
                                             </div>
                                         </div>
                                         <div style="display:flex; align-items:center; gap:0.5rem;">
                                             <?php if (!empty($t['created_by_admin'])): ?>
-                                                <span style="font-size:0.7rem; background:rgba(217,160,54,0.2); color:#EFC968; padding:0.2rem 0.6rem; border-radius:6px;">📤 ارسال توسط ادمین</span>
+                                                <span style="font-size:0.7rem; background:rgba(26,187,156,0.2); color:#128771; padding:0.2rem 0.6rem; border-radius:6px;">📤 ارسال توسط ادمین</span>
                                             <?php endif; ?>
                                             <span class="badge badge-<?php echo $t['status'] === 'open' ? 'pending' : ($t['status'] === 'replied' ? 'approved' : 'danger'); ?>">
                                                 <?php echo $t['status'] === 'open' ? '⏳ باز' : ($t['status'] === 'replied' ? '✔ پاسخ‌داده‌شده' : '🔒 بسته‌شده'); ?>
@@ -1442,7 +1482,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                                     <div class="ticket-card-subject"><?php echo htmlspecialchars($t['subject']); ?></div>
                                     <div class="ticket-card-preview"><?php echo mb_substr(strip_tags($t['message']), 0, 120); ?>...</div>
                                     <div class="ticket-card-actions">
-                                        <button type="button" class="btn btn-sm" style="background:linear-gradient(135deg, #D9A036 0%, #BC8623 100%) !important; color:#fff !important; font-weight:800; border:none;" onclick='openAdminTicketModal(<?php echo json_encode($t, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP|JSON_UNESCAPED_UNICODE); ?>)'>👁 مشاهده و پاسخ</button>
+                                        <button type="button" class="btn btn-sm" style="background:linear-gradient(135deg, #169F85 0%, #169F85 100%) !important; color:#fff !important; font-weight:800; border:none;" onclick='openAdminTicketModal(<?php echo json_encode($t, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP|JSON_UNESCAPED_UNICODE); ?>)'>👁 مشاهده و پاسخ</button>
                                         <?php if ($t['status'] === 'closed'): ?>
                                             <form action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/reopen-ticket'); ?>" method="POST" style="display:inline;">
                                                 <?php echo $csrf_field; ?>
@@ -1453,7 +1493,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                                         <form action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/delete-ticket'); ?>" method="POST" style="display:inline;" onsubmit="return confirm('آیا از حذف این تیکت اطمینان دارید؟')">
                                             <?php echo $csrf_field; ?>
                                             <input type="hidden" name="ticket_id" value="<?php echo $t['id']; ?>">
-                                            <button type="submit" class="btn btn-sm" style="background:rgba(240,100,92,0.15); color:#F5837C; border:1px solid rgba(240,100,92,0.3);" title="حذف تیکت">🗑</button>
+                                            <button type="submit" class="btn btn-sm" style="background:rgba(214,57,57,0.15); color:#D63939; border:1px solid rgba(214,57,57,0.3);" title="حذف تیکت">🗑</button>
                                         </form>
                                     </div>
                                 </div>
@@ -1465,111 +1505,116 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
             </div>
 
         </main>
+        <footer class="g-footer">
+            <span>© پُست‌یار — پنل مدیریت ارشد</span>
+            <span>طراحی بر پایه <a href="https://github.com/ColorlibHQ/gentelella" target="_blank" rel="noopener">Gentelella v4</a></span>
+        </footer>
     </div>
 
+    <script src="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/js/gentelella.js?v=1"></script>
     <script src="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/js/utils.js"></script>
     <script src="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/js/admin.js"></script>
     <script src="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/js/jalalidatepicker.min.js"></script>
     <!-- مدال هدیه دادن اشتراک به کاربر -->
     <div id="giftModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:1000; align-items:center; justify-content:center; padding:1rem;">
-        <div class="card" style="width:100%; max-width:480px; margin:0; position:relative; background:#241F18; border:1px solid #3B342A;">
-            <button onclick="closeGiftModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; color:#B0A695; font-size:1.2rem; cursor:pointer;">✖</button>
-            <h3 style="color:#35C47E; margin-bottom:1.25rem;">🎁 هدیه دادن اشتراک به کاربر</h3>
-            <p style="color:#B0A695; font-size:0.85rem; margin-bottom:1.5rem;">با انتخاب پلن زیر، اشتراک کاربر <strong id="giftUserName" style="color:white;"></strong> به صورت رایگان و فوری فعال/تمدید خواهد شد.</p>
+        <div class="card" style="width:100%; max-width:480px; margin:0; position:relative; background:#F9FAFB; border:1px solid #E6E7EB;">
+            <button onclick="closeGiftModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; color:#626D7D; font-size:1.2rem; cursor:pointer;">✖</button>
+            <h3 style="color:#2FB344; margin-bottom:1.25rem;">🎁 هدیه دادن اشتراک به کاربر</h3>
+            <p style="color:#626D7D; font-size:0.85rem; margin-bottom:1.5rem;">با انتخاب پلن زیر، اشتراک کاربر <strong id="giftUserName" style="color:white;"></strong> به صورت رایگان و فوری فعال/تمدید خواهد شد.</p>
             
             <form action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/grant-subscription-manual'); ?>" method="POST">
                 <?php echo $csrf_field; ?>
                 <input type="hidden" name="user_id" id="giftUserId">
                 <div class="form-group" style="margin-bottom:1.5rem;">
-                    <label for="giftPlanSelect" style="display:block; color:#D6CCC0; margin-bottom:0.5rem;">انتخاب پلن اشتراک هدیه:</label>
-                    <select name="plan_id" id="giftPlanSelect" required style="width:100%; padding:0.75rem; border-radius:10px; background:#171310; color:white; border:1px solid #3B342A;">
+                    <label for="giftPlanSelect" style="display:block; color:#626D7D; margin-bottom:0.5rem;">انتخاب پلن اشتراک هدیه:</label>
+                    <select name="plan_id" id="giftPlanSelect" required style="width:100%; padding:0.75rem; border-radius:10px; background:#F9FAFB; color:white; border:1px solid #E6E7EB;">
                         <?php foreach ($plans as $pl): ?>
                             <option value="<?php echo $pl['id']; ?>"><?php echo htmlspecialchars($pl['title']) . ' (' . \WHCM\Domain\TextFormat::fa_digits($pl['duration_days']) . ' روزه)'; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success" style="width:100%; padding:0.85rem; background:#35C47E; color:white; font-weight:bold; border-radius:12px;">🎁 فعال‌سازی فوری اشتراک هدیه برای کاربر</button>
+                <button type="submit" class="btn btn-success" style="width:100%; padding:0.85rem; background:#2FB344; color:white; font-weight:bold; border-radius:12px;">🎁 فعال‌سازی فوری اشتراک هدیه برای کاربر</button>
             </form>
         </div>
     </div>
 
     <!-- مدال پروفایل ۳۶۰ درجه و سوابق فعالیت کاربر -->
     <div id="userProfileModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1100; align-items:center; justify-content:center; padding:1rem; overflow-y:auto;">
-        <div class="card" style="width:100%; max-width:640px; margin:auto; position:relative; background:#171310; border:1px solid #BC8623; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,0.7);">
-            <button onclick="closeUserProfileModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; color:#B0A695; font-size:1.4rem; cursor:pointer;">✖</button>
+        <div class="card" style="width:100%; max-width:640px; margin:auto; position:relative; background:#F9FAFB; border:1px solid #169F85; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,0.7);">
+            <button onclick="closeUserProfileModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; color:#626D7D; font-size:1.4rem; cursor:pointer;">✖</button>
             
             <!-- هدر کارت پروفایل -->
-            <div style="display:flex; align-items:center; gap:1rem; border-bottom:1px dashed #3B342A; padding-bottom:1.25rem; margin-bottom:1.25rem;">
-                <div style="width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg, #D9A036 0%, #BC8623 100%); display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:white; font-weight:900;">
+            <div style="display:flex; align-items:center; gap:1rem; border-bottom:1px dashed #E6E7EB; padding-bottom:1.25rem; margin-bottom:1.25rem;">
+                <div style="width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg, #169F85 0%, #169F85 100%); display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:white; font-weight:900;">
                     👤
                 </div>
                 <div>
                     <h3 id="up-name" style="color:white; margin:0; font-size:1.25rem; font-weight:900;"></h3>
-                    <span id="up-email" style="color:#B0A695; font-size:0.85rem;"></span>
+                    <span id="up-email" style="color:#626D7D; font-size:0.85rem;"></span>
                 </div>
             </div>
 
             <!-- وضعیت اشتراک فعلی و اعتبار -->
-            <div style="background:rgba(217,160,54,0.1); border:1px solid rgba(217,160,54,0.3); border-radius:12px; padding:1rem; margin-bottom:1.25rem;">
+            <div style="background:rgba(26,187,156,0.1); border:1px solid rgba(26,187,156,0.3); border-radius:12px; padding:1rem; margin-bottom:1.25rem;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-                    <span style="color:#EFC968; font-weight:bold; font-size:0.9rem;">💎 وضعیت اشتراک فعال:</span>
+                    <span style="color:#128771; font-weight:bold; font-size:0.9rem;">💎 وضعیت اشتراک فعال:</span>
                     <span id="up-plan" class="badge badge-success" style="font-size:0.85rem;"></span>
                 </div>
-                <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:#D6CCC0;">
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:#626D7D;">
                     <span>تاریخ عضویت در سایت: <strong id="up-created" style="color:white;"></strong></span>
-                    <span>اعتبار اشتراک تا: <strong id="up-end" style="color:#3DD68C;"></strong></span>
+                    <span>اعتبار اشتراک تا: <strong id="up-end" style="color:#2FB344;"></strong></span>
                 </div>
             </div>
 
             <!-- مشخصات کسب و کار -->
-            <div style="background:rgba(23,19,16,0.7); border:1px solid #241F18; border-radius:12px; padding:1rem; margin-bottom:1.25rem; display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+            <div style="background:rgba(30,38,51,0.098); border:1px solid #F9FAFB; border-radius:12px; padding:1rem; margin-bottom:1.25rem; display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
                 <div>
-                    <span style="font-size:0.75rem; color:#B0A695;">نام کسب و کار:</span>
+                    <span style="font-size:0.75rem; color:#626D7D;">نام کسب و کار:</span>
                     <div id="up-biz-name" style="color:white; font-weight:bold; font-size:0.9rem;"></div>
                 </div>
                 <div>
-                    <span style="font-size:0.75rem; color:#B0A695;">حوزه فعالیت / صنف:</span>
+                    <span style="font-size:0.75rem; color:#626D7D;">حوزه فعالیت / صنف:</span>
                     <div id="up-biz-type" style="color:white; font-weight:bold; font-size:0.9rem;"></div>
                 </div>
             </div>
 
             <!-- ۴ کارت آمار ۳۶۰ درجه عملکرد کاربر -->
-            <h4 style="color:#EFC968; font-size:0.9rem; margin-bottom:0.75rem;">📊 آمار جامع و تفکیکی عملکرد ۳۶۰ درجه</h4>
+            <h4 style="color:#128771; font-size:0.9rem; margin-bottom:0.75rem;">📊 آمار جامع و تفکیکی عملکرد ۳۶۰ درجه</h4>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:1.5rem;">
-                <div style="background:#241F18; border-radius:10px; padding:0.85rem; text-align:center; border:1px solid #3B342A;">
-                    <div style="font-size:0.75rem; color:#B0A695; margin-bottom:0.25rem;">📻 کانال‌های متصل شده</div>
-                    <strong id="up-channels" style="color:#6AA9DE; font-size:1.2rem;">۰</strong>
+                <div style="background:#F9FAFB; border-radius:10px; padding:0.85rem; text-align:center; border:1px solid #E6E7EB;">
+                    <div style="font-size:0.75rem; color:#626D7D; margin-bottom:0.25rem;">📻 کانال‌های متصل شده</div>
+                    <strong id="up-channels" style="color:#4299E1; font-size:1.2rem;">۰</strong>
                 </div>
-                <div style="background:#241F18; border-radius:10px; padding:0.85rem; text-align:center; border:1px solid #3B342A;">
-                    <div style="font-size:0.75rem; color:#B0A695; margin-bottom:0.25rem;">📝 پست‌های ارسالی</div>
-                    <strong id="up-posts" style="color:#3DD68C; font-size:1.2rem;">۰</strong>
+                <div style="background:#F9FAFB; border-radius:10px; padding:0.85rem; text-align:center; border:1px solid #E6E7EB;">
+                    <div style="font-size:0.75rem; color:#626D7D; margin-bottom:0.25rem;">📝 پست‌های ارسالی</div>
+                    <strong id="up-posts" style="color:#2FB344; font-size:1.2rem;">۰</strong>
                 </div>
-                <div style="background:#241F18; border-radius:10px; padding:0.85rem; text-align:center; border:1px solid #3B342A;">
-                    <div style="font-size:0.75rem; color:#B0A695; margin-bottom:0.25rem;">🎫 تیکت‌های پشتیبانی</div>
-                    <strong id="up-tickets" style="color:#F98E3F; font-size:1.2rem;">۰</strong>
+                <div style="background:#F9FAFB; border-radius:10px; padding:0.85rem; text-align:center; border:1px solid #E6E7EB;">
+                    <div style="font-size:0.75rem; color:#626D7D; margin-bottom:0.25rem;">🎫 تیکت‌های پشتیبانی</div>
+                    <strong id="up-tickets" style="color:#B45309; font-size:1.2rem;">۰</strong>
                 </div>
-                <div style="background:#241F18; border-radius:10px; padding:0.85rem; text-align:center; border:1px solid #3B342A;">
-                    <div style="font-size:0.75rem; color:#B0A695; margin-bottom:0.25rem;">💳 کل واریزی‌های تایید شده</div>
-                    <strong id="up-payments" style="color:#C77E3C; font-size:1.2rem;">۰ تومان</strong>
+                <div style="background:#F9FAFB; border-radius:10px; padding:0.85rem; text-align:center; border:1px solid #E6E7EB;">
+                    <div style="font-size:0.75rem; color:#626D7D; margin-bottom:0.25rem;">💳 کل واریزی‌های تایید شده</div>
+                    <strong id="up-payments" style="color:#732088; font-size:1.2rem;">۰ تومان</strong>
                 </div>
             </div>
 
             <!-- اقدامات سریع مدیریتی روی کاربر -->
-            <div style="display:flex; justify-content:space-between; gap:0.75rem; border-top:1px dashed #3B342A; padding-top:1rem;">
-                <button type="button" class="btn btn-success" style="flex:1; background:#35C47E; border:none;" onclick="triggerGiftFromProfile()">🎁 هدیه اشتراک</button>
-                <button type="button" class="btn" style="flex:1; background:rgba(255,255,255,0.08); color:white; border:1px solid #3B342A;" onclick="closeUserProfileModal()">بستن پنجره</button>
+            <div style="display:flex; justify-content:space-between; gap:0.75rem; border-top:1px dashed #E6E7EB; padding-top:1rem;">
+                <button type="button" class="btn btn-success" style="flex:1; background:#2FB344; border:none;" onclick="triggerGiftFromProfile()">🎁 هدیه اشتراک</button>
+                <button type="button" class="btn" style="flex:1; background:rgba(30,38,51,0.06); color:white; border:1px solid #E6E7EB;" onclick="closeUserProfileModal()">بستن پنجره</button>
             </div>
         </div>
     </div>
     <!-- مدال گفتگو و مدیریت حرفه‌ای تیکت توسط ادمین ارشد -->
     <div id="adminTicketModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1200; align-items:center; justify-content:center; padding:1rem; overflow-y:auto;">
-        <div class="card" style="width:100%; max-width:620px; margin:auto; position:relative; background:#171310; border:1px solid #D9A036; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,0.8);">
-            <button onclick="closeAdminTicketModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; color:#B0A695; font-size:1.4rem; cursor:pointer;">✖</button>
+        <div class="card" style="width:100%; max-width:620px; margin:auto; position:relative; background:#F9FAFB; border:1px solid #169F85; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,0.8);">
+            <button onclick="closeAdminTicketModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; color:#626D7D; font-size:1.4rem; cursor:pointer;">✖</button>
             
-            <div style="border-bottom:1px dashed #3B342A; padding-bottom:1rem; margin-bottom:1.25rem;">
+            <div style="border-bottom:1px dashed #E6E7EB; padding-bottom:1rem; margin-bottom:1.25rem;">
                 <span id="at-modal-status" class="badge" style="float:left; margin-top:2px;"></span>
                 <h3 id="at-modal-subject" style="color:white; margin:0; font-size:1.15rem; font-weight:900;"></h3>
-                <span id="at-modal-user" style="font-size:0.8rem; color:#B0A695; display:block; margin-top:0.3rem;"></span>
+                <span id="at-modal-user" style="font-size:0.8rem; color:#626D7D; display:block; margin-top:0.3rem;"></span>
             </div>
 
             <div id="at-modal-body" style="display:flex; flex-direction:column; gap:1rem; max-height:380px; overflow-y:auto; padding-right:0.5rem; margin-bottom:1.5rem;">
@@ -1581,22 +1626,22 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                 <?php echo $csrf_field; ?>
                 <input type="hidden" name="ticket_id" id="at-reply-id">
                 <div class="form-group" style="margin-bottom:0.75rem;">
-                    <textarea name="reply" rows="3" required placeholder="پاسخ کارشناس پشتیبانی را بنویسید..." style="width:100%; border-radius:10px; background:#241F18; color:white; border:1px solid #3B342A; padding:0.75rem;"></textarea>
+                    <textarea name="reply" rows="3" required placeholder="پاسخ کارشناس پشتیبانی را بنویسید..." style="width:100%; border-radius:10px; background:#F9FAFB; color:white; border:1px solid #E6E7EB; padding:0.75rem;"></textarea>
                 </div>
                 <div class="form-group">
-                    <label style="font-size:0.8rem; color:#B0A695;">پیوست تصویر (اختیاری):</label>
+                    <label style="font-size:0.8rem; color:#626D7D;">پیوست تصویر (اختیاری):</label>
                     <input type="file" name="attachment" accept="image/*,.pdf" style="padding:0.4rem; font-size:0.8rem;">
                 </div>
                 <div class="form-group">
-                    <label style="font-size:0.8rem; color:#B0A695;">ارجاع به پشتیبان دیگر (اختیاری):</label>
-                    <select name="assigned_to" style="width:100%; padding:0.5rem; border-radius:8px; background:#241F18; color:white; border:1px solid #3B342A;">
+                    <label style="font-size:0.8rem; color:#626D7D;">ارجاع به پشتیبان دیگر (اختیاری):</label>
+                    <select name="assigned_to" style="width:100%; padding:0.5rem; border-radius:8px; background:#F9FAFB; color:white; border:1px solid #E6E7EB;">
                         <option value="0">— بدون ارجاع —</option>
                         <?php foreach ($users as $au): if(($au['role'] ?? '')==='superadmin' || ($au['role'] ?? '')==='support_agent'): ?>
                         <option value="<?php echo $au['id']; ?>"><?php echo htmlspecialchars($au['name']); ?> (<?php echo htmlspecialchars($au['email']); ?>)<?php echo ($au['role'] ?? '')==='support_agent' ? ' 🎧' : ' 👑'; ?></option>
                         <?php endif; endforeach; ?>
                     </select>
                 </div>
-                <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.85rem; color:#FBAF6B; margin-bottom:0.75rem; cursor:pointer;"><input type="checkbox" name="close_after_reply" value="1"> ارسال و بستن همزمان تیکت</label>
+                <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.85rem; color:#B45309; margin-bottom:0.75rem; cursor:pointer;"><input type="checkbox" name="close_after_reply" value="1"> ارسال و بستن همزمان تیکت</label>
                 <button type="submit" class="btn btn-success" style="width:100%; padding:0.75rem;">ارسال پاسخ پشتیبانی به کاربر ✔</button>
             </form>
 
@@ -1604,21 +1649,21 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
             <form action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/close-ticket'); ?>" method="POST" style="margin:0;">
                 <?php echo $csrf_field; ?>
                 <input type="hidden" name="ticket_id" id="at-close-id">
-                <button type="submit" class="btn btn-danger" style="width:100%; padding:0.6rem; font-size:0.85rem; background:rgba(240,100,92,0.2); border:1px solid #F0645C; color:#F0645C;">بستن این تیکت بدون پاسخ</button>
+                <button type="submit" class="btn btn-danger" style="width:100%; padding:0.6rem; font-size:0.85rem; background:rgba(214,57,57,0.2); border:1px solid #D63939; color:#D63939;">بستن این تیکت بدون پاسخ</button>
             </form>
         </div>
     </div>
 
     <!-- مدال ایجاد تیکت جدید (ارسال پیام ادمین به کاربر) -->
     <div id="newTicketModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1300; align-items:center; justify-content:center; padding:1rem; overflow-y:auto;">
-        <div class="card" style="width:100%; max-width:540px; margin:auto; position:relative; background:#171310; border:1px solid #D9A036; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,0.8);">
-            <button onclick="document.getElementById('newTicketModal').style.display='none'" style="position:absolute; top:15px; left:15px; background:none; border:none; color:#B0A695; font-size:1.4rem; cursor:pointer;">✖</button>
-            <h3 style="color:#EFC968; margin-bottom:1.5rem;">✉️ ارسال پیام جدید به کاربر</h3>
+        <div class="card" style="width:100%; max-width:540px; margin:auto; position:relative; background:#F9FAFB; border:1px solid #169F85; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,0.8);">
+            <button onclick="document.getElementById('newTicketModal').style.display='none'" style="position:absolute; top:15px; left:15px; background:none; border:none; color:#626D7D; font-size:1.4rem; cursor:pointer;">✖</button>
+            <h3 style="color:#128771; margin-bottom:1.5rem;">✉️ ارسال پیام جدید به کاربر</h3>
             <form action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/create-ticket'); ?>" method="POST" enctype="multipart/form-data">
                 <?php echo $csrf_field; ?>
                 <div class="form-group">
-                    <label>انتخاب کاربر مقصد <span style="color:#F0645C;">*</span></label>
-                    <select name="target_user_id" required style="width:100%; padding:0.75rem; border-radius:10px; background:#241F18; color:white; border:1px solid #3B342A;">
+                    <label>انتخاب کاربر مقصد <span style="color:#D63939;">*</span></label>
+                    <select name="target_user_id" required style="width:100%; padding:0.75rem; border-radius:10px; background:#F9FAFB; color:white; border:1px solid #E6E7EB;">
                         <option value="">— کاربر را انتخاب کنید —</option>
                         <?php foreach ($users as $u): ?>
                             <option value="<?php echo $u['id']; ?>"><?php echo htmlspecialchars($u['name']); ?> (<?php echo htmlspecialchars($u['email']); ?>)</option>
@@ -1626,13 +1671,13 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>موضوع پیام <span style="color:#F0645C;">*</span></label>
-                    <input type="text" name="subject" required placeholder="موضوع پیام یا تیکت..." style="width:100%; padding:0.75rem; border-radius:10px; background:#241F18; color:white; border:1px solid #3B342A;">
+                    <label>موضوع پیام <span style="color:#D63939;">*</span></label>
+                    <input type="text" name="subject" required placeholder="موضوع پیام یا تیکت..." style="width:100%; padding:0.75rem; border-radius:10px; background:#F9FAFB; color:white; border:1px solid #E6E7EB;">
                 </div>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
                     <div class="form-group">
                         <label>دسته‌بندی</label>
-                        <select name="category" style="width:100%; padding:0.75rem; border-radius:10px; background:#241F18; color:white; border:1px solid #3B342A;">
+                        <select name="category" style="width:100%; padding:0.75rem; border-radius:10px; background:#F9FAFB; color:white; border:1px solid #E6E7EB;">
                             <option value="general">🔍 عمومی</option>
                             <option value="technical">💻 فنی</option>
                             <option value="billing">💳 مالی</option>
@@ -1643,7 +1688,7 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     </div>
                     <div class="form-group">
                         <label>اولویت</label>
-                        <select name="priority" style="width:100%; padding:0.75rem; border-radius:10px; background:#241F18; color:white; border:1px solid #3B342A;">
+                        <select name="priority" style="width:100%; padding:0.75rem; border-radius:10px; background:#F9FAFB; color:white; border:1px solid #E6E7EB;">
                             <option value="low">🟢 پایین</option>
                             <option value="normal" selected>🟡 عادی</option>
                             <option value="high">🟠 بالا</option>
@@ -1652,11 +1697,11 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>متن پیام <span style="color:#F0645C;">*</span></label>
-                    <textarea name="message" rows="5" required placeholder="متن پیام خود را بنویسید..." style="width:100%; padding:0.75rem; border-radius:10px; background:#241F18; color:white; border:1px solid #3B342A; line-height:1.8;"></textarea>
+                    <label>متن پیام <span style="color:#D63939;">*</span></label>
+                    <textarea name="message" rows="5" required placeholder="متن پیام خود را بنویسید..." style="width:100%; padding:0.75rem; border-radius:10px; background:#F9FAFB; color:white; border:1px solid #E6E7EB; line-height:1.8;"></textarea>
                 </div>
                 <div class="form-group">
-                    <label style="font-size:0.8rem; color:#B0A695;">پیوست فایل (اختیاری):</label>
+                    <label style="font-size:0.8rem; color:#626D7D;">پیوست فایل (اختیاری):</label>
                     <input type="file" name="attachment" accept="image/*,.pdf" style="padding:0.4rem; font-size:0.8rem;">
                 </div>
                 <button type="submit" class="btn btn-success" style="width:100%; padding:0.85rem;">📤 ارسال پیام به کاربر</button>
@@ -1698,11 +1743,11 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
         }
 
         row.innerHTML =
-            '<input type="text" placeholder="slug" value="' + (slug || '') + '" style="width:100%;background:#171310;color:#B0A695;border:1px solid #3B342A;border-radius:8px;padding:0.5rem;font-size:0.8rem;direction:ltr;" class="cat-slug">' +
-            '<input type="text" placeholder="عنوان" value="' + (title || '') + '" style="width:100%;background:#171310;color:white;border:1px solid #3B342A;border-radius:8px;padding:0.5rem;" class="cat-title">' +
-            '<input type="text" placeholder="ایموجی" value="' + (icon || '🌐') + '" style="width:50px;text-align:center;background:#171310;color:white;border:1px solid #3B342A;border-radius:8px;padding:0.5rem;font-size:1.1rem;" class="cat-icon">' +
-            '<select style="background:#171310;color:white;border:1px solid #3B342A;border-radius:8px;padding:0.5rem;font-size:0.8rem;" class="cat-agent">' + agentOptions + '</select>' +
-            '<button type="button" onclick="this.closest(\'.cat-edit-row\').remove()" style="background:rgba(240,100,92,0.15);color:#F5837C;border:1px solid rgba(240,100,92,0.3);border-radius:8px;padding:0.5rem 0.6rem;cursor:pointer;font-size:0.9rem;">✖</button>';
+            '<input type="text" placeholder="slug" value="' + (slug || '') + '" style="width:100%;background:#F9FAFB;color:#626D7D;border:1px solid #E6E7EB;border-radius:8px;padding:0.5rem;font-size:0.8rem;direction:ltr;" class="cat-slug">' +
+            '<input type="text" placeholder="عنوان" value="' + (title || '') + '" style="width:100%;background:#F9FAFB;color:white;border:1px solid #E6E7EB;border-radius:8px;padding:0.5rem;" class="cat-title">' +
+            '<input type="text" placeholder="ایموجی" value="' + (icon || '🌐') + '" style="width:50px;text-align:center;background:#F9FAFB;color:white;border:1px solid #E6E7EB;border-radius:8px;padding:0.5rem;font-size:1.1rem;" class="cat-icon">' +
+            '<select style="background:#F9FAFB;color:white;border:1px solid #E6E7EB;border-radius:8px;padding:0.5rem;font-size:0.8rem;" class="cat-agent">' + agentOptions + '</select>' +
+            '<button type="button" onclick="this.closest(\'.cat-edit-row\').remove()" style="background:rgba(214,57,57,0.15);color:#D63939;border:1px solid rgba(214,57,57,0.3);border-radius:8px;padding:0.5rem 0.6rem;cursor:pointer;font-size:0.9rem;">✖</button>';
         area.appendChild(row);
     }
 

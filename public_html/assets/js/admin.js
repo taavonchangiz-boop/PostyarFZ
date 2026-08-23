@@ -171,31 +171,31 @@ function openAdminTicketModal(t) {
         bubble.style.lineHeight = "1.8";
         bubble.style.fontSize = "0.9rem";
         if (i === 0) {
-            bubble.style.background = "#241F18";
-            bubble.style.border = "1px solid #3B342A";
-            bubble.style.color = "#E9E2D6";
+            bubble.style.background = "#F9FAFB";
+            bubble.style.border = "1px solid #E6E7EB";
+            bubble.style.color = "#1E2633";
             var adminMatch = text.match(/^\[پیام مدیر سیستم \(([^)]+)\) در تاریخ ([^\]]+)\]:\s*([\s\S]*)$/m);
             if (adminMatch) {
-                bubble.innerHTML = '<div style="font-size:0.8rem; color:#FBAF6B; font-weight:900; margin-bottom:0.4rem;">👑 پیام مدیر سیستم (' + adminMatch[1] + '):</div><div style="font-size:0.7rem; color:#8A7F72; margin-bottom:0.5rem;">📅 ' + adminMatch[2] + '</div>' + adminMatch[3].replace(/\n/g, "<br>");
+                bubble.innerHTML = '<div style="font-size:0.8rem; color:#B45309; font-weight:900; margin-bottom:0.4rem;">👑 پیام مدیر سیستم (' + adminMatch[1] + '):</div><div style="font-size:0.7rem; color:#AEB6C0; margin-bottom:0.5rem;">📅 ' + adminMatch[2] + '</div>' + adminMatch[3].replace(/\n/g, "<br>");
             } else {
-                bubble.innerHTML = '<div style="font-size:0.75rem; color:#E5B44E; font-weight:bold; margin-bottom:0.4rem;">👤 پیام کاربر (' + (t.user_name || "کاربر") + '):</div>' + text.replace(/\n/g, "<br>");
+                bubble.innerHTML = '<div style="font-size:0.75rem; color:#0F6E5D; font-weight:bold; margin-bottom:0.4rem;">👤 پیام کاربر (' + (t.user_name || "کاربر") + '):</div>' + text.replace(/\n/g, "<br>");
             }
         } else {
-            bubble.style.background = "linear-gradient(135deg, rgba(217,160,54,0.15) 0%, rgba(23,19,16,0.9) 100%)";
-            bubble.style.border = "1px solid #D9A036";
+            bubble.style.background = "linear-gradient(135deg, rgba(26,187,156,0.15) 0%, rgba(30,38,51,0.1) 100%)";
+            bubble.style.border = "1px solid #169F85";
             bubble.style.color = "#ffffff";
             var supportMatch = text.match(/^\[پاسخ پشتیبان در تاریخ ([^\]]+)\]:\s*([\s\S]*)$/m);
             var userReplyMatch = text.match(/^\[پاسخ کاربر در تاریخ ([^\]]+)\]:\s*([\s\S]*)$/m);
             var headerHtml = '';
             var bodyText = text;
             if (supportMatch) {
-                headerHtml = '<div style="font-size:0.8rem; color:#3DD68C; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ پشتیبانی:</div><div style="font-size:0.7rem; color:#8A7F72; margin-bottom:0.5rem;">📅 ' + supportMatch[1] + '</div>';
+                headerHtml = '<div style="font-size:0.8rem; color:#2FB344; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ پشتیبانی:</div><div style="font-size:0.7rem; color:#AEB6C0; margin-bottom:0.5rem;">📅 ' + supportMatch[1] + '</div>';
                 bodyText = supportMatch[2];
             } else if (userReplyMatch) {
-                headerHtml = '<div style="font-size:0.8rem; color:#E5B44E; font-weight:900; margin-bottom:0.4rem;">👤 پاسخ کاربر:</div><div style="font-size:0.7rem; color:#8A7F72; margin-bottom:0.5rem;">📅 ' + userReplyMatch[1] + '</div>';
+                headerHtml = '<div style="font-size:0.8rem; color:#0F6E5D; font-weight:900; margin-bottom:0.4rem;">👤 پاسخ کاربر:</div><div style="font-size:0.7rem; color:#AEB6C0; margin-bottom:0.5rem;">📅 ' + userReplyMatch[1] + '</div>';
                 bodyText = userReplyMatch[2];
             } else {
-                headerHtml = '<div style="font-size:0.8rem; color:#3DD68C; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ پشتیبانی:</div>';
+                headerHtml = '<div style="font-size:0.8rem; color:#2FB344; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ پشتیبانی:</div>';
             }
             bubble.innerHTML = headerHtml + bodyText.replace(/\n/g, "<br>");
         }
@@ -257,11 +257,11 @@ document.addEventListener('DOMContentLoaded', function(){
                     '<h2>📊 آمار تفکیکی انتشارها و بازخوردها</h2>' +
                     '<p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem;">نمایش دقیق بازخورد هر پست به تفکیک کانال — کلیک کل، یکتا و نرخ تعامل (داده‌ها از همین دیتابیس پُست‌یار)</p>' +
                     '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;">' +
-                        '<div style="background:#171310;border:1px solid #241F18;border-radius:12px;padding:1rem;text-align:center;"><div style="font-size:0.8rem;color:#B0A695;">کل پست‌های ارسالی</div><strong style="color:#4AD6BE;font-size:1.4rem;">' + (document.querySelectorAll('#section-users tbody tr').length || 0) + ' پست</strong></div>' +
-                        '<div style="background:#171310;border:1px solid #241F18;border-radius:12px;padding:1rem;text-align:center;"><div style="font-size:0.8rem;color:#B0A695;">کل کانال‌های فعال</div><strong style="color:#35C47E;font-size:1.4rem;">' + (document.querySelectorAll('#section-plans tbody tr').length || 0) + ' کانال</strong></div>' +
-                        '<div style="background:#171310;border:1px solid #241F18;border-radius:12px;padding:1rem;text-align:center;"><div style="font-size:0.8rem;color:#B0A695;">تیکت‌های باز</div><strong style="color:#F98E3F;font-size:1.4rem;">' + (document.querySelectorAll('#section-tickets tbody tr').length || 0) + ' تیکت</strong></div>' +
+                        '<div style="background:#F9FAFB;border:1px solid #F9FAFB;border-radius:12px;padding:1rem;text-align:center;"><div style="font-size:0.8rem;color:#626D7D;">کل پست‌های ارسالی</div><strong style="color:#0B5ED7;font-size:1.4rem;">' + (document.querySelectorAll('#section-users tbody tr').length || 0) + ' پست</strong></div>' +
+                        '<div style="background:#F9FAFB;border:1px solid #F9FAFB;border-radius:12px;padding:1rem;text-align:center;"><div style="font-size:0.8rem;color:#626D7D;">کل کانال‌های فعال</div><strong style="color:#2FB344;font-size:1.4rem;">' + (document.querySelectorAll('#section-plans tbody tr').length || 0) + ' کانال</strong></div>' +
+                        '<div style="background:#F9FAFB;border:1px solid #F9FAFB;border-radius:12px;padding:1rem;text-align:center;"><div style="font-size:0.8rem;color:#626D7D;">تیکت‌های باز</div><strong style="color:#B45309;font-size:1.4rem;">' + (document.querySelectorAll('#section-tickets tbody tr').length || 0) + ' تیکت</strong></div>' +
                     '</div>' +
-                    '<div style="font-size:0.8rem;color:#8A7F72;text-align:center;">آمار به صورت زنده از همین جداول محاسبه می‌شود — برای جزئیات هر کانال، تب «مدیریت کاربران» → پروفایل ۳۶۰ درجه را ببینید</div>';
+                    '<div style="font-size:0.8rem;color:#AEB6C0;text-align:center;">آمار به صورت زنده از همین جداول محاسبه می‌شود — برای جزئیات هر کانال، تب «مدیریت کاربران» → پروفایل ۳۶۰ درجه را ببینید</div>';
     grid.parentNode.insertBefore(card, grid.nextSibling);
   }
 });

@@ -1,10 +1,10 @@
 /* ============================================================
-   پُست‌یار — سامانه طراحی «زرّین» v3.0 (2025)
-   فایل پایه مشترک: توکن‌های طراحی، فونت Vazirmatn، فرم، فوکوس، تقویم شمسی
-   RTL-first · Desktop-optimized · Mobile/Tablet responsive
+   پُست‌یار × Gentelella v4 — فایل پایه مشترک
+   فونت Vazirmatn (تنها فونت سامانه) + پوسته روشن تقویم شمسی + ابزارها
+   توکن‌های طراحی و سیستم کامل در gentelella.css قرار دارد.
    ============================================================ */
 
-/* ---------- ۱) فونت Vazirmatn (تنها فونت مجاز سامانه) ---------- */
+/* ---------- ۱) فونت Vazirmatn (۸ وزن) ---------- */
 @font-face{font-family:Vazirmatn;src:url('../fonts/Vazirmatn-Thin.woff2') format('woff2');font-weight:100;font-style:normal;font-display:swap}
 @font-face{font-family:Vazirmatn;src:url('../fonts/Vazirmatn-Light.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap}
 @font-face{font-family:Vazirmatn;src:url('../fonts/Vazirmatn-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
@@ -14,129 +14,55 @@
 @font-face{font-family:Vazirmatn;src:url('../fonts/Vazirmatn-ExtraBold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}
 @font-face{font-family:Vazirmatn;src:url('../fonts/Vazirmatn-Black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap}
 
-/* ---------- ۲) توکن‌های طراحی (Design Tokens) ---------- */
-:root{
-  /* فونت */
-  --py-font:Vazirmatn,Tahoma,sans-serif;
-
-  /* خنثی — گرم (Warm Stone) */
-  --py-bg:#0D0B08;            /* 13,11,8 · 36°,24%,4% */
-  --py-bg-2:#14110D;          /* 20,17,13 · 36°,21%,6% */
-  --py-s0:#1B1712;            /* 27,23,18 · 36°,20%,9% */
-  --py-s1:#241F18;            /* 36,31,24 · 37°,20%,12% */
-  --py-s2:#2E2820;            /* 46,40,32 · 37°,18%,15% */
-  --py-s3:#3B342A;            /* 59,52,42 · 37°,17%,20% */
-
-  /* متن */
-  --py-text:#FBF8F3;          /* 251,248,243 · 40°,40%,97% */
-  --py-text-2:#E9E2D6;        /* 233,226,214 · 39°,30%,88% */
-  --py-muted:#B0A695;         /* 176,166,149 · 39°,14%,64% */
-  --py-faint:#7D7365;         /* 125,115,101 · 38°,11%,44% */
-
-  /* خطوط */
-  --py-line:rgba(233,226,214,.10);
-  --py-line-strong:rgba(229,180,78,.32);
-
-  /* اصلی — طلایی (Gold) */
-  --py-primary:#E5B44E;       /* 229,180,78 · 42°,75%,60% */
-  --py-primary-strong:#D9A036;/* 217,160,54 · 41°,69%,53% */
-  --py-primary-deep:#BC8623;  /* 188,134,35 · 40°,69%,44% */
-  --py-primary-light:#EFC968; /* 239,201,104 · 43°,82%,67% */
-  --py-primary-text:#1F1502;  /* متن روی طلایی */
-  --py-primary-soft:rgba(229,180,78,.12);
-  --py-primary-grad:linear-gradient(135deg,#EDBE55,#D9A036);
-  --py-primary-grad-deep:linear-gradient(145deg,#EFC968,#BC8623);
-
-  /* ثانویه — فیروزه‌ای (Teal) */
-  --py-cyan:#4AD6BE;          /* 74,214,190 · 169°,64%,56% */
-  --py-cyan-soft:rgba(74,214,190,.12);
-
-  /* بازخورد */
-  --py-success:#3DD68C;       /* 61,214,140 · 149°,66%,54% */
-  --py-success-strong:#2BB377;
-  --py-warning:#F98E3F;       /* 249,142,63 · 27°,94%,61% */
-  --py-warning-strong:#E07A2F;
-  --py-danger:#F0645C;        /* 240,100,92 · 3°,84%,65% */
-  --py-danger-strong:#DC4B44;
-
-  /* شعاع */
-  --py-radius-xs:10px;
-  --py-radius-sm:12px;
-  --py-radius-md:16px;
-  --py-radius-lg:20px;
-  --py-radius-xl:26px;
-
-  /* سایه و حرکت */
-  --py-shadow-1:0 12px 32px rgba(6,4,2,.24);
-  --py-shadow-2:0 26px 64px rgba(6,4,2,.38);
-  --py-shadow-gold:0 12px 28px rgba(217,160,54,.22);
-  --py-ease:cubic-bezier(.22,.8,.24,1);
-  --py-ring:0 0 0 4px rgba(229,180,78,.26);
-
-  /* سازگاری با کدهای قدیمی (Legacy Variable Aliases) */
-  --primary:var(--py-primary);
-  --primary-soft:var(--py-primary-soft);
-  --warning:var(--py-warning);
-  --success:var(--py-success);
-  --danger:var(--py-danger);
-  --border:var(--py-line);
-  --border-color:var(--py-line);
-  --line:var(--py-line);
-  --text:var(--py-text);
-  --text-primary:var(--py-text);
-  --text-muted:var(--py-muted);
-  --muted:var(--py-muted);
-  --indigo:var(--py-primary);
-  --green:var(--py-success);
-  --card-bg:var(--py-s0);
-  --card-bg-2:var(--py-s1);
-  --bg:var(--py-bg);
-  --bg-dark:var(--py-bg-2);
-  --bg-secondary:var(--py-s1);
+/* ---------- ۲) پوسته روشن تقویم شمسی (Jalali DatePicker) ---------- */
+.jdp-container{
+  direction:rtl!important;
+  background:#fff!important;
+  border:1px solid var(--border-color,#e6e7eb)!important;
+  border-radius:8px!important;
+  box-shadow:0 8px 24px rgba(15,23,42,.12),0 0 0 1px rgba(4,32,69,.08)!important;
+  color:#1e2633!important;
+  font-family:Vazirmatn,Tahoma,sans-serif!important;
+  z-index:9999999!important;padding:10px!important;
+}
+.jdp-container .jdp-icon-plus,.jdp-container .jdp-icon-minus{fill:#1ABB9C!important}
+.jdp-container .jdp-months,.jdp-container .jdp-years{background:#f9fafb!important;border-radius:6px!important}
+.jdp-container .jdp-day,.jdp-container .jdp-month,.jdp-container .jdp-year{
+  border-radius:5px!important;
+  transition:background .15s,color .15s!important;
+}
+.jdp-container .jdp-day:hover,.jdp-container .jdp-month:hover,.jdp-container .jdp-year:hover{
+  background:rgba(26,187,156,.12)!important;color:#0f6e5d!important;
+}
+.jdp-container .jdp-day.selected,.jdp-container .jdp-month.selected,.jdp-container .jdp-year.selected{
+  background:#1ABB9C!important;color:#fff!important;font-weight:700!important;
+  box-shadow:0 4px 12px rgba(26,187,156,.3)!important;
+}
+.jdp-container .jdp-day.today{border:1px solid rgba(47,179,68,.6)!important;color:#1e7e34!important}
+.jdp-container .jdp-footer{background:#f9fafb!important;border-top:1px solid #e6e7eb!important;border-radius:0 0 6px 6px!important}
+.jdp-container .jdp-btn-today{
+  background:rgba(47,179,68,.08)!important;color:#1e7e34!important;
+  border:1px solid rgba(47,179,68,.3)!important;border-radius:5px!important;
+  font-weight:700!important;padding:6px 12px!important;
 }
 
-/* ---------- ۳) پایه و ریست ---------- */
-html{direction:rtl;font-family:var(--py-font);text-size-adjust:100%;-webkit-text-size-adjust:100%}
-body,button,input,textarea,select{font-family:var(--py-font)}
-*{box-sizing:border-box}
-::selection{background:rgba(229,180,78,.35);color:#FFF9EC}
-button,input,select,textarea{font:inherit}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--py-primary);outline-offset:3px;border-radius:4px}
+/* ---------- ۳) ابزارهای مشترک ---------- */
+html{direction:rtl;font-family:Vazirmatn,Tahoma,sans-serif;text-size-adjust:100%}
+body,button,input,textarea,select{font-family:Vazirmatn,Tahoma,sans-serif}
+::selection{background:rgba(26,187,156,.25);color:#0f6e5d}
 img{max-width:100%}
-
-/* اسکرول‌بار ظریف گرم */
-*::-webkit-scrollbar{width:8px;height:8px}
-*::-webkit-scrollbar-track{background:transparent}
-*::-webkit-scrollbar-thumb{background:#3B342A;border-radius:99px;border:2px solid transparent;background-clip:padding-box}
-*::-webkit-scrollbar-thumb:hover{background:#57493A;border-radius:99px;border:2px solid transparent;background-clip:padding-box}
-*{scrollbar-width:thin;scrollbar-color:#3B342A transparent}
-
-/* ---------- ۴) ابزارهای مشترک ---------- */
 .dir-ltr,[dir=ltr]{direction:ltr;text-align:left!important}
 .hidden{display:none!important}
 .visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-
-/* اعداد جدولی برای KPI و مبالغ */
 .tabular-nums,.value,.price{font-variant-numeric:tabular-nums}
 
-/* ---------- ۵) تقویم شمسی (Jalali DatePicker) — پوسته زرّین ---------- */
-.jdp-container{direction:rtl!important;background:rgba(27,23,18,.98)!important;border:1px solid var(--py-line-strong)!important;border-radius:18px!important;box-shadow:var(--py-shadow-2),0 0 0 1px rgba(255,255,255,.03)!important;color:#E9E2D6!important;font-family:var(--py-font)!important;z-index:9999999!important;padding:12px!important}
-.jdp-container .jdp-icon-plus,.jdp-container .jdp-icon-minus{fill:var(--py-primary-light)!important}
-.jdp-container .jdp-months,.jdp-container .jdp-years{background:var(--py-s2)!important;border-radius:12px!important}
-.jdp-container .jdp-day,.jdp-container .jdp-month,.jdp-container .jdp-year{border-radius:10px!important;transition:background .18s var(--py-ease),color .18s var(--py-ease),transform .18s var(--py-ease)!important}
-.jdp-container .jdp-day:hover,.jdp-container .jdp-month:hover,.jdp-container .jdp-year:hover{background:rgba(229,180,78,.18)!important;color:#FFF9EC!important}
-.jdp-container .jdp-day.selected,.jdp-container .jdp-month.selected,.jdp-container .jdp-year.selected{background:var(--py-primary-grad)!important;color:var(--py-primary-text)!important;font-weight:800!important;box-shadow:0 8px 20px rgba(217,160,54,.3)!important}
-.jdp-container .jdp-day.today{border:1px solid rgba(61,214,140,.75)!important;color:#8CEBB8!important}
-.jdp-container .jdp-footer{background:var(--py-s2)!important;border-top:1px solid var(--py-line)!important;border-radius:0 0 12px 12px!important}
-.jdp-container .jdp-btn-today{background:rgba(61,214,140,.14)!important;color:#8CEBB8!important;border:1px solid rgba(61,214,140,.28)!important;border-radius:9px!important;font-weight:700!important;padding:7px 12px!important}
-
-/* حذف اسپینر اعداد — ظاهر تمیزتر در فرم‌ها */
+/* اعداد لاتین در فیلدهای عددی خواناتر */
 input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 input[type=number]{-moz-appearance:textfield}
 
-/* ---------- ۶) دکمه اختصاصی بلوبانک (برند بانک — آبی فولادی ملایم) ---------- */
-.btn-bluebank{border-color:rgba(63,127,204,.42)!important;color:#EAF2FB!important;background:linear-gradient(135deg,#3F7FCC,#2C5FA6)!important;box-shadow:0 10px 22px rgba(44,95,166,.2)}
-.btn-bluebank:hover{filter:brightness(1.08)}
+/* ---------- ۴) دکمه اختصاصی بلوبانک (برند بانک — آبی فولادی) ---------- */
+.btn-bluebank{border-color:rgba(63,127,204,.45)!important;color:#2c5fa6!important;background:linear-gradient(135deg,#eaf2fb,#d7e7f8)!important;box-shadow:0 1px 3px rgba(44,95,166,.12)}
+.btn-bluebank:hover{filter:brightness(1.02)}
 
-/* ---------- ۷) احترام به کاهش حرکت ---------- */
+/* ---------- ۵) احترام به کاهش حرکت ---------- */
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}

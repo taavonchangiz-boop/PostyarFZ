@@ -2,7 +2,7 @@
 
 سامانه هوشمند مدیریت و انتشار چندکاناله در تلگرام و بله · Persian RTL SaaS
 
-> این نسخه شامل **بازطراحی کامل رابط کاربری ۲۰۲۵** با سامانه طراحی **«زرّین» (Zarrin)** است — بدون هیچ تغییری در منطق برنامه، جفــتان داده، عملکردهای backend و منطق کسب‌وکار.
+> این نسخه شامل **بازطراحی کامل رابط کاربری بر پایه قالب [Gentelella v4](https://github.com/ColorlibHQ/gentelella) (ColorlibHQ)** است — بدون هیچ تغییری در منطق برنامه، جریان داده، عملکردهای backend و منطق کسب‌وکار.
 
 ## ساختار پروژه
 
@@ -14,42 +14,40 @@
 │   │   ├── Core/           # هسته فریم‌ورک (Bootstrap, Router, Auth, ...)
 │   │   ├── Domain/         # منطق کسب‌وکار (Sender, GoldTicker, Quota, ...)
 │   │   ├── Modules/        # ماژول‌ها
-│   │   └── Views/          # ویوهای PHP (بازطراحی‌شده)
+│   │   └── Views/          # ویوهای PHP (بازطراحی‌شده با پوسته Gentelella)
 │   ├── config/  migrations/  docs/  tests/  tools/
 │   └── public/             # نسخه درون‌ریپویی assetها (همگام با public_html)
 ├── public_html/            # ریشه وب (assetهای استقرار)
 │   └── assets/{css,js,fonts,images,icons,plans}
-└── DESIGN-SYSTEM.md        # 📐 مستندات کامل پالت رنگی و سامانه طراحی
+└── DESIGN-SYSTEM.md        # 📐 مستندات کامل پالت Gentelella (HEX/RGB/HSL)
 ```
 
-## ✨ خلاصه بازطراحی «زرّین»
+## ✨ خلاصه بازطراحی Gentelella v4
 
 | محور | توضیح |
 |---|---|
-| پالت | طلایی گرم `#E5B44E` + فیروزه‌ای `#4AD6BE` روی سطوح اسپرسوی `#0D0B08` — مستندات کامل HEX/RGB/HSL در `DESIGN-SYSTEM.md` |
-| فونت | فقط **Vazirmatn** (۸ وزن woff2) |
+| منبع طراحی | `github.com/ColorlibHQ/gentelella` — توکن‌ها و کالبد از `src/scss/v4` استخراج و RTL-first پورت شد |
+| پالت | سایدبار `#1a2332` · فیروزه‌ای `#1ABB9C` · زمینه `#f5f7fb` · کامل در `DESIGN-SYSTEM.md` |
+| چیدمان | سایدبار ثابت تیره ۲۵۲px + تاپ‌بار شیشه‌ای ۵۶px + کارت‌های سفید + کاشی آماری + فوتر |
+| سایدبار جمع‌شونده | دسکتاپ: rail ۶۴px با tooltip و ذخیره وضعیت (هر دو پنل) · موبایل: دراور + backdrop |
+| فونت | فقط **Vazirmatn** (۸ وزن woff2) — جایگزین Inter قالب |
 | صفحات | لندینگ · داشبورد کاربر · پنل مدیریت · راهنما · حریم خصوصی · خطا + ۶ partial |
-| ریسپانسیو | موبایل عمودی/افقی · تبلت عمودی/افقی · دسکتاپ ۱۳″ تا اولتراواید ۲۵۶۰px |
-| دسترس‌پذیری | فوکوس‌رینگ طلایی، کنتراست AAA متن بدنه، `prefers-reduced-motion`، اهداف لمسی ≥ 44px |
 | بدون تغییر | منطق PHP، IDها، name فرم‌ها، data-attributeها، APIها، دیتابیس، هوک‌های JS |
 
-### فایل‌های کلیدی بازطراحی‌شده
+### فایل‌های کلیدی
 
-- `public_html/assets/css/components.css` — توکن‌های طراحی + فونت + پایه مشترک
-- `public_html/assets/css/dashboard.css` — داشبورد کاربر (کاملاً بازنویسی)
-- `public_html/assets/css/admin.css` — پنل مدیریت (کاملاً بازنویسی)
-- `public_html/assets/css/home.css` — اجزای اختصاصی لندینگ
-- `public_html/assets/css/tailwind-home.css` — کامپایل مجدد Tailwind v3.4.17 با پالت نگاشت‌شده
-- `app/Views/*.php` + `app/Views/partials/*.php` — بازنگاری رنگ‌های اینلاین (۸۹۲+ توکن)
-- `manifest.json` / `service-worker.js` — تم زرّین + ارتقای کش به v6
+- `assets/css/gentelella.css` — **قلب طراحی**: پورت کامل سیستم Gentelella v4 (توکن‌ها، سایدبار، تاپ‌بار، rail، کارت، جدول، فرم، مودال…) + RTL
+- `assets/css/components.css` — فونت Vazirmatn + پوسته روشن تقویم شمسی + بلوبانک
+- `assets/css/dashboard.css` / `admin.css` — لایه‌های اختصاصی صفحات
+- `assets/css/home.css` + `tailwind-home.css` — لندینگ Gentelella (کامپایل مجدد Tailwind v3.4.17 با پالت نگاشت‌شده)
+- `assets/js/gentelella.js` — رفتارهای پوسته: جمع‌شدن سایدبار (rail) + دراور موبایل + breadcrumb
+- `app/Views/*.php` — پوسته‌ها با ساختار Gentelella بازسازی؛ ۹۴۰+ توکن رنگ اینلاین بازنگاشت
 
 ## 🔧 ساخت مجدد Tailwind لندینگ
 
-پیکربندی کامپایل در `.tailwind-build/tailwind.config.js` (نگاشت indigo→طلایی، purple→مسی، pink→مرجانی، neutral→سنگ گرم):
-
 ```bash
 cd .tailwind-build
-bun install                       # tailwindcss@3.4.17
+bun install
 echo '@tailwind base; @tailwind components; @tailwind utilities;' > input.css
 bunx tailwindcss -c tailwind.config.js -i input.css \
   -o ../public_html/assets/css/tailwind-home.css --minify
@@ -57,8 +55,8 @@ bunx tailwindcss -c tailwind.config.js -i input.css \
 
 ## 🚀 استقرار (cPanel)
 
-ساختار فعلی همان استقرار تولید است: `postyar-private` خارج از ریشه وب و `public_html` به‌عنوان ریشه وب. پس از pull:
+ساختار همان استقرار تولید است: `postyar-private` خارج از ریشه وب، `public_html` ریشه وب. پس از pull:
 
-1. هیچ مهاجرت دیتابیسی لازم نیست (فقط UI تغییر کرده است).
-2. کش سرویس‌ورکر خودکار به v6 ارتقا می‌یابد (بازدیدکنندگان CSS جدید را دریافت می‌کنند).
-3. در صورت استفاده از CDN، کش `assets/css/*` را پاک کنید (نسخه‌های `?v=15` نیز ارتقا یافته‌اند).
+1. هیچ مهاجرت دیتابیسی لازم نیست (فقط UI).
+2. کش سرویس‌ورکر خودکار به v7 ارتقا می‌یابد.
+3. در صورت CDN، کش `assets/css/*` را پاک کنید (نسخه‌ها به v16 ارتقا یافته‌اند).
