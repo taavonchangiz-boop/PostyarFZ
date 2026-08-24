@@ -1,65 +1,114 @@
-/* ==========================================================================
-   فایل جاوااسکریپت صفحه اصلی لندینگ (Home Page JavaScript)
-   سامانه مدیریت کانال‌ها و انتشار خودکار پُست‌یار
-   ========================================================================== */
+/* Postyar landing interactions — resilient modal/navigation controller */
+(function () {
+    'use strict';
 
-/* ===== مدال‌های احراز هویت ===== */
-function openModal(id) {
-    document.querySelectorAll('.modal').forEach(function(m) { m.classList.remove('show'); });
-    var target = document.getElementById('modal-' + id);
-    if (target) target.classList.add('show');
-}
-function closeModal(id) {
-    var target = document.getElementById('modal-' + id);
-    if (target) target.classList.remove('show');
-}
-window.addEventListener('click', function(e) {
-    document.querySelectorAll('.modal').forEach(function(m) {
-        if (e.target === m) m.classList.remove('show');
-    });
-});
+    function byId(id) { return document.getElementById(id); }
 
-/* ===== منوی موبایل ===== */
-var mobileToggle = document.getElementById('mobileToggle');
-var mobileClose = document.getElementById('mobileClose');
-var mobileMenu = document.getElementById('mobileMenu');
-
-if (mobileToggle && mobileMenu) {
-    mobileToggle.addEventListener('click', function() {
-        mobileMenu.classList.remove('hidden');
-        mobileMenu.classList.add('flex');
-    });
-}
-if (mobileClose && mobileMenu) {
-    mobileClose.addEventListener('click', function() {
-        mobileMenu.classList.add('hidden');
-        mobileMenu.classList.remove('flex');
-    });
-}
-function closeMobileMenu() {
-    if (mobileMenu) {
-        mobileMenu.classList.add('hidden');
-        mobileMenu.classList.remove('flex');
+    function syncBodyLock() {
+        var open = !!document.querySelector('.modal.show, #mobileMenu.flex');
+        document.documentElement.classList.toggle('ui-overlay-open', open);
+        document.body.classList.toggle('ui-overlay-open', open);
     }
-}
 
-/* ===== آکاردئون سوالات متداول ===== */
-document.querySelectorAll('.faq-toggle').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var item = btn.parentElement;
-        var isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(function(el) { el.classList.remove('open'); });
-        if (!isOpen) item.classList.add('open');
-    });
-});
-
-/* ===== Scroll Reveal ===== */
-var revealElements = document.querySelectorAll('.reveal');
-var revealObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
+    window.openModal = function (id) {
+        var target = byId('modal-' + id);
+        if (!target) {
+            if (id === 'login') window.location.href = '/?auth=login';
+            else if (id === 'register') window.location.href = '/?auth=register';
+            return false;
         }
-    });
-}, { threshold: 0.1 });
-revealElements.forEach(function(el) { revealObserver.observe(el); });
+        document.querySelectorAll('.modal.show').forEach(function (m) { m.classList.remove('show'); });
+        target.classList.add('show');
+        target.setAttribute('aria-hidden', 'false');
+        syncBodyLock();
+        var first = target.querySelector('input,select,textarea,button');
+        if (first) window.setTimeout(function () { try { first.focus({ preventScroll: true }); } catch (e) {} }, 40);
+        return false;
+    };
+
+    window.closeModal = function (id) {
+        var target = byId('modal-' + id);
+        if (target) {
+            target.classList.remove('show');
+            target.setAttribute('aria-hidden', 'true');
+        }
+        syncBodyLock();
+    };
+
+    function setMobileMenu(open) {
+        var menu = byId('mobileMenu');
+        var toggle = byId('mobileToggle');
+        if (!menu) return;
+        menu.classList.toggle('hidden', !open);
+        menu.classList.toggle('flex', open);
+        menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+        if (toggle) {
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggle.classList.toggle('is-open', open);
+        }
+        syncBodyLock();
+    }
+
+    window.closeMobileMenu = function () { setMobileMenu(false); };
+    window.toggleMobileMenu = function () {
+        var menu = byId('mobileMenu');
+        setMobileMenu(menu ? menu.classList.contains('hidden') : true);
+    };
+
+    function init() {
+        var mobileToggle = byId('mobileToggle');
+        var mobileClose = byId('mobileClose');
+        var mobileMenu = byId('mobileMenu');
+
+        if (mobileToggle) mobileToggle.addEventListener('click', function (e) { e.preventDefault(); window.toggleMobileMenu(); });
+        if (mobileClose) mobileClose.addEventListener('click', function (e) { e.preventDefault(); setMobileMenu(false); });
+        if (mobileMenu) mobileMenu.addEventListener('click', function (e) {
+            if (e.target === mobileMenu) setMobileMenu(false);
+        });
+
+        document.querySelectorAll('.modal').forEach(function (modal) {
+            modal.setAttribute('aria-hidden', modal.classList.contains('show') ? 'false' : 'true');
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) window.closeModal(modal.id.replace('modal-', ''));
+            });
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key !== 'Escape') return;
+            var modal = document.querySelector('.modal.show');
+            if (modal) window.closeModal(modal.id.replace('modal-', ''));
+            else setMobileMenu(false);
+        });
+
+        document.querySelectorAll('.faq-toggle').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var item = btn.closest('.faq-item');
+                if (!item) return;
+                var isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item.open').forEach(function (el) { el.classList.remove('open'); });
+                if (!isOpen) item.classList.add('open');
+            });
+        });
+
+        var revealElements = document.querySelectorAll('.reveal');
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.08 });
+            revealElements.forEach(function (el) { observer.observe(el); });
+        } else {
+            revealElements.forEach(function (el) { el.classList.add('active'); });
+        }
+
+        /* Header CTA buttons remain functional even if an earlier script throws. */
+        document.querySelectorAll('[onclick*="openModal(\'login\')"]').forEach(function (el) {
+            el.addEventListener('click', function (e) { e.preventDefault(); window.openModal('login'); });
+        });
+        document.querySelectorAll('[onclick*="openModal(\'register\')"]').forEach(function (el) {
+            el.addEventListener('click', function (e) { e.preventDefault(); window.openModal('register'); });
+        });
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
