@@ -216,9 +216,9 @@ $ad_fa_status = static function ($status): string {
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"></path></svg>
                 <span>کانال‌ها</span>
             </div>
-            <div class="mobile-nav-item" data-target="tickets">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
-                <span>تیکت‌ها</span>
+            <div class="mobile-nav-item" data-target="ads">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882v9.412a2 2 0 11-4 0v-2.39l-3.26-.943a.5.5 0 01-.24-.847l1.5-1.4M11 8.5l7.5-4.2v15.4L11 15.5M18.5 8.5a3.5 3.5 0 010 7"></path></svg>
+                <span>تبلیغات</span>
             </div>
             <div class="mobile-nav-item" onclick="toggleMobileMoreMenu()">
                 <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -244,6 +244,10 @@ $ad_fa_status = static function ($status): string {
                     <span>پاسخگوی خودکار</span>
                 </div>
                 <?php endif; ?>
+                <div class="mobile-more-item" data-target="ads" onclick="switchSection('ads'); toggleMobileMoreMenu();">
+                    <span class="mobile-more-icon">📣</span>
+                    <span>تبلیغات و آگهی‌ها</span>
+                </div>
                 <div class="mobile-more-item" data-target="inbox" onclick="switchSection('inbox'); toggleMobileMoreMenu();">
                     <span class="mobile-more-icon">📩</span>
                     <span>صندوق پیام</span>
