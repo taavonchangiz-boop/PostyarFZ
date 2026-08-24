@@ -680,3 +680,14 @@ if(typeof autoConvertToPersianDigits === 'function'){
         window.addEventListener('DOMContentLoaded', function(){ autoConvertToPersianDigits(); });
     }
 }
+
+/* POSTYAR-DASHBOARD-MOBILE-V3 */
+(function(){
+ function ready(fn){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fn,{once:true});else fn();}
+ ready(function(){
+  var sidebar=document.getElementById('g-sidebar'),toggle=document.getElementById('g-sidebar-toggle');
+  if(sidebar&&toggle&&!toggle.dataset.v3){toggle.dataset.v3='1';var back=document.createElement('div');back.className='sidebar-backdrop';document.body.appendChild(back);function close(){sidebar.classList.remove('open','is-open','mobile-open');back.classList.remove('is-open');document.body.classList.remove('sidebar-open');toggle.setAttribute('aria-expanded','false')}function open(){sidebar.classList.add('open');back.classList.add('is-open');document.body.classList.add('sidebar-open');toggle.setAttribute('aria-expanded','true')}toggle.addEventListener('click',function(e){e.preventDefault();sidebar.classList.contains('open')?close():open()});back.addEventListener('click',close);sidebar.querySelectorAll('.menu-item[data-target]').forEach(function(x){x.addEventListener('click',function(){if(window.matchMedia('(max-width:1023px)').matches)close()})});}
+  document.querySelectorAll('.mobile-nav .mobile-nav-item[data-target]').forEach(function(x){if(x.dataset.v3)return;x.dataset.v3='1';x.addEventListener('click',function(){document.querySelectorAll('.mobile-nav .mobile-nav-item').forEach(function(y){y.classList.remove('active')});x.classList.add('active')})});
+  document.querySelectorAll('table').forEach(function(t){if(!t.tHead)return;var h=Array.prototype.map.call(t.tHead.rows[0].cells,function(c){return(c.textContent||'').trim()});t.querySelectorAll('tbody tr').forEach(function(r){r.querySelectorAll('td').forEach(function(c,i){if(!c.dataset.label)c.dataset.label=h[i]||'اطلاعات'})})});
+ });
+})();

@@ -123,6 +123,15 @@ $ad_fa_status = static function ($status): string {
             </span>
         </div>
     </header>
+    <!-- POSTYAR-MOBILE-NAV-V3 -->
+    <nav class="mobile-nav" aria-label="ناوبری سریع موبایل">
+      <div class="mobile-nav-item active" data-target="dashboard" onclick="switchSection('dashboard')"><span aria-hidden="true">⌂</span><span>وضعیت</span></div>
+      <div class="mobile-nav-item" data-target="publish" onclick="switchSection('publish')"><span aria-hidden="true">✎</span><span>ارسال</span></div>
+      <div class="mobile-nav-item" data-target="channels" onclick="switchSection('channels')"><span aria-hidden="true">◉</span><span>کانال‌ها</span></div>
+      <div class="mobile-nav-item" data-target="ads" onclick="switchSection('ads')"><span aria-hidden="true">▣</span><span>تبلیغات</span></div>
+      <div class="mobile-nav-item" onclick="toggleMobileMoreMenu()"><span aria-hidden="true">☰</span><span>بیشتر</span></div>
+    </nav>
+
 
     <!-- کانتینر اصلی محتوا -->
     <div class="wrapper g-main">

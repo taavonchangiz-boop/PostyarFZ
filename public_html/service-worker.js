@@ -1,4 +1,4 @@
-const CACHE_NAME = 'postyar-pwa-v12';
+const CACHE_NAME = 'postyar-pwa-v13';
 
 const SW_PATH = new URL('./', self.location).pathname.replace(/\/$/, '');
 function assetUrl(path) { return SW_PATH + '/assets/' + path; }
