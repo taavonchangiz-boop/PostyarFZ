@@ -29,6 +29,80 @@
 </head>
 <body>
 
+    <!-- هدر Gentelella ادمین -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <button type="button" class="gt-burger sidebar-toggle" id="g-sidebar-toggle" aria-label="باز کردن منو" aria-expanded="false">
+                <span class="gt-burger-box"><span class="gt-burger-layer"></span><span class="gt-burger-layer"></span><span class="gt-burger-layer"></span></span>
+            </button>
+            <div class="breadcrumb"><span class="current"><?php echo $is_support ? 'پنل پشتیبانی' : 'مرکز فرماندهی مدیریت'; ?></span></div>
+        </div>
+        <div class="topbar-right">
+            <?php 
+                $pending_p_count = 0;
+                foreach ($payments as $pay) { if($pay['status'] === 'pending') $pending_p_count++; }
+                $open_t_count = 0;
+                foreach ($tickets as $tick) { if($tick['status'] === 'open') $open_t_count++; }
+                $total_notifs = $pending_p_count + $open_t_count;
+            ?>
+            <!-- زنگوله اعلان‌های سیستمی مدیر -->
+            <div style="position:relative;">
+                <button type="button" onclick="var p=document.getElementById('admin-bell-popup'); p.style.display=(p.style.display==='flex'?'none':'flex');" class="tb-btn" style="background:#171310;border:1px solid #2B241B;border-radius:8px;" aria-label="اعلان‌های مدیر">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                    <?php if ($total_notifs > 0): ?>
+                        <span class="dot" style="position:absolute;top:4px;right:4px;width:9px;height:9px;background:#E4686F;border-radius:50%;border:2px solid #fff;"></span>
+                    <?php endif; ?>
+                </button>
+                <div id="admin-bell-popup" style="display:none;position:absolute;left:0;top:44px;width:290px;background:#171310;border:1px solid #2B241B;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 1px rgba(214,172,99,.08);z-index:9999;flex-direction:column;padding:14px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2B241B;padding-bottom:10px;margin-bottom:10px;">
+                        <strong style="color:#F5EFE3;font-size:13px;">🔔 اعلان‌های سیستمی مدیر</strong>
+                        <span style="font-size:11.5px;color:#E9C77E;font-weight:700;"><?php echo \WHCM\Domain\TextFormat::fa_digits($total_notifs); ?> مورد</span>
+                    </div>
+                    <?php if ($total_notifs === 0): ?>
+                        <div style="color:#A99E8E;font-size:12.5px;text-align:center;padding:.5rem 0;">همه موارد بررسی شده است ✔</div>
+                    <?php else: ?>
+                        <?php if ($pending_p_count > 0): ?>
+                            <div style="padding:8px 10px;background:#1E1A14;border:1px solid #2B241B;border-radius:6px;margin-bottom:6px;font-size:12.5px;color:#DCD3C4;cursor:pointer;" onclick="switchSection('payments'); document.getElementById('admin-bell-popup').style.display='none';">
+                                💳 <?php echo \WHCM\Domain\TextFormat::fa_digits($pending_p_count); ?> فیش واریزی در انتظار تأیید
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($open_t_count > 0): ?>
+                            <div style="padding:8px 10px;background:#1E1A14;border:1px solid #2B241B;border-radius:6px;font-size:12.5px;color:#DCD3C4;cursor:pointer;" onclick="switchSection('tickets'); document.getElementById('admin-bell-popup').style.display='none';">
+                                🎫 <?php echo \WHCM\Domain\TextFormat::fa_digits($open_t_count); ?> تیکت پشتیبانی باز
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" class="admin-badge" style="text-decoration:none;">🏠 داشبورد کاربری</a>
+            <div class="admin-badge"><?php echo $is_support ? '🎧 پشتیبان' : '👑 مدیر ارشد'; ?></div>
+        </div>
+    </header>
+
+    <!-- نوار تب پایین موبایل -->
+    <nav class="mobile-nav">
+        <div class="mobile-nav-item active" data-target="dashboard">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            <span>وضعیت</span>
+        </div>
+        <div class="mobile-nav-item" data-target="users">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            <span>کاربران</span>
+        </div>
+        <div class="mobile-nav-item" data-target="payments">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h.01M11 15h.01M3 4h18a2 2 0 012 2v12a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2z"></path></svg>
+            <span>فیش‌ها</span>
+        </div>
+        <div class="mobile-nav-item" data-target="tickets">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
+            <span>تیکت‌ها</span>
+        </div>
+        <div class="mobile-nav-item" onclick="toggleMobileMoreMenu()">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <span>بیشتر</span>
+        </div>
+    </nav>
+
     <!-- دراور منوی بیشتر (موبایل) - مشابه داشبورد کاربر -->
     <div class="mobile-more-overlay" id="mobileMoreOverlay" onclick="toggleMobileMoreMenu()"></div>
     <div class="mobile-more-drawer" id="mobileMoreDrawer">
@@ -125,85 +199,11 @@
         </div>
     </div>
 
-    <!-- هدر Gentelella ادمین -->
-    <header class="topbar">
-        <div class="topbar-left">
-            <button type="button" class="gt-burger sidebar-toggle" id="g-sidebar-toggle" aria-label="باز کردن منو" aria-expanded="false">
-                <span class="gt-burger-box"><span class="gt-burger-layer"></span><span class="gt-burger-layer"></span><span class="gt-burger-layer"></span></span>
-            </button>
-            <div class="breadcrumb"><span class="current"><?php echo $is_support ? 'پنل پشتیبانی' : 'مرکز فرماندهی مدیریت'; ?></span></div>
-        </div>
-        <div class="topbar-right">
-            <?php 
-                $pending_p_count = 0;
-                foreach ($payments as $pay) { if($pay['status'] === 'pending') $pending_p_count++; }
-                $open_t_count = 0;
-                foreach ($tickets as $tick) { if($tick['status'] === 'open') $open_t_count++; }
-                $total_notifs = $pending_p_count + $open_t_count;
-            ?>
-            <!-- زنگوله اعلان‌های سیستمی مدیر -->
-            <div style="position:relative;">
-                <button type="button" onclick="var p=document.getElementById('admin-bell-popup'); p.style.display=(p.style.display==='flex'?'none':'flex');" class="tb-btn" style="background:#171310;border:1px solid #2B241B;border-radius:8px;" aria-label="اعلان‌های مدیر">
-                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                    <?php if ($total_notifs > 0): ?>
-                        <span class="dot" style="position:absolute;top:4px;right:4px;width:9px;height:9px;background:#E4686F;border-radius:50%;border:2px solid #fff;"></span>
-                    <?php endif; ?>
-                </button>
-                <div id="admin-bell-popup" style="display:none;position:absolute;left:0;top:44px;width:290px;background:#171310;border:1px solid #2B241B;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12),0 0 0 1px rgba(4,32,69,.08);z-index:9999;flex-direction:column;padding:14px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2B241B;padding-bottom:10px;margin-bottom:10px;">
-                        <strong style="color:#F5EFE3;font-size:13px;">🔔 اعلان‌های سیستمی مدیر</strong>
-                        <span style="font-size:11.5px;color:#E9C77E;font-weight:700;"><?php echo \WHCM\Domain\TextFormat::fa_digits($total_notifs); ?> مورد</span>
-                    </div>
-                    <?php if ($total_notifs === 0): ?>
-                        <div style="color:#A99E8E;font-size:12.5px;text-align:center;padding:.5rem 0;">همه موارد بررسی شده است ✔</div>
-                    <?php else: ?>
-                        <?php if ($pending_p_count > 0): ?>
-                            <div style="padding:8px 10px;background:#1E1A14;border:1px solid #2B241B;border-radius:6px;margin-bottom:6px;font-size:12.5px;color:#DCD3C4;cursor:pointer;" onclick="switchSection('payments'); document.getElementById('admin-bell-popup').style.display='none';">
-                                💳 <?php echo \WHCM\Domain\TextFormat::fa_digits($pending_p_count); ?> فیش واریزی در انتظار تأیید
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($open_t_count > 0): ?>
-                            <div style="padding:8px 10px;background:#1E1A14;border:1px solid #2B241B;border-radius:6px;font-size:12.5px;color:#DCD3C4;cursor:pointer;" onclick="switchSection('tickets'); document.getElementById('admin-bell-popup').style.display='none';">
-                                🎫 <?php echo \WHCM\Domain\TextFormat::fa_digits($open_t_count); ?> تیکت پشتیبانی باز
-                            </div>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" class="admin-badge" style="text-decoration:none;">🏠 داشبورد کاربری</a>
-            <div class="admin-badge"><?php echo $is_support ? '🎧 پشتیبان' : '👑 مدیر ارشد'; ?></div>
-        </div>
-    </header>
-
-    <!-- نوار تب پایین موبایل -->
-    <nav class="mobile-nav">
-        <div class="mobile-nav-item active" data-target="dashboard">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-            <span>وضعیت</span>
-        </div>
-        <div class="mobile-nav-item" data-target="users">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            <span>کاربران</span>
-        </div>
-        <div class="mobile-nav-item" data-target="payments">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h.01M11 15h.01M3 4h18a2 2 0 012 2v12a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2z"></path></svg>
-            <span>فیش‌ها</span>
-        </div>
-        <div class="mobile-nav-item" data-target="tickets">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
-            <span>تیکت‌ها</span>
-        </div>
-        <div class="mobile-nav-item" onclick="toggleMobileMoreMenu()">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            <span>بیشتر</span>
-        </div>
-    </nav>
-
     <!-- کانتینر اصلی محتوا -->
     <div class="wrapper g-main">
         
         <!-- سایدبار Gentelella مدیریت -->
-        <aside class="g-sidebar sidebar-desktop" id="g-sidebar">
+        <aside class="g-sidebar" id="g-sidebar">
             <div class="sidebar-brand">
                 <div class="brand-icon">
                     <img src="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/images/logo-white-bg.webp" alt="نشان پُست‌یار">
@@ -342,31 +342,29 @@ $ad_admin_status = static function($status): string {
                     <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/ads/manual-create'); ?>" enctype="multipart/form-data" class="ad-manual-form-modern">
                         <?php echo $csrf_field; ?>
                         <input type="hidden" name="placements[]" value="global_top">
-                        <div class="ad-form-row-2col">
-                            <div class="ad-form-field">
-                                <label>عنوان تبلیغ</label>
-                                <input required name="title" maxlength="180" placeholder="مثلاً: فروش ویژه عید">
-                            </div>
-                            <div class="ad-form-field">
-                                <label>نشانی مقصد (URL)</label>
-                                <input required name="destination_url" maxlength="2048" placeholder="https://example.com" dir="ltr">
-                            </div>
-                        </div>
-                        <div class="ad-form-row-2col">
-                            <div class="ad-form-field">
-                                <label>تاریخ و ساعت شروع</label>
-                                <input required type="text" id="manual_ad_starts_at" name="starts_at" data-jdp data-ad-admin-date="start" inputmode="numeric" autocomplete="off" readonly placeholder="انتخاب تاریخ و ساعت شروع">
-                            </div>
-                            <div class="ad-form-field">
-                                <label>تاریخ و ساعت پایان</label>
-                                <input required type="text" id="manual_ad_ends_at" name="ends_at" data-jdp data-ad-admin-date="end" inputmode="numeric" autocomplete="off" readonly placeholder="انتخاب تاریخ و ساعت پایان">
-                            </div>
+                        <div class="ad-form-field">
+                            <label>عنوان تبلیغ</label>
+                            <input required name="title" maxlength="180" placeholder="مثلاً: فروش ویژه عید">
                         </div>
                         <div class="ad-form-field">
+                            <label>نشانی مقصد (URL)</label>
+                            <input required name="destination_url" maxlength="2048" placeholder="https://example.com" dir="ltr">
+                        </div>
+                        <div class="ad-form-field">
+                            <label>تاریخ و ساعت شروع</label>
+                            <input required type="text" id="manual_ad_starts_at" name="starts_at" data-jdp data-ad-admin-date="start" inputmode="numeric" autocomplete="off" readonly placeholder="انتخاب تاریخ و ساعت شروع">
+                        </div>
+                        <div class="ad-form-field">
+                            <label>تاریخ و ساعت پایان</label>
+                            <input required type="text" id="manual_ad_ends_at" name="ends_at" data-jdp data-ad-admin-date="end" inputmode="numeric" autocomplete="off" readonly placeholder="انتخاب تاریخ و ساعت پایان">
+                        </div>
+                        <div class="ad-form-field ad-form-full">
                             <label>تصویر تبلیغ (JPG, PNG, WebP, GIF)</label>
                             <input required type="file" name="manual_ad_image" accept="image/jpeg,image/png,image/webp,image/gif">
                         </div>
-                        <button class="primary-btn" type="submit" style="margin-top:0.5rem;">✨ ثبت و فعال‌سازی تبلیغ</button>
+                        <div class="ad-form-full" style="padding-top:.25rem;">
+                            <button class="primary-btn" type="submit" style="width:100%;justify-content:center;padding:.75rem;font-size:14px;font-weight:700;">✨ ثبت و فعال‌سازی تبلیغ</button>
+                        </div>
                     </form>
                 </div>
 
@@ -420,16 +418,6 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
     function initManualAdCalendar(){
         if(!window.jalaliDatepicker) return;
         try{
-            jalaliDatepicker.startWatch({
-                selector:'input[data-ad-admin-date]',
-                time:true,
-                hasSecond:false,
-                hideAfterChange:true,
-                autoShow:false,
-                showTodayBtn:true,
-                showEmptyBtn:true,
-                separatorChars:{date:'/',between:' ',time:':'}
-            });
             document.querySelectorAll('input[data-ad-admin-date]').forEach(function(input){
                 input.addEventListener('click',function(){ try{ jalaliDatepicker.show(input); }catch(e){} });
                 input.addEventListener('focus',function(){ try{ jalaliDatepicker.show(input); }catch(e){} });
@@ -1956,11 +1944,27 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
             for(var i=0;i<nodes.length;i++){if(nodes[i].children.length===0){var converted=fa(nodes[i].textContent);if(converted!==nodes[i].textContent)nodes[i].textContent=converted;}}
         }
         document.addEventListener('DOMContentLoaded',function(){
+            /* راه‌اندازی نهایی تقویم جلالی — تنها یک بار startWatch فراخوانی می‌شود */
+            if(window.jalaliDatepicker){
+                jalaliDatepicker.startWatch({
+                    separatorChar:'/',
+                    showTodayBtn:true,
+                    showEmptyBtn:true,
+                    autoShow:true,
+                    autoHide:true
+                });
+            }
+            /* همگام‌سازی تاریخ‌های گزارش تبلیغات */
             var inputs=document.querySelectorAll('input[data-ad-date]');
             for(var i=0;i<inputs.length;i++){
-                (function(input){input.addEventListener('change',function(){sync(input);});input.addEventListener('input',function(){input.value=fa(input.value);});})(inputs[i]);
+                (function(input){
+                    input.addEventListener('change',function(){sync(input);});
+                    input.addEventListener('input',function(){input.value=fa(input.value);});
+                    /* اطمینان از باز شدن تقویم با کلیک روی فیلدهای گزارش */
+                    input.addEventListener('click',function(){try{jalaliDatepicker.show(input);}catch(e){}});
+                    input.addEventListener('focus',function(){try{jalaliDatepicker.show(input);}catch(e){}});
+                })(inputs[i]);
             }
-            if(window.jalaliDatepicker){jalaliDatepicker.startWatch({showTodayBtn:true,showEmptyBtn:true});}
             persianCalendarDigits();
             for(var ri=0;ri<inputs.length;ri++)(function(input){input.addEventListener('focus',function(){[0,60,180].forEach(function(ms){setTimeout(persianCalendarDigits,ms);});});})(inputs[ri]);
             var form=document.querySelector('#section-ads form');if(form)form.addEventListener('submit',function(){for(var i=0;i<inputs.length;i++)sync(inputs[i]);});

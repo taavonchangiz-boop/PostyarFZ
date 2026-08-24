@@ -87,7 +87,7 @@ $ad_fa_status = static function ($status): string {
                     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                     <span id="bell-badge" style="position:absolute;top:3px;right:3px;min-width:16px;height:16px;background:#E4686F;border-radius:9999px;border:2px solid #fff;color:#fff;font-size:9px;font-weight:800;align-items:center;justify-content:center;padding:0 3px;<?php echo ($unread_count > 0) ? 'display:flex;' : 'display:none;'; ?>"><?php echo $unread_count > 0 ? \WHCM\Domain\TextFormat::fa_digits($unread_count) : ''; ?></span>
                 </button>
-                <div id="user-bell-popup" style="display:none;position:absolute;left:0;top:44px;width:22rem;max-height:28rem;z-index:9999;background:#171310;border:1px solid #2B241B;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12),0 0 0 1px rgba(4,32,69,.08);overflow:hidden;">
+                <div id="user-bell-popup" style="display:none;position:absolute;left:0;top:44px;width:22rem;max-height:28rem;z-index:9999;background:#171310;border:1px solid #2B241B;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 1px rgba(214,172,99,.08);overflow:hidden;">
                     <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2B241B;padding:11px 14px;">
                         <strong style="color:#F5EFE3;font-size:13px;">🔔 اعلان‌ها</strong>
                         <?php if ($unread_count > 0): ?>

@@ -305,17 +305,17 @@ body{
 .ticket-card-user{color:var(--text-muted);font-size:11px}
 #ticketModal{backdrop-filter:blur(3px)}
 
-/* ---------- زنگوله اعلان‌ها (پوسته menu-panel) ---------- */
+/* ---------- زنگوله اعلان‌ها (Onyx & Champagne) ---------- */
 #user-bell-popup{
   direction:rtl;text-align:start;
-  background:#fff!important;
-  border:1px solid var(--border-color)!important;
-  border-radius:var(--radius-lg)!important;
-  box-shadow:var(--shadow-pop)!important;
+  background:var(--bg-surface,#171310)!important;
+  border:1px solid var(--border-solid,#2B241B)!important;
+  border-radius:10px!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 1px rgba(214,172,99,.08)!important;
 }
-#user-bell-popup strong{color:var(--text)!important}
-.notif-list-item{border-radius:var(--radius-sm)!important}
-.notif-list-item:hover{background:var(--bg-surface-secondary)!important}
+#user-bell-popup strong{color:#F5EFE3!important}
+.notif-list-item{border-radius:6px!important}
+.notif-list-item:hover{background:rgba(214,172,99,.06)!important}
 
 /* ---------- پوسته‌سازی عناصر با استایل اینلاین تیره‌ی قبلی ---------- */
 .user-badge{

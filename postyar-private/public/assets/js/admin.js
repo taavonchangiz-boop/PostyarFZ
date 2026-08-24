@@ -19,6 +19,17 @@ function toggleMobileMoreMenu() {
     }
 }
 
+/* اطمینان از بسته بودن دراور موبایل هنگام بارگذاری */
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    var drawer = document.getElementById('mobileMoreDrawer');
+    var overlay = document.getElementById('mobileMoreOverlay');
+    if (drawer) drawer.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+})();
+
 /* ===== تب‌بندی بخش‌های ادمین ===== */
 function switchSection(sectionId) {
     var sections = document.querySelectorAll('.tab-content');
@@ -40,8 +51,20 @@ function switchSection(sectionId) {
     // بازآغازی تقویم جلالی هنگام ورود به بخش تبلیغات
     if (sectionId === 'ads' && window.jalaliDatepicker) {
         setTimeout(function() {
-            try { jalaliDatepicker.startWatch({showTodayBtn: true, showEmptyBtn: true}); } catch(e) {}
-        }, 50);
+            try {
+                var adInputs = document.querySelectorAll('#section-ads input[data-jdp]');
+                for (var i = 0; i < adInputs.length; i++) {
+                    (function(inp) {
+                        inp.removeEventListener('focus', inp._jdpFocusHandler);
+                        inp._jdpFocusHandler = function() { try { jalaliDatepicker.show(inp); } catch(e) {} };
+                        inp.addEventListener('focus', inp._jdpFocusHandler);
+                        inp.removeEventListener('click', inp._jdpClickHandler);
+                        inp._jdpClickHandler = function() { try { jalaliDatepicker.show(inp); } catch(e) {} };
+                        inp.addEventListener('click', inp._jdpClickHandler);
+                    })(adInputs[i]);
+                }
+            } catch(e) {}
+        }, 80);
     }
     if (window.SafeStorage && typeof SafeStorage.setItem === 'function') {
         SafeStorage.setItem('last_admin_tab', sectionId);
@@ -413,26 +436,7 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 
 /* ===== راه‌اندازی تقویم شمسی جلالی (ادمین) ===== */
-(function(){
-    function initJalaliDatepicker(){
-        if(typeof jalaliDatepicker === 'undefined') return false;
-        try{
-            jalaliDatepicker.startWatch({
-                separatorChar: '/',
-                openOnFocus: true,
-                showTodayBtn: true,
-                showEmptyBtn: false
-            });
-            return true;
-        }catch(e){ return false; }
-    }
-    if(!initJalaliDatepicker()){
-        var timer = setInterval(function(){
-            if(initJalaliDatepicker()) clearInterval(timer);
-        }, 200);
-        setTimeout(function(){ clearInterval(timer); }, 10000);
-    }
-})();
+/* توجه: startWatch فقط یک بار در انتهای admin.php فراخوانی می‌شود تا از تداخل گزینه‌ها جلوگیری شود */
 
 /* ===== فیلتر تیکت‌ها بر اساس وضعیت ===== */
 function filterTickets(status, btn) {
