@@ -1,9 +1,9 @@
-const CACHE_NAME = 'postyar-pwa-v10';
+const CACHE_NAME = 'postyar-pwa-v11';
 
 const SW_PATH = new URL('./', self.location).pathname.replace(/\/$/, '');
 function assetUrl(path) { return SW_PATH + '/assets/' + path; }
 const STATIC_ASSETS = [
-    'css/admin.css','css/dashboard.css','css/home.css','css/components.css',
+    'css/admin.css','css/dashboard.css','css/home.css','css/components.css','css/responsive-overhaul.css',
     'js/admin.js','js/dashboard.js','js/home.js','js/utils.js','js/pwa-install.js','js/push.js',
     'images/logo.webp','images/logo-full.webp','images/logo-white-bg.webp',
     'icons/icon-192x192.png','icons/icon-512x512.png','icons/apple-touch-icon.png','icons/favicon-32x32.png',
