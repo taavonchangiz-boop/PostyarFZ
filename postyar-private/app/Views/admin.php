@@ -1534,7 +1534,6 @@ document.addEventListener('click',function(e){var m=document.getElementById('adO
         </main>
         <footer class="g-footer">
             <span>© پُست‌یار — پنل مدیریت ارشد</span>
-            <span>طراحی بر پایه <a href="https://github.com/ColorlibHQ/gentelella" target="_blank" rel="noopener">Gentelella v4</a></span>
         </footer>
     </div>
 

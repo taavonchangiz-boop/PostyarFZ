@@ -92,6 +92,7 @@
             </div>
             <div class="flex flex-col gap-6 text-lg font-bold">
                 <a href="#features" class="text-neutral-300 hover:text-white" onclick="closeMobileMenu()">امکانات سیستم</a>
+                <a href="#comparison" class="text-neutral-300 hover:text-white" onclick="closeMobileMenu()">مقایسه کانال‌ها</a>
                 <a href="#how-it-works" class="text-neutral-300 hover:text-white" onclick="closeMobileMenu()">نحوه کارکرد</a>
                 <a href="#pricing" class="text-neutral-300 hover:text-white" onclick="closeMobileMenu()">تعرفه اشتراک</a>
                 <a href="#testimonials" class="text-neutral-300 hover:text-white" onclick="closeMobileMenu()">نظرات مدیران</a>

@@ -1888,7 +1888,6 @@ $ad_fa_status = static function ($status): string {
 </main>
         <footer class="g-footer">
             <span>© پُست‌یار — سامانه هوشمند مدیریت و انتشار کانال‌ها</span>
-            <span>طراحی بر پایه <a href="https://github.com/ColorlibHQ/gentelella" target="_blank" rel="noopener">Gentelella v4</a></span>
         </footer>
     </div>
 
