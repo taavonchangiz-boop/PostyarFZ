@@ -10,7 +10,7 @@
 
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="<?php echo $baseUrl; ?>/manifest.json">
-    <meta name="theme-color" content="#1E1A14">
+    <meta name="theme-color" content="#0F0F14">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="پُست‌یار">
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $baseUrl; ?>/assets/icons/favicon-32x32.png">
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/css/components.css">
     <link rel="stylesheet" href="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/css/home.css">
 </head>
-<body class="bg-[#0C0A08] text-neutral-100 antialiased selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#0F0F14] text-neutral-100 antialiased selection:bg-indigo-500 selection:text-white">
 
     <!-- ===== NAVIGATION BAR (Gentelella landing-nav) ===== -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3 px-3 sm:px-6 lg:px-8">
@@ -36,22 +36,22 @@
             <div class="glass-light rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
                 <!-- Logo & Brand -->
                 <a href="#" class="flex items-center gap-3 group shrink-0">
-                    <div class="w-10 h-10 rounded-xl p-[2px] shrink-0" style="background:linear-gradient(135deg,#EAC87F,#B08A3E);box-shadow:0 4px 12px rgba(214,172,99,.3);">
+                    <div class="w-10 h-10 rounded-xl p-[2px] shrink-0" style="background:linear-gradient(135deg,#A5B4FC,#6366F1);box-shadow:0 4px 12px rgba(99,102,241,.3);">
                         <div class="w-full h-full rounded-[10px] bg-white flex items-center justify-center overflow-hidden">
                             <img src="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/images/logo-white-bg.webp" alt="پُست‌یار" class="w-full h-full object-contain">
                         </div>
                     </div>
-                    <span class="text-xl font-black hidden sm:block" style="color:#F5EFE3;">پُست‌یار</span>
+                    <span class="text-xl font-black hidden sm:block" style="color:#F1F0F4;">پُست‌یار</span>
                 </a>
 
                 <!-- Desktop Menu Links -->
                 <div class="hidden lg:flex items-center gap-7">
-                    <a href="#features" class="text-sm font-semibold transition-colors" style="color:#C9BFAD;" onmouseover="this.style.color='#E9C77E'" onmouseout="this.style.color='#C9BFAD'">امکانات سیستم</a>
-                    <a href="#comparison" class="text-sm font-semibold transition-colors" style="color:#C9BFAD;" onmouseover="this.style.color='#E9C77E'" onmouseout="this.style.color='#C9BFAD'">مقایسه کانال‌ها</a>
-                    <a href="#how-it-works" class="text-sm font-semibold transition-colors" style="color:#C9BFAD;" onmouseover="this.style.color='#E9C77E'" onmouseout="this.style.color='#C9BFAD'">نحوه کارکرد</a>
-                    <a href="#pricing" class="text-sm font-semibold transition-colors" style="color:#C9BFAD;" onmouseover="this.style.color='#E9C77E'" onmouseout="this.style.color='#C9BFAD'">تعرفه اشتراک</a>
-                    <a href="#testimonials" class="text-sm font-semibold transition-colors" style="color:#C9BFAD;" onmouseover="this.style.color='#E9C77E'" onmouseout="this.style.color='#C9BFAD'">نظرات مدیران</a>
-                    <a href="#faq" class="text-sm font-semibold transition-colors" style="color:#C9BFAD;" onmouseover="this.style.color='#E9C77E'" onmouseout="this.style.color='#C9BFAD'">سوالات متداول</a>
+                    <a href="#features" class="text-sm font-semibold transition-colors" style="color:#A0A0BC;" onmouseover="this.style.color='#A5B4FC'" onmouseout="this.style.color='#A0A0BC'">امکانات سیستم</a>
+                    <a href="#comparison" class="text-sm font-semibold transition-colors" style="color:#A0A0BC;" onmouseover="this.style.color='#A5B4FC'" onmouseout="this.style.color='#A0A0BC'">مقایسه کانال‌ها</a>
+                    <a href="#how-it-works" class="text-sm font-semibold transition-colors" style="color:#A0A0BC;" onmouseover="this.style.color='#A5B4FC'" onmouseout="this.style.color='#A0A0BC'">نحوه کارکرد</a>
+                    <a href="#pricing" class="text-sm font-semibold transition-colors" style="color:#A0A0BC;" onmouseover="this.style.color='#A5B4FC'" onmouseout="this.style.color='#A0A0BC'">تعرفه اشتراک</a>
+                    <a href="#testimonials" class="text-sm font-semibold transition-colors" style="color:#A0A0BC;" onmouseover="this.style.color='#A5B4FC'" onmouseout="this.style.color='#A0A0BC'">نظرات مدیران</a>
+                    <a href="#faq" class="text-sm font-semibold transition-colors" style="color:#A0A0BC;" onmouseover="this.style.color='#A5B4FC'" onmouseout="this.style.color='#A0A0BC'">سوالات متداول</a>
                 </div>
 
                 <!-- Action Buttons — همیشه نمایان (فشرده در موبایل) -->
@@ -61,13 +61,13 @@
                         <span class="gt-burger-box"><span class="gt-burger-layer"></span><span class="gt-burger-layer"></span><span class="gt-burger-layer"></span></span>
                     </button>
                     <button onclick="openModal('login')" class="px-3.5 sm:px-5 py-2.5 rounded-xl border text-xs sm:text-sm font-bold transition-all"
-                        style="border-color:#3A3025;background:#171310;color:#A99E8E;box-shadow:rgba(10,15,26,.04) 0 2px 4px 0;"
-                        onmouseover="this.style.background='#1E1A14';this.style.color='#F5EFE3'"
-                        onmouseout="this.style.background='#fff';this.style.color='#A99E8E'">
+                        style="border-color:#3A3025;background:#16161F;color:#8888A4;box-shadow:rgba(10,15,26,.04) 0 2px 4px 0;"
+                        onmouseover="this.style.background='#0F0F14';this.style.color='#F1F0F4'"
+                        onmouseout="this.style.background='#fff';this.style.color='#8888A4'">
                         ورود به پنل
                     </button>
                     <button onclick="openModal('register')" class="px-3.5 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all"
-                        style="background:linear-gradient(135deg,#EAC87F,#C1903F);color:#201807;box-shadow:0 6px 18px rgba(214,172,99,.28),inset 0 1px 0 rgba(255,255,255,0.18);"
+                        style="background:linear-gradient(135deg,#A5B4FC,#6366F1);color:#0F0F14;box-shadow:0 6px 18px rgba(99,102,241,.28),inset 0 1px 0 rgba(255,255,255,0.18);"
                         onmouseover="this.style.filter='brightness(1.07)'"
                         onmouseout="this.style.filter='none'">
                         ثبت‌نام رایگان
@@ -100,10 +100,10 @@
             </div>
         </div>
         <div class="flex flex-col gap-3 mt-8">
-            <button onclick="closeMobileMenu(); openModal('login')" class="w-full py-3 rounded-xl border text-center font-bold" style="border-color:#3A3025;background:#171310;color:#A99E8E;">
+            <button onclick="closeMobileMenu(); openModal('login')" class="w-full py-3 rounded-xl border text-center font-bold" style="border-color:#3A3025;background:#16161F;color:#8888A4;">
                 ورود به پنل کاربری
             </button>
-            <button onclick="closeMobileMenu(); openModal('register')" class="w-full py-3 rounded-xl text-center font-bold text-white" style="background:linear-gradient(135deg,#EAC87F,#C1903F);color:#201807;box-shadow:0 6px 18px rgba(214,172,99,.3);">
+            <button onclick="closeMobileMenu(); openModal('register')" class="w-full py-3 rounded-xl text-center font-bold text-white" style="background:linear-gradient(135deg,#A5B4FC,#6366F1);color:#0F0F14;box-shadow:0 6px 18px rgba(99,102,241,.3);">
                 ثبت‌نام رایگان و شروع تست
             </button>
         </div>
@@ -140,7 +140,7 @@
                     </p>
 
                     <div class="reveal reveal-delay-3 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start mb-12">
-                        <button onclick="openModal('register')" class="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold text-base transition-all duration-300 pulse-glow" style="background:linear-gradient(135deg,#EAC87F,#C1903F);color:#201807;box-shadow:0 8px 26px rgba(214,172,99,.26),inset 0 1px 0 rgba(255,255,255,0.18);" onmouseover="this.style.filter='brightness(1.07)'" onmouseout="this.style.filter='none'">
+                        <button onclick="openModal('register')" class="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold text-base transition-all duration-300 pulse-glow" style="background:linear-gradient(135deg,#A5B4FC,#6366F1);color:#0F0F14;box-shadow:0 8px 26px rgba(99,102,241,.26),inset 0 1px 0 rgba(255,255,255,0.18);" onmouseover="this.style.filter='brightness(1.07)'" onmouseout="this.style.filter='none'">
                             <span>ثبت‌نام و شروع تست رایگان 🚀</span>
                         </button>
                         <a href="#features" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl glass text-neutral-300 font-medium text-base hover:text-white hover:bg-white/10 transition-all duration-300">
@@ -154,7 +154,7 @@
                     <div class="relative">
                         <!-- Asovin Mascot -->
                         <div style="text-align:center; margin-bottom:1rem;">
-                            <img src="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/images/asovin.webp" alt="آسوین - پُست‌یار" style="height:200px; width:auto; filter:drop-shadow(0 12px 32px rgba(214,172,99,0.35));" class="mx-auto lg:mx-0">
+                            <img src="<?php echo \WHCM\Core\Bootstrap::getAssetsUrl(); ?>/images/asovin.webp" alt="آسوین - پُست‌یار" style="height:200px; width:auto; filter:drop-shadow(0 12px 32px rgba(99,102,241,0.35));" class="mx-auto lg:mx-0">
                         </div>
 
                         <div class="glass-light rounded-3xl p-5 sm:p-6 float-animation shadow-2xl">
@@ -399,7 +399,7 @@
                             </th>
                             <th class="py-4 px-5 font-bold text-base text-white text-center" style="border-radius: 12px 0 0 0;">
                                 <span class="inline-flex items-center gap-2">
-                                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="#F5BC82"/><path d="M12 6v6l4 2" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="#FDE68A"/><path d="M12 6v6l4 2" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
                                     بله
                                 </span>
                             </th>
@@ -532,11 +532,11 @@
                         <div class="plan-card <?php echo $is_featured ? 'featured-plan' : ($p['price'] > 500000 ? 'recommended' : ''); ?>">
                             <div>
                                 <?php if (!empty($p['image_url']) && $p['image_url'] !== 'null'): ?>
-                                    <div class="plan-card-img-wrapper" style="background: linear-gradient(135deg, rgba(214,172,99,0.2) 0%, rgba(10,15,26,0.1) 100%); min-height: 160px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 16px; margin-bottom: 1.25rem; position: relative; border: 1px solid rgba(214,172,99,0.3);">
+                                    <div class="plan-card-img-wrapper" style="background: linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(10,15,26,0.1) 100%); min-height: 160px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 16px; margin-bottom: 1.25rem; position: relative; border: 1px solid rgba(99,102,241,0.3);">
                                         <img src="<?php echo \WHCM\Core\Bootstrap::getPlanImageUrl($p['image_url']); ?>" alt="<?php echo htmlspecialchars($p['title']); ?>" class="plan-card-img" style="max-height: 160px; width: auto; object-fit: contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                        <div class="fallback-plan-banner" style="display:none; width:100%; height:160px; background: linear-gradient(135deg, #1E1A14 0%, #1E1A14 50%, #1E1A14 100%); align-items:center; justify-content:center; flex-direction:column; gap:0.5rem; border-radius:16px;">
+                                        <div class="fallback-plan-banner" style="display:none; width:100%; height:160px; background: linear-gradient(135deg, #0F0F14 0%, #0F0F14 50%, #0F0F14 100%); align-items:center; justify-content:center; flex-direction:column; gap:0.5rem; border-radius:16px;">
                                             <span style="font-size:3rem; filter: drop-shadow(0 0 15px rgba(174,62,201,0.8));">💎</span>
-                                            <span style="color:#e9d5ff; font-weight:900; font-size:1.05rem; letter-spacing:1px;"><?php echo htmlspecialchars($p['title']); ?></span>
+                                            <span style="color:#C7D2FE; font-weight:900; font-size:1.05rem; letter-spacing:1px;"><?php echo htmlspecialchars($p['title']); ?></span>
                                         </div>
                                         <div class="neon-badges-overlay">
                                             <?php if (!empty($p['discount_badge_text'])): ?>
@@ -552,9 +552,9 @@
                                         </div>
                                     </div>
                                 <?php else: ?>
-                                    <div class="plan-card-img-wrapper" style="background: linear-gradient(135deg, #1E1A14 0%, #1E1A14 50%, #1E1A14 100%); min-height: 160px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; overflow: hidden; border-radius: 16px; margin-bottom: 1.25rem; position: relative; border: 1px solid rgba(174,62,201,0.4); box-shadow: inset 0 0 25px rgba(174,62,201,0.2);">
+                                    <div class="plan-card-img-wrapper" style="background: linear-gradient(135deg, #0F0F14 0%, #0F0F14 50%, #0F0F14 100%); min-height: 160px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; overflow: hidden; border-radius: 16px; margin-bottom: 1.25rem; position: relative; border: 1px solid rgba(174,62,201,0.4); box-shadow: inset 0 0 25px rgba(174,62,201,0.2);">
                                         <span style="font-size:3rem; filter: drop-shadow(0 0 15px rgba(174,62,201,0.8));">💎</span>
-                                        <span style="color:#e9d5ff; font-weight:900; font-size:1.05rem; letter-spacing:1px;"><?php echo htmlspecialchars($p['title']); ?></span>
+                                        <span style="color:#C7D2FE; font-weight:900; font-size:1.05rem; letter-spacing:1px;"><?php echo htmlspecialchars($p['title']); ?></span>
                                         <div class="neon-badges-overlay">
                                             <?php if (!empty($p['discount_badge_text'])): ?>
                                                 <div class="neon-glow-badge neon-badge-pink">
@@ -573,10 +573,10 @@
                                 <h3><?php echo htmlspecialchars($p['title']); ?></h3>
                                 <div style="text-align: center; margin-bottom: 0.9rem;">
                                     <?php if ($gen_discount > 0): ?>
-                                        <span style="text-decoration: line-through; color: #7A7062; font-size: 0.88rem; margin-left: 0.35rem;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['price']); ?></span>
-                                        <span style="color: #55C47E; font-size: 1.25rem; font-weight: 900;"><?php echo \WHCM\Domain\TextFormat::fa_num($final_price); ?> <span style="font-size: 0.78rem; font-weight: normal; color: #DCD3C4;">تومان</span></span>
+                                        <span style="text-decoration: line-through; color: #4A4857; font-size: 0.88rem; margin-left: 0.35rem;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['price']); ?></span>
+                                        <span style="color: #34D399; font-size: 1.25rem; font-weight: 900;"><?php echo \WHCM\Domain\TextFormat::fa_num($final_price); ?> <span style="font-size: 0.78rem; font-weight: normal; color: #B4B2BE;">تومان</span></span>
                                     <?php else: ?>
-                                        <span style="font-size: 1.25rem; font-weight: 900; color: #171310;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['price']); ?> <span style="font-size: 0.78rem; font-weight: normal; color: #DCD3C4;">تومان</span></span>
+                                        <span style="font-size: 1.25rem; font-weight: 900; color: #16161F;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['price']); ?> <span style="font-size: 0.78rem; font-weight: normal; color: #B4B2BE;">تومان</span></span>
                                     <?php endif; ?>
                                 </div>
 
@@ -732,7 +732,7 @@
                     <p class="text-neutral-400 text-base sm:text-lg leading-relaxed mb-10">
                         همین حالا به جمع مدیران حرفه‌ای بپیوندید و ارسال خودکار، ربات نرخ طلا و اتوماسیون کانال‌های تلگرام و بله را تجربه کنید.
                     </p>
-                    <button onclick="openModal('register')" class="group inline-flex items-center justify-center gap-2 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 pulse-glow" style="background:linear-gradient(135deg,#EAC87F,#C1903F);color:#201807;box-shadow:0 10px 34px rgba(214,172,99,.32),inset 0 1px 0 rgba(255,255,255,0.18);" onmouseover="this.style.filter='brightness(1.07)'" onmouseout="this.style.filter='none'">
+                    <button onclick="openModal('register')" class="group inline-flex items-center justify-center gap-2 px-10 py-5 rounded-2xl font-bold text-lg transition-all duration-300 pulse-glow" style="background:linear-gradient(135deg,#A5B4FC,#6366F1);color:#0F0F14;box-shadow:0 10px 34px rgba(99,102,241,.32),inset 0 1px 0 rgba(255,255,255,0.18);" onmouseover="this.style.filter='brightness(1.07)'" onmouseout="this.style.filter='none'">
                         <span>ثبت‌نام و شروع رایگان</span>
                     </button>
                 </div>

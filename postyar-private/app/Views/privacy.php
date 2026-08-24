@@ -6,7 +6,7 @@
     <meta name="robots" content="index,follow">
     <link rel="canonical" href="https://asovin.ir/privacy">
     <meta name="description" content="سیاست حفظ حریم خصوصی کاربران پُست‌یار و نحوه جمع‌آوری، استفاده، نگهداری و حذف اطلاعات.">
-    <meta name="theme-color" content="#1E1A14">
+    <meta name="theme-color" content="#1C1C28">
     <title><?php echo htmlspecialchars($title ?? 'حریم خصوصی کاربران پُست‌یار'); ?></title>
     <?php
         $assetsUrl = \WHCM\Core\Bootstrap::getAssetsUrl();
@@ -18,29 +18,29 @@
         @font-face{font-family:Vazirmatn;src:url('<?php echo $assetsUrl; ?>/fonts/Vazirmatn-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
         @font-face{font-family:Vazirmatn;src:url('<?php echo $assetsUrl; ?>/fonts/Vazirmatn-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
         @font-face{font-family:Vazirmatn;src:url('<?php echo $assetsUrl; ?>/fonts/Vazirmatn-Black.woff2') format('woff2');font-weight:900;font-display:swap}
-        :root{color-scheme:dark;--bg:#0C0A08;--surface:#171310;--surface2:#1E1A14;--text:#F5EFE3;--text2:#DCD3C4;--muted:#A99E8E;--line:rgba(255,255,255,0.048);--line-lt:rgba(255,255,255,0.03);--primary:#D6AC63;--primary-dk:#E9C77E;--primary-tx:#E9C77E;--green:#55C47E;--red:#E4686F;--shadow:rgba(0,0,0,.4) 0 2px 4px 0}
+        :root{color-scheme:dark;--bg:#0F0F14;--surface:#16161F;--surface2:#1C1C28;--text:#F1F0F4;--text2:#B4B2BE;--muted:#8888A4;--line:rgba(255,255,255,0.06);--line-lt:rgba(255,255,255,0.04);--primary:#818CF8;--primary-dk:#A5B4FC;--primary-tx:#A5B4FC;--green:#34D399;--red:#F87171;--shadow:rgba(0,0,0,.4) 0 2px 4px 0}
         *{box-sizing:border-box}
         html{scroll-behavior:smooth}
-        body{margin:0;background:radial-gradient(ellipse 60% 40% at 90% -5%,rgba(214,172,99,.07),transparent),radial-gradient(ellipse 40% 30% at 0% 25%,rgba(159,180,206,.05),transparent),var(--bg);color:var(--text);font-family:Vazirmatn,Tahoma,sans-serif;line-height:2}
+        body{margin:0;background:radial-gradient(ellipse 60% 40% at 90% -5%,rgba(99,102,241,.07),transparent),radial-gradient(ellipse 40% 30% at 0% 25%,rgba(159,180,206,.05),transparent),var(--bg);color:var(--text);font-family:Vazirmatn,Tahoma,sans-serif;line-height:2}
         a{color:var(--primary-tx);text-decoration:none}
         a:hover{text-decoration:underline}
         .container{width:min(1120px,calc(100% - 32px));margin-inline:auto}
-        .site-header{position:sticky;top:0;z-index:50;background:rgba(12,10,8,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+        .site-header{position:sticky;top:0;z-index:50;background:rgba(15,15,20,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
         .top-nav{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
         .brand{display:flex;align-items:center;gap:12px;color:var(--text);font-size:1.1rem;font-weight:900}
         .brand:hover{text-decoration:none}
         .brand img{width:40px;height:40px;object-fit:contain;border-radius:8px}
         .back{border:1px solid var(--line);color:var(--text2);padding:7px 14px;border-radius:6px;font-size:.9rem;background:var(--surface);transition:all .2s}
-        .back:hover{border-color:rgba(214,172,99,.4);color:var(--primary-tx);text-decoration:none;box-shadow:var(--shadow)}
+        .back:hover{border-color:rgba(99,102,241,.4);color:var(--primary-tx);text-decoration:none;box-shadow:var(--shadow)}
         main{padding:56px 0 72px}
         .hero{text-align:center;max-width:850px;margin:0 auto 36px}
-        .badge{display:inline-flex;color:var(--primary-tx);border:1px solid rgba(214,172,99,.3);background:rgba(214,172,99,.07);padding:5px 13px;border-radius:999px;font-size:.82rem;font-weight:700}
-        h1{font-size:clamp(1.9rem,5vw,3.1rem);line-height:1.5;margin:16px 0 12px;font-weight:900;background:linear-gradient(100deg,#F5EFE3,#E9C77E 55%,#AEC4DC);-webkit-background-clip:text;color:transparent}
+        .badge{display:inline-flex;color:var(--primary-tx);border:1px solid rgba(99,102,241,.3);background:rgba(99,102,241,.07);padding:5px 13px;border-radius:999px;font-size:.82rem;font-weight:700}
+        h1{font-size:clamp(1.9rem,5vw,3.1rem);line-height:1.5;margin:16px 0 12px;font-weight:900;background:linear-gradient(100deg,#F1F0F4,#A5B4FC 55%,#AEC4DC);-webkit-background-clip:text;color:transparent}
         .lead{color:var(--text2);font-size:1.02rem;margin:0}
         .meta{margin-top:14px;color:var(--muted);font-size:.9rem;font-weight:700}
         .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
         .summary div{border:1px solid var(--line);background:var(--surface);padding:16px;border-radius:8px;text-align:center;box-shadow:var(--shadow);transition:border-color .2s,transform .2s}
-        .summary div:hover{border-color:rgba(214,172,99,.35);transform:translateY(-2px)}
+        .summary div:hover{border-color:rgba(99,102,241,.35);transform:translateY(-2px)}
         .summary strong{display:block;color:var(--text);margin-bottom:4px}
         .summary span{font-size:.86rem;color:var(--muted)}
         .page-layout{display:grid;grid-template-columns:255px minmax(0,1fr);gap:24px;align-items:start}
@@ -49,18 +49,18 @@
         .toc-list{display:block;margin:0;padding:0;list-style:none}
         .toc-list li{display:block;margin:0}
         .toc-list a{display:block;color:var(--muted);padding:5px 8px;border-radius:4px;font-size:.82rem;line-height:1.8}
-        .toc-list a:hover{background:rgba(214,172,99,.07);color:var(--primary-tx);text-decoration:none}
+        .toc-list a:hover{background:rgba(99,102,241,.07);color:var(--primary-tx);text-decoration:none}
         article{display:block;min-width:0;position:relative;z-index:2}
         section{display:block;scroll-margin-top:88px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:24px;margin:0 0 16px;overflow:hidden;position:relative;box-shadow:var(--shadow)}
         h2{font-size:1.25rem;margin:0 0 13px;color:var(--text)}
-        h3{font-size:1.02rem;color:#DCD3C4;margin:22px 0 7px}
+        h3{font-size:1.02rem;color:#B4B2BE;margin:22px 0 7px}
         p{margin:8px 0;color:var(--text2)}
         ul,ol{margin:9px 0;padding-right:24px;color:var(--text2)}
         li{margin:5px 0}
-        .notice{border-inline-start:3px solid var(--primary);background:rgba(214,172,99,.06);padding:12px 14px;border-radius:6px;color:#0F5C4D;margin-top:14px}
-        .notice.success{border-inline-start-color:var(--green);background:rgba(85,196,126,.06);color:#82D9A2}
+        .notice{border-inline-start:3px solid var(--primary);background:rgba(99,102,241,.06);padding:12px 14px;border-radius:6px;color:#0F5C4D;margin-top:14px}
+        .notice.success{border-inline-start-color:var(--green);background:rgba(52,211,153,.06);color:#6EE7B7}
         .subsection{padding-top:5px}
-        .contact-card{background:linear-gradient(120deg,rgba(214,172,99,.06),rgba(159,180,206,.05));border:1px solid rgba(214,172,99,.25)}
+        .contact-card{background:linear-gradient(120deg,rgba(99,102,241,.06),rgba(159,180,206,.05));border:1px solid rgba(99,102,241,.25)}
         .signature{text-align:center;padding:28px}
         .signature img{display:block;max-width:190px;max-height:80px;object-fit:contain;margin:0 auto 12px}
         .signature strong{font-size:1.2rem}

@@ -17,7 +17,7 @@ $recipient_count = count($active_users ?? []);
         <?php echo \WHCM\Core\Csrf::field(); ?>
         <div class="form-group" style="max-width:520px;margin-bottom:1.25rem;">
             <label for="sms_provider_active">پنل پیامکی مورد استفاده:</label>
-            <select name="sms_provider_active" id="sms_provider_active" style="width:100%;padding:.75rem;border-radius:10px;background:#1E1A14;color:#fff;border:1px solid #3A3025;">
+            <select name="sms_provider_active" id="sms_provider_active" style="width:100%;padding:.75rem;border-radius:10px;background:#1C1C28;color:#fff;border:1px solid #3A3025;">
                 <?php foreach ($smsProviders as $id => $meta): ?>
                     <option value="<?php echo htmlspecialchars($id); ?>" <?php echo $activeSms === $id ? 'selected' : ''; ?>><?php echo htmlspecialchars($meta['name']); ?></option>
                 <?php endforeach; ?>
@@ -27,10 +27,10 @@ $recipient_count = count($active_users ?? []);
         <?php foreach ($smsProviders as $id => $meta):
             $enabled = (($sms_settings['sms_provider_' . $id . '_enabled'] ?? '0') === '1');
         ?>
-            <section class="sms-provider-card" data-provider="<?php echo htmlspecialchars($id); ?>" style="display:none;border:1px solid #2B241B;border-radius:14px;padding:1.25rem;background:#1E1A14;margin-bottom:1rem;">
+            <section class="sms-provider-card" data-provider="<?php echo htmlspecialchars($id); ?>" style="display:none;border:1px solid #2A2A38;border-radius:14px;padding:1.25rem;background:#1C1C28;margin-bottom:1rem;">
                 <h3 style="margin:0 0 1rem;color:#fff;">تنظیمات <?php echo htmlspecialchars($meta['name']); ?></h3>
                 <label style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;cursor:pointer;">
-                    <input type="checkbox" name="sms_enabled_<?php echo htmlspecialchars($id); ?>" value="1" <?php echo $enabled ? 'checked' : ''; ?> style="width:19px;height:19px;accent-color:#55C47E;">
+                    <input type="checkbox" name="sms_enabled_<?php echo htmlspecialchars($id); ?>" value="1" <?php echo $enabled ? 'checked' : ''; ?> style="width:19px;height:19px;accent-color:#34D399;">
                     <span>فعال کردن این پنل</span>
                 </label>
                 <div class="form-row">
@@ -42,7 +42,7 @@ $recipient_count = count($active_users ?? []);
                 ?>
                     <div class="form-group">
                         <label><?php echo $labelMap[$field] ?? $field; ?>:</label>
-                        <input type="<?php echo $secret ? 'password' : 'text'; ?>" name="sms_<?php echo htmlspecialchars($id.'_'.$field); ?>" value="<?php echo $secret ? '' : htmlspecialchars($stored); ?>" placeholder="<?php echo $secret && $stored !== '' ? 'مقدار فعلی ذخیره شده است؛ برای تغییر مقدار جدید وارد کنید' : ($field === 'base_url' ? 'نشانی سرویس را در صورت نیاز وارد کنید' : ''); ?>" autocomplete="off" style="width:100%;box-sizing:border-box;padding:.65rem;border-radius:10px;background:#1E1A14;color:white;border:1px solid #3A3025;direction:ltr;text-align:left;">
+                        <input type="<?php echo $secret ? 'password' : 'text'; ?>" name="sms_<?php echo htmlspecialchars($id.'_'.$field); ?>" value="<?php echo $secret ? '' : htmlspecialchars($stored); ?>" placeholder="<?php echo $secret && $stored !== '' ? 'مقدار فعلی ذخیره شده است؛ برای تغییر مقدار جدید وارد کنید' : ($field === 'base_url' ? 'نشانی سرویس را در صورت نیاز وارد کنید' : ''); ?>" autocomplete="off" style="width:100%;box-sizing:border-box;padding:.65rem;border-radius:10px;background:#1C1C28;color:white;border:1px solid #3A3025;direction:ltr;text-align:left;">
                     </div>
                 <?php endforeach; ?>
                 </div>
@@ -55,8 +55,8 @@ $recipient_count = count($active_users ?? []);
 
         <div id="sms-test-phone" style="display:none;margin-top:1rem;border:1px dashed #3A3025;border-radius:12px;padding:1rem;">
             <label for="test_phone">شماره موبایل برای آزمون ارسال:</label>
-            <input type="text" name="test_phone" id="test_phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" style="width:100%;max-width:360px;padding:.65rem;border-radius:10px;background:#1E1A14;color:#fff;border:1px solid #3A3025;direction:ltr;text-align:left;margin-top:.4rem;">
-            <p style="font-size:.75rem;color:#DCD3C4;margin:.5rem 0 0;">برای پنل «اس‌ام‌اس.آی‌آر» آزمون می‌تواند یک پیام واقعی آزمایشی ارسال کند.</p>
+            <input type="text" name="test_phone" id="test_phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" style="width:100%;max-width:360px;padding:.65rem;border-radius:10px;background:#1C1C28;color:#fff;border:1px solid #3A3025;direction:ltr;text-align:left;margin-top:.4rem;">
+            <p style="font-size:.75rem;color:#B4B2BE;margin:.5rem 0 0;">برای پنل «اس‌ام‌اس.آی‌آر» آزمون می‌تواند یک پیام واقعی آزمایشی ارسال کند.</p>
         </div>
     </form>
 </div>
@@ -104,7 +104,7 @@ $recipient_count = count($active_users ?? []);
                 <?php foreach ($templates as $t): ?>
                 <tr>
                     <td data-label="کلید رویداد">
-                        <code style="background:rgba(214,172,99,0.15); color:#E9C77E; padding:0.2rem 0.5rem; border-radius:6px; font-size:0.8rem; direction:ltr; display:inline-block;"><?php echo htmlspecialchars((string)($t['event_key'] ?? '')); ?></code>
+                        <code style="background:rgba(99,102,241,0.15); color:#A5B4FC; padding:0.2rem 0.5rem; border-radius:6px; font-size:0.8rem; direction:ltr; display:inline-block;"><?php echo htmlspecialchars((string)($t['event_key'] ?? '')); ?></code>
                     </td>
                     <td data-label="نام قالب" style="color:white; font-weight:600;"><?php echo htmlspecialchars((string)($t['template_name'] ?? '')); ?></td>
                     <td data-label="شناسه" style="direction:ltr; text-align:left;"><?php echo $tf::fa_digits((string)($t['template_id'] ?? '')); ?></td>
@@ -114,7 +114,7 @@ $recipient_count = count($active_users ?? []);
                         </span>
                     </td>
                     <td data-label="عملیات">
-                        <button type="button" class="btn btn-outline btn-sm" style="background:rgba(214,172,99,0.15); color:#E9C77E; border:1px solid rgba(214,172,99,0.3); padding:0.35rem 0.7rem; font-size:0.78rem; border-radius:8px; cursor:pointer;" onclick='editSmsTemplate(<?php echo json_encode($t, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP|JSON_UNESCAPED_UNICODE); ?>)'>✏️ ویرایش</button>
+                        <button type="button" class="btn btn-outline btn-sm" style="background:rgba(99,102,241,0.15); color:#A5B4FC; border:1px solid rgba(99,102,241,0.3); padding:0.35rem 0.7rem; font-size:0.78rem; border-radius:8px; cursor:pointer;" onclick='editSmsTemplate(<?php echo json_encode($t, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP|JSON_UNESCAPED_UNICODE); ?>)'>✏️ ویرایش</button>
                         <form action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/delete-sms-template'); ?>" method="POST" style="display:inline;" onsubmit="return confirm('آیا از حذف این قالب مطمئن هستید؟');">
                             <?php echo \WHCM\Core\Csrf::field(); ?>
                             <input type="hidden" name="template_db_id" value="<?php echo $t['id']; ?>">
@@ -129,14 +129,14 @@ $recipient_count = count($active_users ?? []);
 
     <!-- فرم افزودن/ویرایش قالب (مدال) -->
     <div style="margin-top:1.25rem; padding-top:1.25rem; border-top:1px dashed var(--border);">
-        <h3 style="font-size:0.95rem; margin-bottom:1rem; color:#E9C77E;">➕ افزودن قالب جدید / ویرایش</h3>
+        <h3 style="font-size:0.95rem; margin-bottom:1rem; color:#A5B4FC;">➕ افزودن قالب جدید / ویرایش</h3>
         <form id="sms-template-form" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/save-sms-template'); ?>" method="POST">
             <?php echo \WHCM\Core\Csrf::field(); ?>
             <input type="hidden" name="template_db_id" id="sms_tpl_db_id" value="0">
             <div class="form-row" style="margin-bottom:1rem;">
                 <div class="form-group">
                     <label for="sms_event_key">کلید رویداد:</label>
-                    <select name="event_key" id="sms_event_key" style="width:100%; padding:0.6rem; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B;">
+                    <select name="event_key" id="sms_event_key" style="width:100%; padding:0.6rem; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38;">
                         <option value="">-- انتخاب کنید --</option>
                         <option value="registration">ثبت‌نام کاربر جدید</option>
                         <option value="payment_confirm">تایید تراکنش پرداخت</option>
@@ -148,22 +148,22 @@ $recipient_count = count($active_users ?? []);
                 </div>
                 <div class="form-group">
                     <label for="sms_tpl_name">نام قالب:</label>
-                    <input type="text" name="template_name" id="sms_tpl_name" placeholder="مثال: تایید پرداخت" style="width:100%; padding:0.6rem; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B;">
+                    <input type="text" name="template_name" id="sms_tpl_name" placeholder="مثال: تایید پرداخت" style="width:100%; padding:0.6rem; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38;">
                 </div>
             </div>
             <div class="form-row" style="margin-bottom:1rem;">
                 <div class="form-group">
                     <label for="sms_tpl_id">شناسه قالب (TemplateId):</label>
-                    <input type="number" name="template_id" id="sms_tpl_id" placeholder="مثال: 78432" min="1" style="width:100%; padding:0.6rem; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B; direction:ltr; text-align:left;">
+                    <input type="number" name="template_id" id="sms_tpl_id" placeholder="مثال: 78432" min="1" style="width:100%; padding:0.6rem; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38; direction:ltr; text-align:left;">
                 </div>
                 <div class="form-group">
                     <label for="sms_tpl_params">پارامترها (JSON):</label>
-                    <input type="text" name="parameters" id="sms_tpl_params" value='[]' placeholder='["name", "amount"]' style="width:100%; padding:0.6rem; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B; direction:ltr; text-align:left; font-family:monospace;">
+                    <input type="text" name="parameters" id="sms_tpl_params" value='[]' placeholder='["name", "amount"]' style="width:100%; padding:0.6rem; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38; direction:ltr; text-align:left; font-family:monospace;">
                 </div>
             </div>
             <div class="form-group" style="margin-bottom:1rem;">
                 <label style="display:flex; align-items:center; gap:0.75rem; cursor:pointer;">
-                    <input type="checkbox" name="is_active" value="1" checked style="width:18px; height:18px; accent-color:#55C47E;">
+                    <input type="checkbox" name="is_active" value="1" checked style="width:18px; height:18px; accent-color:#34D399;">
                     <span style="color:white; font-size:0.9rem;">قالب فعال باشد</span>
                 </label>
             </div>
@@ -186,24 +186,24 @@ $recipient_count = count($active_users ?? []);
 
         <div class="form-group" style="margin-bottom:1.25rem;">
             <label for="bulk_recipient_type">نوع گیرندگان:</label>
-            <select name="recipient_type" id="bulk_recipient_type" onchange="toggleBulkPhoneInput()" style="width:100%; padding:0.6rem; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B;">
+            <select name="recipient_type" id="bulk_recipient_type" onchange="toggleBulkPhoneInput()" style="width:100%; padding:0.6rem; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38;">
                 <option value="active">کاربران فعال (دارای شماره موبایل)</option>
                 <option value="all">همه کاربران (دارای شماره موبایل)</option>
                 <option value="manual">شماره دستی</option>
             </select>
             <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.35rem;">
-                تعداد کاربران فعال دارای شماره: <strong style="color:#E9C77E;"><?php echo $tf::fa_digits($recipient_count); ?></strong> نفر
+                تعداد کاربران فعال دارای شماره: <strong style="color:#A5B4FC;"><?php echo $tf::fa_digits($recipient_count); ?></strong> نفر
             </div>
         </div>
 
         <div class="form-group" id="bulk_manual_phones_group" style="margin-bottom:1.25rem; display:none;">
             <label for="bulk_manual_phones">شماره‌ها (هر خط یک شماره یا با کاما جدا):</label>
-            <textarea name="manual_phones" id="bulk_manual_phones" rows="3" placeholder="09123456789&#10;09129876543" style="width:100%; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B; padding:0.75rem; direction:ltr; text-align:left; font-family:monospace;"></textarea>
+            <textarea name="manual_phones" id="bulk_manual_phones" rows="3" placeholder="09123456789&#10;09129876543" style="width:100%; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38; padding:0.75rem; direction:ltr; text-align:left; font-family:monospace;"></textarea>
         </div>
 
         <div class="form-group" style="margin-bottom:1.25rem;">
             <label for="bulk_template_id">قالب پیامک:</label>
-            <select name="bulk_template_id" id="bulk_template_id" style="width:100%; padding:0.6rem; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B;">
+            <select name="bulk_template_id" id="bulk_template_id" style="width:100%; padding:0.6rem; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38;">
                 <option value="0">-- انتخاب قالب --</option>
                 <?php foreach ($templates as $t): if ($t['is_active']): ?>
                     <option value="<?php echo $t['template_id']; ?>"><?php echo htmlspecialchars((string)($t['template_name'] ?? '')) . ' (' . $tf::fa_digits((string)($t['template_id'] ?? '')) . ')'; ?></option>
@@ -211,25 +211,25 @@ $recipient_count = count($active_users ?? []);
             </select>
         </div>
 
-        <h3 style="font-size:0.9rem; margin-bottom:0.75rem; border-bottom:1px dashed var(--border); padding-bottom:0.4rem; color:#E9C77E;">🔧 پارامترهای قالب</h3>
+        <h3 style="font-size:0.9rem; margin-bottom:0.75rem; border-bottom:1px dashed var(--border); padding-bottom:0.4rem; color:#A5B4FC;">🔧 پارامترهای قالب</h3>
         <div class="form-row" style="margin-bottom:1rem;">
             <div class="form-group">
                 <label for="param1_name">نام پارامتر ۱:</label>
-                <input type="text" name="param1_name" id="param1_name" placeholder="name" style="width:100%; padding:0.6rem; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B; direction:ltr; text-align:left;">
+                <input type="text" name="param1_name" id="param1_name" placeholder="name" style="width:100%; padding:0.6rem; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38; direction:ltr; text-align:left;">
             </div>
             <div class="form-group">
                 <label for="param1_value">مقدار پارامتر ۱:</label>
-                <input type="text" name="param1_value" id="param1_value" placeholder="علی" style="width:100%; padding:0.6rem; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B;">
+                <input type="text" name="param1_value" id="param1_value" placeholder="علی" style="width:100%; padding:0.6rem; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38;">
             </div>
         </div>
         <div class="form-row" style="margin-bottom:1.5rem;">
             <div class="form-group">
                 <label for="param2_name">نام پارامتر ۲:</label>
-                <input type="text" name="param2_name" id="param2_name" placeholder="amount" style="width:100%; padding:0.6rem; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B; direction:ltr; text-align:left;">
+                <input type="text" name="param2_name" id="param2_name" placeholder="amount" style="width:100%; padding:0.6rem; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38; direction:ltr; text-align:left;">
             </div>
             <div class="form-group">
                 <label for="param2_value">مقدار پارامتر ۲:</label>
-                <input type="text" name="param2_value" id="param2_value" placeholder="۳۰۰,۰۰۰" style="width:100%; padding:0.6rem; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B;">
+                <input type="text" name="param2_value" id="param2_value" placeholder="۳۰۰,۰۰۰" style="width:100%; padding:0.6rem; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38;">
             </div>
         </div>
 
@@ -255,7 +255,7 @@ $recipient_count = count($active_users ?? []);
         <input type="hidden" name="route" value="/hnnh/sms-settings">
         <div class="form-group" style="flex:1; min-width:150px; margin-bottom:0;">
             <label for="log_filter_status">وضعیت:</label>
-            <select name="filter_status" id="log_filter_status" style="width:100%; padding:0.5rem; border-radius:8px; background:#1E1A14; color:white; border:1px solid #2B241B;">
+            <select name="filter_status" id="log_filter_status" style="width:100%; padding:0.5rem; border-radius:8px; background:#1C1C28; color:white; border:1px solid #2A2A38;">
                 <option value="">همه</option>
                 <option value="success" <?php echo ($filter_status ?? '') === 'success' ? 'selected' : ''; ?>>موفق ✔</option>
                 <option value="failed" <?php echo ($filter_status ?? '') === 'failed' ? 'selected' : ''; ?>>ناموفق ✘</option>
@@ -264,10 +264,10 @@ $recipient_count = count($active_users ?? []);
         </div>
         <div class="form-group" style="flex:1; min-width:150px; margin-bottom:0;">
             <label for="log_filter_phone">شماره موبایل:</label>
-            <input type="text" name="filter_phone" id="log_filter_phone" value="<?php echo htmlspecialchars($filter_phone ?? ''); ?>" placeholder="0912..." style="width:100%; padding:0.5rem; border-radius:8px; background:#1E1A14; color:white; border:1px solid #2B241B; direction:ltr; text-align:left;">
+            <input type="text" name="filter_phone" id="log_filter_phone" value="<?php echo htmlspecialchars($filter_phone ?? ''); ?>" placeholder="0912..." style="width:100%; padding:0.5rem; border-radius:8px; background:#1C1C28; color:white; border:1px solid #2A2A38; direction:ltr; text-align:left;">
         </div>
-        <button type="submit" class="btn btn-outline" style="background:rgba(214,172,99,0.15); color:#E9C77E; border:1px solid rgba(214,172,99,0.3); padding:0.5rem 1rem; border-radius:8px; white-space:nowrap; margin-bottom:0;">🔍 فیلتر</button>
-        <a href="/index.php?route=%2Fhnnh%2Fsms-settings" class="btn btn-outline" style="background:rgba(10,15,26,0.045); color:var(--text-muted); border:1px solid var(--border); padding:0.5rem 1rem; border-radius:8px; white-space:nowrap; text-decoration:none; margin-bottom:0;">پاک کردن فیلتر</a>
+        <button type="submit" class="btn btn-outline" style="background:rgba(99,102,241,0.15); color:#A5B4FC; border:1px solid rgba(99,102,241,0.3); padding:0.5rem 1rem; border-radius:8px; white-space:nowrap; margin-bottom:0;">🔍 فیلتر</button>
+        <a href="/index.php?route=%2Fhnnh%2Fsms-settings" class="btn btn-outline" style="background:rgba(15,15,20,0.045); color:var(--text-muted); border:1px solid var(--border); padding:0.5rem 1rem; border-radius:8px; white-space:nowrap; text-decoration:none; margin-bottom:0;">پاک کردن فیلتر</a>
     </form>
 
     <?php if (empty($logs)): ?>
@@ -301,7 +301,7 @@ $recipient_count = count($active_users ?? []);
                             }
                         ?></td>
                         <td data-label="شماره" style="direction:ltr; text-align:left; font-size:0.85rem;"><?php echo htmlspecialchars($l['phone'] ?? ''); ?></td>
-                        <td data-label="قالب" style="font-size:0.82rem; color:#E9C77E;"><?php echo htmlspecialchars($l['template_name'] ?? ($l['event_key'] ?? '—')); ?></td>
+                        <td data-label="قالب" style="font-size:0.82rem; color:#A5B4FC;"><?php echo htmlspecialchars($l['template_name'] ?? ($l['event_key'] ?? '—')); ?></td>
                         <td data-label="وضعیت">
                             <?php
                                 $st = $l['status'] ?? 'pending';
@@ -314,7 +314,7 @@ $recipient_count = count($active_users ?? []);
                             <span class="badge badge-<?php echo $badge_class; ?>"><?php echo $st_text; ?></span>
                         </td>
                         <td data-label="کد پاسخ" style="direction:ltr; font-size:0.82rem;"><?php echo htmlspecialchars($l['response_code'] ?? '—'); ?></td>
-                        <td data-label="خطا" style="font-size:0.78rem; color:#E4686F; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="<?php echo htmlspecialchars($l['error_message'] ?? ''); ?>"><?php echo htmlspecialchars($l['error_message'] ?? '—'); ?></td>
+                        <td data-label="خطا" style="font-size:0.78rem; color:#F87171; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="<?php echo htmlspecialchars($l['error_message'] ?? ''); ?>"><?php echo htmlspecialchars($l['error_message'] ?? '—'); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

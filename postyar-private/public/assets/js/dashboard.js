@@ -229,20 +229,20 @@ function selectPlan(id, title, price, paymentUrl) {
     }
     for (var j = 0; j < allBtns.length; j++) {
         allBtns[j].textContent = 'انتخاب این پلن';
-        allBtns[j].style.background = 'linear-gradient(135deg, #55C47E 0%, #82D9A2 100%)';
+        allBtns[j].style.background = 'linear-gradient(135deg, #34D399 0%, #6EE7B7 100%)';
     }
     // قفل کردن پلن انتخاب‌شده
     var selectedCard = document.getElementById('plan-card-' + id);
     var selectedBtn = document.getElementById('plan-btn-' + id);
     if (selectedCard) {
-        selectedCard.style.outline = '3px solid #55C47E';
+        selectedCard.style.outline = '3px solid #34D399';
         selectedCard.style.outlineOffset = '3px';
-        selectedCard.style.boxShadow = '0 0 30px rgba(85,196,126,0.5)';
+        selectedCard.style.boxShadow = '0 0 30px rgba(52,211,153,0.5)';
         selectedCard.style.position = 'relative';
     }
     if (selectedBtn) {
         selectedBtn.textContent = '✅ این پلن انتخاب شد (قفل شده)';
-        selectedBtn.style.background = 'linear-gradient(135deg, #82D9A2 0%, #82D9A2 100%)';
+        selectedBtn.style.background = 'linear-gradient(135deg, #6EE7B7 0%, #6EE7B7 100%)';
     }
     document.getElementById('payment-box').classList.remove('hidden');
     document.getElementById('sel-title').textContent = title;
@@ -290,33 +290,33 @@ function openTicketModal(t) {
         bubble.style.lineHeight = "1.8";
         bubble.style.fontSize = "0.9rem";
         if (i === 0) {
-            bubble.style.background = "#1E1A14";
-            bubble.style.border = "1px solid #2B241B";
-            bubble.style.color = "#F5EFE3";
+            bubble.style.background = "#1C1C28";
+            bubble.style.border = "1px solid #2A2A38";
+            bubble.style.color = "#F1F0F4";
             // بررسی پیام ادمین (تیکت ایجاد شده توسط ادمین)
             var adminMatch = text.match(/^\[پیام مدیر سیستم \(([^)]+)\) در تاریخ ([^\]]+)\]:\s*([\s\S]*)$/m);
             if (adminMatch) {
-                bubble.innerHTML = '<div style="font-size:0.8rem; color:#F5BC82; font-weight:900; margin-bottom:0.4rem;">👑 پیام مدیر سیستم (' + adminMatch[1] + '):</div><div style="font-size:0.7rem; color:#7A7062; margin-bottom:0.5rem;">📅 ' + adminMatch[2] + '</div>' + adminMatch[3].replace(/\n/g, "<br>");
+                bubble.innerHTML = '<div style="font-size:0.8rem; color:#FDE68A; font-weight:900; margin-bottom:0.4rem;">👑 پیام مدیر سیستم (' + adminMatch[1] + '):</div><div style="font-size:0.7rem; color:#4A4857; margin-bottom:0.5rem;">📅 ' + adminMatch[2] + '</div>' + adminMatch[3].replace(/\n/g, "<br>");
             } else {
-                bubble.innerHTML = '<div style="font-size:0.75rem; color:#E9C77E; font-weight:bold; margin-bottom:0.4rem;">👤 پیام شما:</div>' + text.replace(/\n/g, "<br>");
+                bubble.innerHTML = '<div style="font-size:0.75rem; color:#A5B4FC; font-weight:bold; margin-bottom:0.4rem;">👤 پیام شما:</div>' + text.replace(/\n/g, "<br>");
             }
         } else {
-            bubble.style.background = "linear-gradient(135deg, rgba(214,172,99,0.15) 0%, rgba(10,15,26,0.1) 100%)";
-            bubble.style.border = "1px solid #E9C77E";
-            bubble.style.color = "#171310";
+            bubble.style.background = "linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(15,15,20,0.1) 100%)";
+            bubble.style.border = "1px solid #A5B4FC";
+            bubble.style.color = "#16161F";
             // استخراج تاریخ و نوع پاسخ از براکت
             var supportMatch = text.match(/^\[پاسخ پشتیبان در تاریخ ([^\]]+)\]:\s*([\s\S]*)$/m);
             var userReplyMatch = text.match(/^\[پاسخ کاربر در تاریخ ([^\]]+)\]:\s*([\s\S]*)$/m);
             var headerHtml = '';
             var bodyText = text;
             if (supportMatch) {
-                headerHtml = '<div style="font-size:0.8rem; color:#55C47E; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ کارشناس پشتیبانی پُست‌یار:</div><div style="font-size:0.7rem; color:#7A7062; margin-bottom:0.5rem;">📅 ' + supportMatch[1] + '</div>';
+                headerHtml = '<div style="font-size:0.8rem; color:#34D399; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ کارشناس پشتیبانی پُست‌یار:</div><div style="font-size:0.7rem; color:#4A4857; margin-bottom:0.5rem;">📅 ' + supportMatch[1] + '</div>';
                 bodyText = supportMatch[2];
             } else if (userReplyMatch) {
-                headerHtml = '<div style="font-size:0.8rem; color:#E9C77E; font-weight:900; margin-bottom:0.4rem;">👤 پاسخ شما:</div><div style="font-size:0.7rem; color:#7A7062; margin-bottom:0.5rem;">📅 ' + userReplyMatch[1] + '</div>';
+                headerHtml = '<div style="font-size:0.8rem; color:#A5B4FC; font-weight:900; margin-bottom:0.4rem;">👤 پاسخ شما:</div><div style="font-size:0.7rem; color:#4A4857; margin-bottom:0.5rem;">📅 ' + userReplyMatch[1] + '</div>';
                 bodyText = userReplyMatch[2];
             } else {
-                headerHtml = '<div style="font-size:0.8rem; color:#55C47E; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ کارشناس پشتیبانی پُست‌یار:</div>';
+                headerHtml = '<div style="font-size:0.8rem; color:#34D399; font-weight:900; margin-bottom:0.4rem;">👑 پاسخ کارشناس پشتیبانی پُست‌یار:</div>';
             }
             bubble.innerHTML = headerHtml + bodyText.replace(/\n/g, "<br>");
         }
@@ -498,9 +498,9 @@ function toggleResponder(channelId, enabled) {
     var parentCard = label ? label.closest('div[style*="border"]') : null;
     
     // به‌روزرسانی فوری ظاهر
-    if (track) track.style.background = enabled ? '#55C47E' : '#3A3025';
+    if (track) track.style.background = enabled ? '#34D399' : '#3A3025';
     if (thumb) thumb.style.left = enabled ? '25px' : '3px';
-    if (parentCard) parentCard.style.borderColor = enabled ? '#55C47E' : '#2B241B';
+    if (parentCard) parentCard.style.borderColor = enabled ? '#34D399' : '#2A2A38';
     
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
@@ -508,9 +508,9 @@ function toggleResponder(channelId, enabled) {
                 var res = JSON.parse(xhr.responseText);
                 if (!res.success) {
                     // برگرداندن به وضعیت قبلی در صورت خطا
-                    if (track) track.style.background = enabled ? '#3A3025' : '#55C47E';
+                    if (track) track.style.background = enabled ? '#3A3025' : '#34D399';
                     if (thumb) thumb.style.left = enabled ? '3px' : '25px';
-                    if (parentCard) parentCard.style.borderColor = '#2B241B';
+                    if (parentCard) parentCard.style.borderColor = '#2A2A38';
                     var cb = label ? label.querySelector('input[type="checkbox"]') : null;
                     if (cb) cb.checked = !enabled;
                     alert(res.message || 'خطا در تغییر وضعیت');
@@ -666,7 +666,7 @@ function showToast(msg) {
     var toast = document.createElement('div');
     toast.id = 'ajax-toast';
     toast.textContent = msg;
-    toast.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#55C47E,#82D9A2);color:#fff;padding:0.75rem 1.5rem;border-radius:12px;font-size:0.85rem;font-weight:700;z-index:99999;box-shadow:0 8px 25px rgba(0,0,0,0.5);opacity:0;transition:opacity 0.3s;font-family:inherit;';
+    toast.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#34D399,#6EE7B7);color:#fff;padding:0.75rem 1.5rem;border-radius:12px;font-size:0.85rem;font-weight:700;z-index:99999;box-shadow:0 8px 25px rgba(0,0,0,0.5);opacity:0;transition:opacity 0.3s;font-family:inherit;';
     document.body.appendChild(toast);
     setTimeout(function(){ toast.style.opacity = '1'; }, 10);
     setTimeout(function(){ toast.style.opacity = '0'; setTimeout(function(){ toast.remove(); }, 300); }, 3000);

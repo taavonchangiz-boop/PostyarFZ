@@ -49,7 +49,7 @@ $ad_fa_status = static function ($status): string {
 
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="<?php echo $baseUrl; ?>/manifest.json">
-    <meta name="theme-color" content="#1E1A14">
+    <meta name="theme-color" content="#1C1C28">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="پُست‌یار">
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $baseUrl; ?>/assets/icons/favicon-32x32.png">
@@ -83,35 +83,35 @@ $ad_fa_status = static function ($status): string {
         <div class="topbar-right">
             <!-- زنگوله اعلان‌ها -->
             <div id="bell-wrapper" style="position:relative;">
-                <button type="button" id="bell-btn" onclick="toggleBellPopup()" class="tb-btn" style="background:#171310;border:1px solid #2B241B;border-radius:8px;" aria-label="اعلان‌ها">
+                <button type="button" id="bell-btn" onclick="toggleBellPopup()" class="tb-btn" style="background:#16161F;border:1px solid #2A2A38;border-radius:8px;" aria-label="اعلان‌ها">
                     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                    <span id="bell-badge" style="position:absolute;top:3px;right:3px;min-width:16px;height:16px;background:#E4686F;border-radius:9999px;border:2px solid #fff;color:#fff;font-size:9px;font-weight:800;align-items:center;justify-content:center;padding:0 3px;<?php echo ($unread_count > 0) ? 'display:flex;' : 'display:none;'; ?>"><?php echo $unread_count > 0 ? \WHCM\Domain\TextFormat::fa_digits($unread_count) : ''; ?></span>
+                    <span id="bell-badge" style="position:absolute;top:3px;right:3px;min-width:16px;height:16px;background:#F87171;border-radius:9999px;border:2px solid #fff;color:#fff;font-size:9px;font-weight:800;align-items:center;justify-content:center;padding:0 3px;<?php echo ($unread_count > 0) ? 'display:flex;' : 'display:none;'; ?>"><?php echo $unread_count > 0 ? \WHCM\Domain\TextFormat::fa_digits($unread_count) : ''; ?></span>
                 </button>
-                <div id="user-bell-popup" style="display:none;position:absolute;left:0;top:44px;width:22rem;max-height:28rem;z-index:9999;background:#171310;border:1px solid #2B241B;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 1px rgba(214,172,99,.08);overflow:hidden;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2B241B;padding:11px 14px;">
-                        <strong style="color:#F5EFE3;font-size:13px;">🔔 اعلان‌ها</strong>
+                <div id="user-bell-popup" style="display:none;position:absolute;left:0;top:44px;width:22rem;max-height:28rem;z-index:9999;background:#16161F;border:1px solid #2A2A38;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 1px rgba(99,102,241,.08);overflow:hidden;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2A2A38;padding:11px 14px;">
+                        <strong style="color:#F1F0F4;font-size:13px;">🔔 اعلان‌ها</strong>
                         <?php if ($unread_count > 0): ?>
-                        <button type="button" onclick="markAllNotificationsRead(this)" style="background:none;border:1px solid rgba(214,172,99,.35);color:#E9C77E;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;cursor:pointer;">خواندن همه ✔</button>
+                        <button type="button" onclick="markAllNotificationsRead(this)" style="background:none;border:1px solid rgba(99,102,241,.35);color:#A5B4FC;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;cursor:pointer;">خواندن همه ✔</button>
                         <?php endif; ?>
                     </div>
                     <div id="bell-notifications-list" style="overflow-y:auto;max-height:22rem;">
                         <?php if (!empty($user_notifications)): ?>
                             <?php foreach ($user_notifications as $notif): ?>
-                                <div id="notif-item-<?php echo $notif['id']; ?>" class="notif-list-item" data-notif-id="<?php echo $notif['id']; ?>" data-target="<?php echo htmlspecialchars($notif['target_section'] ?? ''); ?>" style="padding:10px 14px;margin:0;border-bottom:1px solid #2B241B;cursor:pointer;transition:background .15s;<?php echo ($notif['is_read'] == 0) ? 'background:rgba(214,172,99,.06);box-shadow:inset 3px 0 0 #D6AC63;' : ''; ?>" onclick="openNotification(<?php echo $notif['id']; ?>, '<?php echo htmlspecialchars(addslashes($notif['target_section'] ?? '')); ?>')">
+                                <div id="notif-item-<?php echo $notif['id']; ?>" class="notif-list-item" data-notif-id="<?php echo $notif['id']; ?>" data-target="<?php echo htmlspecialchars($notif['target_section'] ?? ''); ?>" style="padding:10px 14px;margin:0;border-bottom:1px solid #2A2A38;cursor:pointer;transition:background .15s;<?php echo ($notif['is_read'] == 0) ? 'background:rgba(99,102,241,.06);box-shadow:inset 3px 0 0 #818CF8;' : ''; ?>" onclick="openNotification(<?php echo $notif['id']; ?>, '<?php echo htmlspecialchars(addslashes($notif['target_section'] ?? '')); ?>')">
                                     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;">
-                                        <div style="font-weight:<?php echo ($notif['is_read'] == 0) ? '700' : '500'; ?>;color:<?php echo ($notif['is_read'] == 0) ? '#F5EFE3' : '#A99E8E'; ?>;font-size:12.5px;line-height:1.6;"><?php echo htmlspecialchars($notif['title']); ?></div>
+                                        <div style="font-weight:<?php echo ($notif['is_read'] == 0) ? '700' : '500'; ?>;color:<?php echo ($notif['is_read'] == 0) ? '#F1F0F4' : '#8888A4'; ?>;font-size:12.5px;line-height:1.6;"><?php echo htmlspecialchars($notif['title']); ?></div>
                                         <?php if ($notif['is_read'] == 0): ?>
-                                        <span style="width:7px;height:7px;background:#D6AC63;border-radius:50%;flex-shrink:0;margin-top:6px;"></span>
+                                        <span style="width:7px;height:7px;background:#818CF8;border-radius:50%;flex-shrink:0;margin-top:6px;"></span>
                                         <?php endif; ?>
                                     </div>
                                     <?php if (!empty($notif['message'])): ?>
-                                    <div style="font-size:11.5px;color:#A99E8E;line-height:1.6;margin-top:3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;"><?php echo htmlspecialchars(mb_substr($notif['message'], 0, 100)); ?></div>
+                                    <div style="font-size:11.5px;color:#8888A4;line-height:1.6;margin-top:3px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;"><?php echo htmlspecialchars(mb_substr($notif['message'], 0, 100)); ?></div>
                                     <?php endif; ?>
-                                    <div style="font-size:10.5px;color:#7A7062;margin-top:4px;"><?php echo \WHCM\Domain\TextFormat::timeAgo($notif['created_at']); ?></div>
+                                    <div style="font-size:10.5px;color:#4A4857;margin-top:4px;"><?php echo \WHCM\Domain\TextFormat::timeAgo($notif['created_at']); ?></div>
                                 </div>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <div style="color:#A99E8E;font-size:12.5px;text-align:center;padding:1.75rem 0;">اعلان جدیدی وجود ندارد ✔</div>
+                            <div style="color:#8888A4;font-size:12.5px;text-align:center;padding:1.75rem 0;">اعلان جدیدی وجود ندارد ✔</div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -293,9 +293,9 @@ $ad_fa_status = static function ($status): string {
             <?php if (!empty($announcement) && !empty($announcement_unread)): ?>
                 <div class="broadcast-alert" id="broadcast-alert-banner">
                     <span class="broadcast-alert-close" onclick="closeBroadcastBanner()">✖</span>
-                    <h4 style="font-weight:900; margin-bottom:0.4rem; color:#171310;">📢 پیام همگانی مدیریت: <?php echo htmlspecialchars($announcement['title']); ?></h4>
-                    <p style="font-size:0.85rem; line-height:1.7; color:#DCD3C4;"><?php echo nl2br(htmlspecialchars($announcement['message'])); ?></p>
-                    <span style="font-size:0.75rem; color:#E9C77E; display:inline-block; margin-top:0.5rem; font-weight:bold;">ثبت شده در تاریخ: <?php echo $announcement['date']; ?></span>
+                    <h4 style="font-weight:900; margin-bottom:0.4rem; color:#16161F;">📢 پیام همگانی مدیریت: <?php echo htmlspecialchars($announcement['title']); ?></h4>
+                    <p style="font-size:0.85rem; line-height:1.7; color:#B4B2BE;"><?php echo nl2br(htmlspecialchars($announcement['message'])); ?></p>
+                    <span style="font-size:0.75rem; color:#A5B4FC; display:inline-block; margin-top:0.5rem; font-weight:bold;">ثبت شده در تاریخ: <?php echo $announcement['date']; ?></span>
                 </div>
             <?php endif; ?>
 
@@ -428,9 +428,9 @@ $ad_fa_status = static function ($status): string {
                                     <button class="primary-btn" type="submit">ثبت رسید پرداخت</button>
                                 </form>
                             <?php elseif (($order['status'] ?? '') === 'paid'): ?>
-                                <span style="color:#55C47E;font-weight:800;">پرداخت تایید شده ✔</span>
+                                <span style="color:#34D399;font-weight:800;">پرداخت تایید شده ✔</span>
                             <?php else: ?>
-                                <span style="color:#DCD3C4;">اقدام موردنیاز وجود ندارد</span>
+                                <span style="color:#B4B2BE;">اقدام موردنیاز وجود ندارد</span>
                             <?php endif; ?>
                             </td>
                         </tr>
@@ -520,8 +520,8 @@ $ad_fa_status = static function ($status): string {
                 
                 <!-- سه باکس آماری درخشان و هدفمند -->
                 <div class="grid-stats" style="margin-bottom:0.5rem;">
-                    <div class="card-stat" style="border-color: rgba(214,172,99,0.25);">
-                        <div class="card-stat-icon" style="color:#E9C77E;">📈</div>
+                    <div class="card-stat" style="border-color: rgba(99,102,241,0.25);">
+                        <div class="card-stat-icon" style="color:#A5B4FC;">📈</div>
                         <div class="card-stat-info">
                             <span class="title">کل بازدیدهای ورودی (کلیک کل)</span>
                             <?php 
@@ -531,8 +531,8 @@ $ad_fa_status = static function ($status): string {
                             <span class="value"><?php echo \WHCM\Domain\TextFormat::fa_digits($total_clicks); ?> کلیک</span>
                         </div>
                     </div>
-                    <div class="card-stat" style="border-color: rgba(85,196,126,0.25);">
-                        <div class="card-stat-icon" style="color:#55C47E;">👥</div>
+                    <div class="card-stat" style="border-color: rgba(52,211,153,0.25);">
+                        <div class="card-stat-icon" style="color:#34D399;">👥</div>
                         <div class="card-stat-info">
                             <span class="title">بازدیدهای یکتای حقیقی</span>
                             <?php 
@@ -543,7 +543,7 @@ $ad_fa_status = static function ($status): string {
                         </div>
                     </div>
                     <div class="card-stat" style="border-color: rgba(239,164,91,0.25);">
-                        <div class="card-stat-icon" style="color:#F5BC82;">⚡</div>
+                        <div class="card-stat-icon" style="color:#FDE68A;">⚡</div>
                         <div class="card-stat-info">
                             <span class="title">نرخ تعامل کانال‌های شما</span>
                             <?php 
@@ -586,22 +586,22 @@ $ad_fa_status = static function ($status): string {
                     <div class="analytics-graph">
                         <svg viewBox="0 0 500 200" style="width: 100%; height: 100%;">
                             <!-- گرید لاین‌ها -->
-                            <line x1="50" y1="30" x2="480" y2="30" stroke="rgba(10,15,26,0.045)" />
-                            <line x1="50" y1="80" x2="480" y2="80" stroke="rgba(10,15,26,0.045)" />
-                            <line x1="50" y1="130" x2="480" y2="130" stroke="rgba(10,15,26,0.045)" />
-                            <line x1="50" y1="170" x2="480" y2="170" stroke="rgba(10,15,26,0.07)" stroke-width="2" />
+                            <line x1="50" y1="30" x2="480" y2="30" stroke="rgba(15,15,20,0.045)" />
+                            <line x1="50" y1="80" x2="480" y2="80" stroke="rgba(15,15,20,0.045)" />
+                            <line x1="50" y1="130" x2="480" y2="130" stroke="rgba(15,15,20,0.045)" />
+                            <line x1="50" y1="170" x2="480" y2="170" stroke="rgba(15,15,20,0.07)" stroke-width="2" />
 
                             <!-- راهنما -->
-                            <text x="55" y="20" fill="rgba(214,172,99,0.8)" font-size="9" font-family="Vazirmatn">● میزان کلیک‌ها (تک کلیک)</text>
-                            <text x="180" y="20" fill="rgba(85,196,126,0.8)" font-size="9" font-family="Vazirmatn">● میزان کلیک‌های یکتا (Unique)</text>
+                            <text x="55" y="20" fill="rgba(99,102,241,0.8)" font-size="9" font-family="Vazirmatn">● میزان کلیک‌ها (تک کلیک)</text>
+                            <text x="180" y="20" fill="rgba(52,211,153,0.8)" font-size="9" font-family="Vazirmatn">● میزان کلیک‌های یکتا (Unique)</text>
 
                             <!-- نمودار خطی کلیک کل (آبی نئون) -->
-                            <path d="M 50 160 Q 120 120 190 70 T 330 110 T 470 40" fill="none" stroke="#E9C77E" stroke-width="3" stroke-linecap="round" />
-                            <circle cx="470" cy="40" r="5" fill="#E9C77E" />
+                            <path d="M 50 160 Q 120 120 190 70 T 330 110 T 470 40" fill="none" stroke="#A5B4FC" stroke-width="3" stroke-linecap="round" />
+                            <circle cx="470" cy="40" r="5" fill="#A5B4FC" />
 
                             <!-- نمودار خطی کلیک یکتا (سبز نئون) -->
-                            <path d="M 50 170 Q 120 140 190 90 T 330 130 T 470 60" fill="none" stroke="#55C47E" stroke-width="3" stroke-linecap="round" />
-                            <circle cx="470" cy="60" r="5" fill="#55C47E" />
+                            <path d="M 50 170 Q 120 140 190 90 T 330 130 T 470 60" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round" />
+                            <circle cx="470" cy="60" r="5" fill="#34D399" />
 
                             <!-- محور افقی روزهای شمسی دوره -->
                             <text x="50" y="190" fill="var(--text-muted)" font-size="8" font-family="Vazirmatn">امروز شمسی</text>
@@ -684,11 +684,11 @@ $ad_fa_status = static function ($status): string {
 
                         <!-- زمان‌بندی ارسال شمسی با تقویم تصویری فوق جذاب و مدرن -->
                         <div class="form-group hidden" id="schedule-datetime-group">
-                            <label style="color:#E9C77E; font-weight:bold; display:block; margin-bottom:0.75rem;">📅 انتخاب تاریخ و ساعت دقیق ارسال:</label>
+                            <label style="color:#A5B4FC; font-weight:bold; display:block; margin-bottom:0.75rem;">📅 انتخاب تاریخ و ساعت دقیق ارسال:</label>
                             <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:1rem;">
                                 <div>
                                     <label style="font-size:0.75rem; color:var(--text-muted);">انتخاب روز از تقویم:</label>
-                                    <input type="text" name="sched_date" id="sched_date_input" data-jdp placeholder="کلیک کنید تا تقویم باز شود..." style="background-color: rgba(10,15,26,0.084); color: #55C47E; font-weight: bold; border: 2px solid #55C47E; border-radius:0.75rem; padding:0.85rem 1rem; cursor: pointer;" readonly>
+                                    <input type="text" name="sched_date" id="sched_date_input" data-jdp placeholder="کلیک کنید تا تقویم باز شود..." style="background-color: rgba(15,15,20,0.084); color: #34D399; font-weight: bold; border: 2px solid #34D399; border-radius:0.75rem; padding:0.85rem 1rem; cursor: pointer;" readonly>
                                 </div>
                                 <div>
                                     <label style="font-size:0.75rem; color:var(--text-muted);">ساعت:</label>
@@ -712,7 +712,7 @@ $ad_fa_status = static function ($status): string {
                         <!-- چک‌باکس کانال‌های مقصد -->
                         <div class="form-group">
                             <label style="margin-bottom:0.75rem;">انتخاب کانال‌های هدف جهت انتشار پست:</label>
-                            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; background: rgba(10,15,26,0.056); padding: 1rem; border-radius: 12px; border:1px solid var(--border);">
+                            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; background: rgba(15,15,20,0.056); padding: 1rem; border-radius: 12px; border:1px solid var(--border);">
                                 <?php if (empty($channels)): ?>
                                     <span style="color:var(--text-muted); font-size:0.85rem;">هنوز کانالی متصل نکرده‌اید. ابتدا از تب کانال‌ها یک کانال ثبت کنید.</span>
                                 <?php else: ?>
@@ -735,7 +735,7 @@ $ad_fa_status = static function ($status): string {
                 $queued_posts = array_filter($posts, function($p) { return $p['status'] === 'scheduled' || $p['status'] === 'queued' || $p['status'] === 'draft'; });
                 ?>
                 <?php if (!empty($queued_posts)): ?>
-                <div class="card" style="border-color: #F5BC82; background: linear-gradient(135deg, rgba(239,164,91,0.08) 0%, rgba(10,15,26,0.1) 100%);">
+                <div class="card" style="border-color: #FDE68A; background: linear-gradient(135deg, rgba(239,164,91,0.08) 0%, rgba(15,15,20,0.1) 100%);">
                     <h2>⏳ صف انتظار و پست‌های زمان‌بندی‌شده <span style="font-size:0.8rem; color:var(--text-muted);">(<?php echo \WHCM\Domain\TextFormat::fa_digits(count($queued_posts)); ?> پست)</span></h2>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">پست‌هایی که هنوز ارسال نشده‌اند. می‌توانید آنها را لغو کنید:</p>
                     <div class="table-responsive">
@@ -758,7 +758,7 @@ $ad_fa_status = static function ($status): string {
                                         <?php elseif ($qp['status'] === 'scheduled'): ?>
                                             <span class="badge badge-scheduled">زمان‌بندی‌شده 📅</span>
                                         <?php else: ?>
-                                            <span class="badge" style="background:rgba(10,15,26,0.045);">پیش‌نویس 📝</span>
+                                            <span class="badge" style="background:rgba(15,15,20,0.045);">پیش‌نویس 📝</span>
                                         <?php endif; ?>
                                     </td>
                                     <td data-label="زمان">
@@ -769,7 +769,7 @@ $ad_fa_status = static function ($status): string {
                                         <?php endif; ?>
                                     </td>
                                     <td data-label="عملیات">
-                                        <button type="button" class="btn btn-danger" style="padding:0.4rem 0.8rem; font-size:0.78rem; background:rgba(228,104,111,0.15); border:1px solid #E4686F; color:#E4686F;" onclick="cancelPost(<?php echo $qp['id']; ?>, this)">🗑 لغو و حذف</button>
+                                        <button type="button" class="btn btn-danger" style="padding:0.4rem 0.8rem; font-size:0.78rem; background:rgba(248,113,113,0.15); border:1px solid #F87171; color:#F87171;" onclick="cancelPost(<?php echo $qp['id']; ?>, this)">🗑 لغو و حذف</button>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -802,7 +802,7 @@ $ad_fa_status = static function ($status): string {
                                         <tr>
                                             <td data-label="عنوان پست"><strong><?php echo htmlspecialchars($p['title']); ?></strong></td>
                                             <td data-label="نوع ارسال">
-                                                <span class="badge" style="background:rgba(10,15,26,0.045);">
+                                                <span class="badge" style="background:rgba(15,15,20,0.045);">
                                                     <?php echo $p['scheduled_at'] ? 'زمان‌بندی شده ⏰' : 'آنی ⚡'; ?>
                                                 </span>
                                             </td>
@@ -866,7 +866,7 @@ $ad_fa_status = static function ($status): string {
                             </div>
 
                             <!-- تنظیمات ۳ لینک اختصاصی زیر هر پست -->
-                            <h3 style="font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#E9C77E;">🔗 تنظیمات ۳ دکمه شیشه‌ای کپشن (لینک وب‌سایت)</h3>
+                            <h3 style="font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#A5B4FC;">🔗 تنظیمات ۳ دکمه شیشه‌ای کپشن (لینک وب‌سایت)</h3>
                             <?php 
                                 $links = json_decode($edit_channel['link_config'] ?? '[]', true); 
                                 if (count($links) < 3) {
@@ -892,7 +892,7 @@ $ad_fa_status = static function ($status): string {
                             </div>
 
                             <!-- تنظیمات دکمه‌های شیشه‌ای تعاملی زیرین -->
-                            <h3 style="font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#E9C77E;">💬 دکمه‌های شیشه‌ای تعاملی زیر پست (Interactive Buttons)</h3>
+                            <h3 style="font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#A5B4FC;">💬 دکمه‌های شیشه‌ای تعاملی زیر پست (Interactive Buttons)</h3>
                             <?php 
                                 $btn_cfg = json_decode($edit_channel['button_config'] ?? '[]', true); 
                                 $btns_active = !empty($btn_cfg['active']);
@@ -920,7 +920,7 @@ $ad_fa_status = static function ($status): string {
 
                             <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
                                 <button type="submit" class="btn btn-success">ذخیره تنظیمات کانال ✔</button>
-                                <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" class="btn btn-danger" style="background: rgba(10,15,26,0.06); color: white;">انصراف</a>
+                                <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" class="btn btn-danger" style="background: rgba(15,15,20,0.06); color: white;">انصراف</a>
                             </div>
                         </form>
                     </div>
@@ -1055,7 +1055,7 @@ $ad_fa_status = static function ($status): string {
                         <div class="form-group">
                             <label>انتخاب کانال‌های هدف جهت ارسال خودکار:</label>
                             <?php $saved_channels = json_decode($settings['gold_auto_channels'] ?? '[]', true); ?>
-                            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; background: rgba(10,15,26,0.056); padding: 1rem; border-radius: 12px; border:1px solid var(--border);">
+                            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; background: rgba(15,15,20,0.056); padding: 1rem; border-radius: 12px; border:1px solid var(--border);">
                                 <?php if (empty($channels)): ?>
                                     <span style="color:var(--text-muted); font-size:0.85rem;">هنوز کانالی متصل نکرده‌اید.</span>
                                 <?php else: ?>
@@ -1079,11 +1079,11 @@ $ad_fa_status = static function ($status): string {
                     </form>
                 </div>
 
-                <div class="card" style="border: 1px solid rgba(85,196,126,0.2); background: linear-gradient(135deg, rgba(85,196,126,0.05) 0%, rgba(10,15,26,0.084) 100%);">
+                <div class="card" style="border: 1px solid rgba(52,211,153,0.2); background: linear-gradient(135deg, rgba(52,211,153,0.05) 0%, rgba(15,15,20,0.084) 100%);">
                     <h2>⚡ انتشار آنی، زنده و تستی نرخ طلا</h2>
                     <form action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard/trigger-gold-publish'); ?>" method="POST">
                         <?php echo $csrf_field; ?>
-                        <button type="submit" class="btn btn-success" style="background: linear-gradient(135deg, #55C47E 0%, #82D9A2 100%);">انتشار زنده و آنی به کانال‌ها 🚀</button>
+                        <button type="submit" class="btn btn-success" style="background: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%);">انتشار زنده و آنی به کانال‌ها 🚀</button>
                     </form>
                 </div>
             </div>
@@ -1093,12 +1093,12 @@ $ad_fa_status = static function ($status): string {
             <!-- ========================================== -->
             <div id="section-responder" class="tab-content">
                 <!-- توضیح عملکرد -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(214,172,99,0.1) 0%, rgba(10,15,26,0.1) 100%); border: 1px solid rgba(214,172,99,0.3); margin-bottom: 1.5rem;">
+                <div class="card" style="background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(15,15,20,0.1) 100%); border: 1px solid rgba(99,102,241,0.3); margin-bottom: 1.5rem;">
                     <h2>🤖 دریافت پیام‌های مشترکین و ارسال خودکار</h2>
                     <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.8; margin-bottom: 0.75rem;">
                         این سیستم با بررسی پیام‌های ورودی به ربات کانال‌های تلگرام و بله، در صورت وجود کلمه کلیدی تعریف‌شده، پاسخ از پیش تنظیم‌شده را به صورت خودکار ارسال می‌کند.
                     </p>
-                    <p style="color: #DCD3C4; font-size: 0.8rem; line-height: 1.7;">
+                    <p style="color: #B4B2BE; font-size: 0.8rem; line-height: 1.7;">
                         ⚡ نحوه کار: ابتدا حالت پاسخگویی را برای کانال مورد نظر فعال کنید، سپس کلمات کلیدی و پاسخ‌های آماده را تعریف نمایید.
                         هرگاه کاربری پیامی حاوی آن کلمه کلیدی ارسال کند، ربات بلافاصله پاسخ متناظر را ارسال خواهد کرد.
                     </p>
@@ -1125,7 +1125,7 @@ $ad_fa_status = static function ($status): string {
                                     <input type="text" name="keyword" id="ar-keyword" required placeholder="مثلاً: سلام، آدرس، قیمت" style="border-radius:10px;">
                                 </div>
                                 <div class="form-group" style="display:flex; align-items:flex-end;">
-                                    <button type="submit" class="btn btn-primary" style="background:rgba(214,172,99,0.2); color:#E9C77E; border:1px solid rgba(214,172,99,0.3); border-radius:10px; padding:0.6rem 1.2rem; white-space:nowrap;">+ افزودن</button>
+                                    <button type="submit" class="btn btn-primary" style="background:rgba(99,102,241,0.2); color:#A5B4FC; border:1px solid rgba(99,102,241,0.3); border-radius:10px; padding:0.6rem 1.2rem; white-space:nowrap;">+ افزودن</button>
                                 </div>
                             </div>
                             <div class="form-group" style="margin-bottom: 0.75rem;">
@@ -1153,14 +1153,14 @@ $ad_fa_status = static function ($status): string {
                                         <tr id="ar-row-<?php echo $rule['id']; ?>">
                                             <td style="padding:0.5rem;">
                                                 <div style="font-weight:bold; color:white;"><?php echo htmlspecialchars($rule['keyword']); ?></div>
-                                                <div style="color:#7A7062; font-size:0.75rem; margin-top:0.25rem;"><?php echo htmlspecialchars(mb_substr($rule['reply_text'], 0, 60)) . (mb_strlen($rule['reply_text']) > 60 ? '...' : ''); ?></div>
+                                                <div style="color:#4A4857; font-size:0.75rem; margin-top:0.25rem;"><?php echo htmlspecialchars(mb_substr($rule['reply_text'], 0, 60)) . (mb_strlen($rule['reply_text']) > 60 ? '...' : ''); ?></div>
                                                 <div style="color:#3A3025; font-size:0.7rem; margin-top:0.15rem;">کانال: <?php echo htmlspecialchars($rule['channel_name']); ?> <?php echo ($rule['channel_platform'] ?? '') === 'telegram' ? '✈️' : '💬'; ?></div>
                                             </td>
                                             <td style="text-align:center; padding:0.5rem;">
                                                 <span class="badge badge-success" style="font-size:0.7rem;">سرویس</span>
                                             </td>
                                             <td style="text-align:center; padding:0.5rem;">
-                                                <button type="button" onclick="deleteAutoReplyAjax(<?php echo $rule['id']; ?>)" class="btn btn-danger btn-sm" style="font-size:0.75rem; background:rgba(228,104,111,0.15); border:1px solid rgba(228,104,111,0.3); color:#E4686F; border-radius:8px;">حذف</button>
+                                                <button type="button" onclick="deleteAutoReplyAjax(<?php echo $rule['id']; ?>)" class="btn btn-danger btn-sm" style="font-size:0.75rem; background:rgba(248,113,113,0.15); border:1px solid rgba(248,113,113,0.3); color:#F87171; border-radius:8px;">حذف</button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -1178,7 +1178,7 @@ $ad_fa_status = static function ($status): string {
                             <h2 style="font-size: 1rem; margin-bottom: 1rem;">⚙️ حالت پاسخگویی خودکار</h2>
                             <p style="color:var(--text-muted); font-size:0.78rem; margin-bottom:1rem;">برای هر کانال می‌توانید به‌صورت جداگانه پاسخگوی خودکار را فعال یا غیرفعال کنید:</p>
                             <?php if (empty($channels)): ?>
-                                <p style="color:#DCD3C4; text-align:center; padding:1rem; font-size:0.85rem;">هیچ کانالی ثبت نشده است. ابتدا از بخش «کانال‌ها» یک کانال اضافه کنید.</p>
+                                <p style="color:#B4B2BE; text-align:center; padding:1rem; font-size:0.85rem;">هیچ کانالی ثبت نشده است. ابتدا از بخش «کانال‌ها» یک کانال اضافه کنید.</p>
                             <?php else: ?>
                                 <div style="display:flex; flex-direction:column; gap:0.75rem;">
                                     <?php foreach ($channels as $ch): ?>
@@ -1187,14 +1187,14 @@ $ad_fa_status = static function ($status): string {
                                             $platform_icon = $ch['platform'] === 'telegram' ? '✈️' : '💬';
                                             $platform_label = $ch['platform'] === 'telegram' ? 'تلگرام' : 'بله';
                                         ?>
-                                        <div style="display:flex; justify-content:space-between; align-items:center; background:#1E1A14; border:1px solid <?php echo $is_enabled ? '#55C47E' : '#2B241B'; ?>; border-radius:12px; padding:0.75rem 1rem; transition: all 0.3s;">
+                                        <div style="display:flex; justify-content:space-between; align-items:center; background:#1C1C28; border:1px solid <?php echo $is_enabled ? '#34D399' : '#2A2A38'; ?>; border-radius:12px; padding:0.75rem 1rem; transition: all 0.3s;">
                                             <div>
                                                 <strong style="color:white; font-size:0.9rem;"><?php echo htmlspecialchars($ch['name']); ?></strong>
-                                                <div style="color:#7A7062; font-size:0.72rem;"><?php echo $platform_icon . ' ' . $platform_label; ?></div>
+                                                <div style="color:#4A4857; font-size:0.72rem;"><?php echo $platform_icon . ' ' . $platform_label; ?></div>
                                             </div>
                                             <label class="responder-toggle" style="position:relative; display:inline-block; width:48px; height:26px; cursor:pointer;" id="toggle-label-<?php echo $ch['id']; ?>">
                                                 <input type="checkbox" <?php echo $is_enabled ? 'checked' : ''; ?> onchange="toggleResponder(<?php echo $ch['id']; ?>, this.checked)" style="opacity:0; width:0; height:0; position:absolute;">
-                                                <span class="toggle-track" style="position:absolute; cursor:pointer; inset:0; background:<?php echo $is_enabled ? '#55C47E' : '#3A3025'; ?>; border-radius:26px; transition:0.3s;"></span>
+                                                <span class="toggle-track" style="position:absolute; cursor:pointer; inset:0; background:<?php echo $is_enabled ? '#34D399' : '#3A3025'; ?>; border-radius:26px; transition:0.3s;"></span>
                                                 <span class="toggle-thumb" style="position:absolute; height:20px; width:20px; left:<?php echo $is_enabled ? '25px' : '3px'; ?>; bottom:3px; background:white; border-radius:50%; transition:0.3s;"></span>
                                             </label>
                                         </div>
@@ -1218,7 +1218,7 @@ $ad_fa_status = static function ($status): string {
                                     } catch (\Throwable $e) { $responder_logs = []; }
                                 ?>
                                 <?php if (empty($responder_logs)): ?>
-                                    <p style="color:#DCD3C4; text-align:center; padding:1.5rem 0; font-size:0.82rem;">هنوز پیامی دریافت نشده یا لاگی موجود نیست.</p>
+                                    <p style="color:#B4B2BE; text-align:center; padding:1.5rem 0; font-size:0.82rem;">هنوز پیامی دریافت نشده یا لاگی موجود نیست.</p>
                                 <?php else: ?>
                                     <table style="width:100%; font-size:0.8rem;">
                                         <thead>
@@ -1230,13 +1230,13 @@ $ad_fa_status = static function ($status): string {
                                         <tbody>
                                             <?php foreach ($responder_logs as $log): ?>
                                                 <tr>
-                                                    <td style="padding:0.4rem; color:#F5EFE3;">
-                                                        <div style="color:#DCD3C4; font-size:0.7rem;"><?php echo htmlspecialchars($log['sender_name'] ?? 'کاربر'); ?></div>
+                                                    <td style="padding:0.4rem; color:#F1F0F4;">
+                                                        <div style="color:#B4B2BE; font-size:0.7rem;"><?php echo htmlspecialchars($log['sender_name'] ?? 'کاربر'); ?></div>
                                                         <div style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?php echo htmlspecialchars($log['message_text'] ?? ''); ?></div>
                                                     </td>
                                                     <td style="text-align:center; padding:0.4rem;">
                                                         <?php if (!empty($log['replied'])): ?>
-                                                            <span style="color:#55C47E; font-size:1rem;">✅</span>
+                                                            <span style="color:#34D399; font-size:1rem;">✅</span>
                                                         <?php else: ?>
                                                             <span style="color:#3A3025; font-size:1rem;">➖</span>
                                                         <?php endif; ?>
@@ -1257,12 +1257,12 @@ $ad_fa_status = static function ($status): string {
             <!-- ========================================== -->
             <div id="section-tickets" class="tab-content">
                 <!-- کارت راه‌های ارتباط سریع با پشتیبانی -->
-                <div class="card" style="background: linear-gradient(135deg, rgba(214,172,99,0.15) 0%, rgba(10,15,26,0.1) 100%); border: 1px solid var(--primary); margin-bottom: 2rem;">
-                    <h3 style="color: #E9C77E; margin-bottom: 0.75rem;">📞 راه‌های ارتباط سریع با تیم پشتیبانی پُست‌یار</h3>
+                <div class="card" style="background: linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(15,15,20,0.1) 100%); border: 1px solid var(--primary); margin-bottom: 2rem;">
+                    <h3 style="color: #A5B4FC; margin-bottom: 0.75rem;">📞 راه‌های ارتباط سریع با تیم پشتیبانی پُست‌یار</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">شما می‌توانید علاوه بر ارسال تیکت در سامانه، از طریق کانال‌ها و پیام‌رسان‌های زیر به‌صورت مستقیم با مدیریت و کارشناسان پشتیبانی در ارتباط باشید:</p>
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                         <a href="<?php echo htmlspecialchars($global_bank['support_telegram_url'] ?? 'https://t.me/asovin_support'); ?>" target="_blank" class="btn btn-outline" style="border-color: #AEC4DC; color: #AEC4DC;">✈ تلگرام پشتیبانی</a>
-                        <a href="<?php echo htmlspecialchars($global_bank['support_bale_url'] ?? 'https://ble.ir/asovin_support'); ?>" target="_blank" class="btn btn-outline" style="border-color: #55C47E; color: #55C47E;">💬 بله پشتیبانی</a>
+                        <a href="<?php echo htmlspecialchars($global_bank['support_bale_url'] ?? 'https://ble.ir/asovin_support'); ?>" target="_blank" class="btn btn-outline" style="border-color: #34D399; color: #34D399;">💬 بله پشتیبانی</a>
                         <a href="mailto:<?php echo htmlspecialchars($global_bank['support_email'] ?? 'support@asovin.ir'); ?>" class="btn btn-outline" style="border-color: #C0A8E8; color: #C0A8E8;">✉ ایمیل پشتیبانی</a>
                     </div>
                 </div>
@@ -1324,11 +1324,11 @@ $ad_fa_status = static function ($status): string {
                                         <tr>
                                             <td data-label="شناسه"><code>#<?php echo \WHCM\Domain\TextFormat::fa_digits($t['id']); ?></code></td>
                                             <td data-label="موضوع تیکت">
-                                                <strong style="color:#171310;"><?php echo htmlspecialchars($t['subject']); ?></strong><br>
-                                                <button type="button" class="btn btn-outline btn-sm" style="margin-top:0.5rem; background:linear-gradient(135deg, #E9C77E 0%, #E9C77E 100%) !important; color:#171310 !important; font-weight:800; border:none; font-size:0.78rem; padding:0.4rem 0.8rem; box-shadow:0 4px 10px rgba(214,172,99,0.3);" onclick='openTicketModal(<?php echo json_encode($t, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP|JSON_UNESCAPED_UNICODE); ?>)'>👁 مشاهده گفتگو و پاسخ پشتیبانی</button>
+                                                <strong style="color:#16161F;"><?php echo htmlspecialchars($t['subject']); ?></strong><br>
+                                                <button type="button" class="btn btn-outline btn-sm" style="margin-top:0.5rem; background:linear-gradient(135deg, #A5B4FC 0%, #A5B4FC 100%) !important; color:#16161F !important; font-weight:800; border:none; font-size:0.78rem; padding:0.4rem 0.8rem; box-shadow:0 4px 10px rgba(99,102,241,0.3);" onclick='openTicketModal(<?php echo json_encode($t, JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP|JSON_UNESCAPED_UNICODE); ?>)'>👁 مشاهده گفتگو و پاسخ پشتیبانی</button>
                                             </td>
                                             <td data-label="دسته‌بندی">
-                                                <span class="badge" style="background:rgba(10,15,26,0.045);">
+                                                <span class="badge" style="background:rgba(15,15,20,0.045);">
                                                     <?php echo isset($category_map[$t['category']]) ? $category_map[$t['category']] : htmlspecialchars($t['category']); ?>
                                                 </span>
                                             </td>
@@ -1367,7 +1367,7 @@ $ad_fa_status = static function ($status): string {
                         <div style="text-align: center; padding: 2rem 0;">
                             <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📭</div>
                             <p style="color: var(--text-muted);">هنوز پیامی دریافت نشده است.</p>
-                            <p style="color: #7A7062; font-size: 0.78rem; margin-top: 0.5rem;">پیام‌ها زمانی نمایش داده می‌شوند که کاربرانی در کانال‌های متصل شما به ربات پیام ارسال کنند.</p>
+                            <p style="color: #4A4857; font-size: 0.78rem; margin-top: 0.5rem;">پیام‌ها زمانی نمایش داده می‌شوند که کاربرانی در کانال‌های متصل شما به ربات پیام ارسال کنند.</p>
                         </div>
                     <?php else: ?>
                         <div class="table-responsive">
@@ -1416,7 +1416,7 @@ $ad_fa_status = static function ($status): string {
                         </div>
                         <div class="form-group">
                             <label for="profile_birthday">تاریخ تولد (شمسی):</label>
-                            <input type="text" name="birthday" id="profile_birthday" data-jdp placeholder="مثلاً: ۱۳۷۰/۰۶/۱۵" value="<?php echo htmlspecialchars($user['birthday'] ?? ''); ?>" style="background-color:rgba(10,15,26,0.084); color:#55C47E; font-weight:bold; border:2px solid #55C47E; border-radius:0.75rem; padding:0.85rem 1rem; cursor:pointer;" readonly>
+                            <input type="text" name="birthday" id="profile_birthday" data-jdp placeholder="مثلاً: ۱۳۷۰/۰۶/۱۵" value="<?php echo htmlspecialchars($user['birthday'] ?? ''); ?>" style="background-color:rgba(15,15,20,0.084); color:#34D399; font-weight:bold; border:2px solid #34D399; border-radius:0.75rem; padding:0.85rem 1rem; cursor:pointer;" readonly>
                             <small style="color:var(--text-muted); font-size:0.78rem; margin-top:0.25rem; display:block;">تاریخ تولد به صورت شمسی (مثلاً: ۱۳۷۰/۰۶/۱۵)</small>
                         </div>
                         <button type="submit" class="btn btn-success">بروزرسانی مشخصات کاربری ✔</button>
@@ -1484,25 +1484,25 @@ $ad_fa_status = static function ($status): string {
                     $btn_3_t = $adv_settings['btn_3_text'] ?? '📢 هومن وب';
                     $btn_3_u = $adv_settings['btn_3_url'] ?? '';
                 ?>
-                <div class="card" style="border: 1px solid rgba(174,62,201,0.25); background: linear-gradient(135deg, rgba(174,62,201,0.05) 0%, rgba(10,15,26,0.084) 100%);">
+                <div class="card" style="border: 1px solid rgba(174,62,201,0.25); background: linear-gradient(135deg, rgba(174,62,201,0.05) 0%, rgba(15,15,20,0.084) 100%);">
                     <h2>⚙ تنظیمات پیشرفته و اتوماسیون پُست‌یار</h2>
                     <form id="adv-settings-form" action="javascript:void(0);" onsubmit="saveAdvancedSettingsAjax(this)">
                         <?php echo $csrf_field; ?>
                         
                         <!-- ۳ لینک سراسری -->
-                        <h3 style="font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#E9C77E;">🔗 پیش‌فرض سراسری ۳ لینک پایین محتوا</h3>
+                        <h3 style="font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#A5B4FC;">🔗 پیش‌فرض سراسری ۳ لینک پایین محتوا</h3>
                         <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:1rem; margin-bottom: 1.5rem;">
-                            <div class="form-group" style="background: rgba(10,15,26,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+                            <div class="form-group" style="background: rgba(15,15,20,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
                                 <label style="color:#AEC4DC;">🔗 لینک ۱ (پیش‌فرض):</label>
                                 <input type="text" name="link_1_name" value="<?php echo htmlspecialchars($link_1_n); ?>" style="margin-bottom: 0.5rem;">
                                 <input type="url" name="link_1_url" value="<?php echo htmlspecialchars($link_1_u); ?>" placeholder="https://t.me/MyChannel">
                             </div>
-                            <div class="form-group" style="background: rgba(10,15,26,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
-                                <label style="color:#55C47E;">🔗 لینک ۲ (پیش‌فرض):</label>
+                            <div class="form-group" style="background: rgba(15,15,20,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+                                <label style="color:#34D399;">🔗 لینک ۲ (پیش‌فرض):</label>
                                 <input type="text" name="link_2_name" value="<?php echo htmlspecialchars($link_2_n); ?>" style="margin-bottom: 0.5rem;">
                                 <input type="url" name="link_2_url" value="<?php echo htmlspecialchars($link_2_u); ?>" placeholder="https://ble.ir/MyChannel">
                             </div>
-                            <div class="form-group" style="background: rgba(10,15,26,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+                            <div class="form-group" style="background: rgba(15,15,20,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
                                 <label style="color:#C0A8E8;">🔗 لینک ۳ (پیش‌فرض سایت):</label>
                                 <input type="text" name="link_3_name" value="<?php echo htmlspecialchars($link_3_n); ?>" style="margin-bottom: 0.5rem;">
                                 <input type="url" name="link_3_url" value="<?php echo htmlspecialchars($link_3_u); ?>" placeholder="https://example.com">
@@ -1510,18 +1510,18 @@ $ad_fa_status = static function ($status): string {
                         </div>
 
                         <!-- ۳ دکمه تعاملی سراسری -->
-                        <h3 style="font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#E9C77E;">🎛️ پیش‌فرض سراسری دکمه‌های شیشه‌ای تعاملی</h3>
+                        <h3 style="font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#A5B4FC;">🎛️ پیش‌فرض سراسری دکمه‌های شیشه‌ای تعاملی</h3>
                         <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:1rem; margin-bottom: 1.5rem;">
-                            <div class="form-group" style="background: rgba(10,15,26,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+                            <div class="form-group" style="background: rgba(15,15,20,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
                                 <label style="color:#AEC4DC;">🎛️ دکمه ۱ (خرید):</label>
                                 <input type="text" name="btn_1_text" value="<?php echo htmlspecialchars($btn_1_t); ?>">
                             </div>
-                            <div class="form-group" style="background: rgba(10,15,26,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
-                                <label style="color:#55C47E;">🎛️ دکمه ۲ (پشتیبانی):</label>
+                            <div class="form-group" style="background: rgba(15,15,20,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+                                <label style="color:#34D399;">🎛️ دکمه ۲ (پشتیبانی):</label>
                                 <input type="text" name="btn_2_text" value="<?php echo htmlspecialchars($btn_2_t); ?>" style="margin-bottom: 0.5rem;">
                                 <input type="url" name="btn_2_url" value="<?php echo htmlspecialchars($btn_2_u); ?>" placeholder="https://t.me/MySupport">
                             </div>
-                            <div class="form-group" style="background: rgba(10,15,26,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
+                            <div class="form-group" style="background: rgba(15,15,20,0.056); padding: 1rem; border-radius: 12px; border: 1px solid var(--border);">
                                 <label style="color:#C0A8E8;">🎛️ دکمه ۳ (برند):</label>
                                 <input type="text" name="btn_3_text" value="<?php echo htmlspecialchars($btn_3_t); ?>" style="margin-bottom: 0.5rem;">
                                 <input type="url" name="btn_3_url" value="<?php echo htmlspecialchars($btn_3_u); ?>" placeholder="https://hoomanweb.ir">
@@ -1530,13 +1530,13 @@ $ad_fa_status = static function ($status): string {
 
                         <!-- تنظیمات و اتوماسیون ووکامرس (گیت شده بر اساس ویژگی پلن) -->
                         <?php if (!empty($quota['features']['woocommerce'])): ?>
-                            <h3 style="font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#E9C77E;">🛍️ اتوماسیون هوشمند فروشگاهی ووکامرس</h3>
+                            <h3 style="font-size: 0.95rem; margin-top: 1rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#A5B4FC;">🛍️ اتوماسیون هوشمند فروشگاهی ووکامرس</h3>
                             <div class="form-row" style="margin-bottom: 1rem;">
-                                <label class="toggle-container" style="background: rgba(10,15,26,0.056); border: 1px solid var(--border);">
+                                <label class="toggle-container" style="background: rgba(15,15,20,0.056); border: 1px solid var(--border);">
                                     <input type="checkbox" name="auto_publish_woo" value="yes" class="toggle-input" <?php echo $woo_active ? 'checked' : ''; ?>>
                                     <span>انتشار خودکار محصول جدید ووکامرس به همه‌ی کانال‌های فعال</span>
                                 </label>
-                                <label class="toggle-container" style="background: rgba(10,15,26,0.056); border: 1px solid var(--border);">
+                                <label class="toggle-container" style="background: rgba(15,15,20,0.056); border: 1px solid var(--border);">
                                     <input type="checkbox" name="watermark_active" value="yes" class="toggle-input" <?php echo $watermark_active ? 'checked' : ''; ?>>
                                     <span>درج خودکار واترمرک روی تصاویر محصولات</span>
                                 </label>
@@ -1544,7 +1544,7 @@ $ad_fa_status = static function ($status): string {
                         <?php endif; ?>
 
                         <!-- تنظیمات ارسال و دریافت -->
-                        <h3 style="font-size: 0.95rem; margin-top: 1.5rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#E9C77E;">✉️ تنظیمات ارسال و دریافت پیام</h3>
+                        <h3 style="font-size: 0.95rem; margin-top: 1.5rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#A5B4FC;">✉️ تنظیمات ارسال و دریافت پیام</h3>
                         <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:1rem; margin-bottom: 1.5rem;">
                             <div class="form-group">
                                 <label>قالب متن ارسالی به کانال‌ها:</label>
@@ -1573,7 +1573,7 @@ $ad_fa_status = static function ($status): string {
 
                         <!-- تنظیمات هوش مصنوعی (گیت شده بر اساس ویژگی پلن) -->
                         <?php if (!empty($quota['features']['ai_caption'])): ?>
-                            <h3 style="font-size: 0.95rem; margin-top: 1.5rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#E9C77E;">🤖 تنظیمات هوش مصنوعی مولد کپشن</h3>
+                            <h3 style="font-size: 0.95rem; margin-top: 1.5rem; margin-bottom: 0.75rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.4rem; color:#A5B4FC;">🤖 تنظیمات هوش مصنوعی مولد کپشن</h3>
                             <div class="form-row" style="margin-bottom: 1rem;">
                                 <div class="form-group">
                                     <label>سرویس هوش مصنوعی:</label>
@@ -1629,7 +1629,7 @@ $ad_fa_status = static function ($status): string {
                             </button>
                         </div>
 
-                        <button type="submit" class="btn btn-success" id="adv-save-btn" style="width:100%; padding:1rem; background: linear-gradient(135deg, var(--primary) 0%, #E9C77E 100%); border:none;">ذخیره تنظیمات پیشرفته و اتوماسیون پُست‌یار 💾✔</button>
+                        <button type="submit" class="btn btn-success" id="adv-save-btn" style="width:100%; padding:1rem; background: linear-gradient(135deg, var(--primary) 0%, #A5B4FC 100%); border:none;">ذخیره تنظیمات پیشرفته و اتوماسیون پُست‌یار 💾✔</button>
                     </form>
                 </div>
             </div>
@@ -1669,15 +1669,15 @@ $ad_fa_status = static function ($status): string {
                 <div class="card">
                     <h2>💎 ارتقا و تمدید اشتراک پنل کاربری</h2>
                     <?php if ($quota['has_active_sub']): ?>
-                    <div style="background:linear-gradient(135deg, rgba(214,172,99,0.15) 0%, rgba(85,196,126,0.1) 100%); border:1px solid rgba(214,172,99,0.3); border-radius:12px; padding:1rem 1.25rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-                        <div style="width:2.5rem; height:2.5rem; background:linear-gradient(135deg, #E9C77E 0%, #E9C77E 100%); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0;">💎</div>
+                    <div style="background:linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(52,211,153,0.1) 100%); border:1px solid rgba(99,102,241,0.3); border-radius:12px; padding:1rem 1.25rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+                        <div style="width:2.5rem; height:2.5rem; background:linear-gradient(135deg, #A5B4FC 0%, #A5B4FC 100%); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0;">💎</div>
                         <div style="flex:1; min-width:200px;">
-                            <div style="font-weight:900; color:#F5EFE3; font-size:0.95rem;">اشتراک فعلی شما: <?php echo htmlspecialchars($quota['plan_title']); ?></div>
+                            <div style="font-weight:900; color:#F1F0F4; font-size:0.95rem;">اشتراک فعلی شما: <?php echo htmlspecialchars($quota['plan_title']); ?></div>
                             <?php if ($quota['end_date']): ?>
-                            <div style="font-size:0.8rem; color:#DCD3C4; margin-top:0.2rem;">اعتبار تا: <?php echo $ad_fa_date($quota['end_date'], false); ?></div>
+                            <div style="font-size:0.8rem; color:#B4B2BE; margin-top:0.2rem;">اعتبار تا: <?php echo $ad_fa_date($quota['end_date'], false); ?></div>
                             <?php endif; ?>
                         </div>
-                        <div style="font-size:0.75rem; color:#55C47E; font-weight:800; background:rgba(85,196,126,0.15); padding:0.35rem 0.75rem; border-radius:8px; white-space:nowrap;">✅ فعال</div>
+                        <div style="font-size:0.75rem; color:#34D399; font-weight:800; background:rgba(52,211,153,0.15); padding:0.35rem 0.75rem; border-radius:8px; white-space:nowrap;">✅ فعال</div>
                     </div>
                     <?php endif; ?>
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;"><?php echo $quota['has_active_sub'] ? 'برای تمدید یا ارتقای اشتراک فعلی، پلن مورد نظر را انتخاب کنید:' : 'یکی از پلن‌های اشتراکی زیر را انتخاب کنید و رسید تراکنش واریزی خود را ثبت نمایید.'; ?></p>
@@ -1755,9 +1755,9 @@ $ad_fa_status = static function ($status): string {
                                     <div class="price" style="margin-bottom: 1rem; text-align: center;">
                                         <?php if ($gen_discount > 0 || $eligible_early): ?>
                                             <span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.95rem; margin-left: 0.35rem; font-weight: normal;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['price']); ?></span>
-                                            <span style="color: #55C47E; font-size: 1.2rem; font-weight: 900;"><?php echo \WHCM\Domain\TextFormat::fa_num($final_price); ?> <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">تومان</span></span>
+                                            <span style="color: #34D399; font-size: 1.2rem; font-weight: 900;"><?php echo \WHCM\Domain\TextFormat::fa_num($final_price); ?> <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">تومان</span></span>
                                         <?php else: ?>
-                                            <span style="font-size: 1.25rem; font-weight: 900; color: #171310;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['price']); ?> <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">تومان</span></span>
+                                            <span style="font-size: 1.25rem; font-weight: 900; color: #16161F;"><?php echo \WHCM\Domain\TextFormat::fa_num($p['price']); ?> <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">تومان</span></span>
                                         <?php endif; ?>
                                     </div>
                                     <ul>
@@ -1775,13 +1775,13 @@ $ad_fa_status = static function ($status): string {
                                     </ul>
                                 </div>
                                 <?php if ($is_current_plan && !$is_near_expiry): ?>
-                                <div style="width: 100%; border-radius: 12px; padding: 0.65rem; font-size: 0.85rem; font-weight: 850; background: linear-gradient(135deg, #E9C77E 0%, #E9C77E 100%); border: none; text-align:center; color:white; cursor:default; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+                                <div style="width: 100%; border-radius: 12px; padding: 0.65rem; font-size: 0.85rem; font-weight: 850; background: linear-gradient(135deg, #A5B4FC 0%, #A5B4FC 100%); border: none; text-align:center; color:white; cursor:default; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
                                     🔒 اشتراک فعلی شما
                                 </div>
                                 <?php elseif ($is_current_plan && $is_near_expiry): ?>
-                                <button class="btn btn-success plan-select-btn" id="plan-btn-<?php echo $p['id']; ?>" onclick="selectPlan(<?php echo $p['id']; ?>, '<?php echo htmlspecialchars(addslashes($p['title'])); ?>', <?php echo $final_price; ?>, '<?php echo htmlspecialchars(addslashes($p['payment_url'] ?? '')); ?>')" style="width: 100%; border-radius: 12px; padding: 0.65rem; font-size: 0.85rem; font-weight: 850; background: linear-gradient(135deg, #F5BC82 0%, #F5BC82 100%); border: none; box-shadow: 0 4px 12px rgba(239,164,91,0.3);">🔄 تمدید این اشتراک (<?php echo \WHCM\Domain\TextFormat::fa_digits($days_until_expiry); ?> روز مانده)</button>
+                                <button class="btn btn-success plan-select-btn" id="plan-btn-<?php echo $p['id']; ?>" onclick="selectPlan(<?php echo $p['id']; ?>, '<?php echo htmlspecialchars(addslashes($p['title'])); ?>', <?php echo $final_price; ?>, '<?php echo htmlspecialchars(addslashes($p['payment_url'] ?? '')); ?>')" style="width: 100%; border-radius: 12px; padding: 0.65rem; font-size: 0.85rem; font-weight: 850; background: linear-gradient(135deg, #FDE68A 0%, #FDE68A 100%); border: none; box-shadow: 0 4px 12px rgba(239,164,91,0.3);">🔄 تمدید این اشتراک (<?php echo \WHCM\Domain\TextFormat::fa_digits($days_until_expiry); ?> روز مانده)</button>
                                 <?php else: ?>
-                                <button class="btn btn-success plan-select-btn" id="plan-btn-<?php echo $p['id']; ?>" onclick="selectPlan(<?php echo $p['id']; ?>, '<?php echo htmlspecialchars(addslashes($p['title'])); ?>', <?php echo $final_price; ?>, '<?php echo htmlspecialchars(addslashes($p['payment_url'] ?? '')); ?>')" style="width: 100%; border-radius: 12px; padding: 0.65rem; font-size: 0.85rem; font-weight: 850; background: linear-gradient(135deg, #55C47E 0%, #82D9A2 100%); border: none; box-shadow: 0 4px 12px rgba(85,196,126,0.3);">انتخاب این پلن</button>
+                                <button class="btn btn-success plan-select-btn" id="plan-btn-<?php echo $p['id']; ?>" onclick="selectPlan(<?php echo $p['id']; ?>, '<?php echo htmlspecialchars(addslashes($p['title'])); ?>', <?php echo $final_price; ?>, '<?php echo htmlspecialchars(addslashes($p['payment_url'] ?? '')); ?>')" style="width: 100%; border-radius: 12px; padding: 0.65rem; font-size: 0.85rem; font-weight: 850; background: linear-gradient(135deg, #34D399 0%, #6EE7B7 100%); border: none; box-shadow: 0 4px 12px rgba(52,211,153,0.3);">انتخاب این پلن</button>
                                 <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
@@ -1801,16 +1801,16 @@ $ad_fa_status = static function ($status): string {
                         $saved_bank = $global_bank['admin_bank_name'] ?? 'بانک سامان';
                     ?>
                     <div id="payment-box" class="payment-box hidden">
-                        <h4 style="margin-bottom: 0.5rem; color: #171310;">💳 جزئیات پرداخت پلن انتخابی</h4>
-                        <h3 id="sel-title" style="color:#E9C77E; margin-bottom:0.25rem;">...</h3>
-                        <p style="font-size:1.1rem; color:#55C47E; font-weight:900; margin-bottom:1rem;">مبلغ: <span id="sel-price">۰</span> <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">تومان</span></p>
+                        <h4 style="margin-bottom: 0.5rem; color: #16161F;">💳 جزئیات پرداخت پلن انتخابی</h4>
+                        <h3 id="sel-title" style="color:#A5B4FC; margin-bottom:0.25rem;">...</h3>
+                        <p style="font-size:1.1rem; color:#34D399; font-weight:900; margin-bottom:1rem;">مبلغ: <span id="sel-price">۰</span> <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">تومان</span></p>
                         
                         <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: center;">
                             <div>
                                 <p style="font-size:0.85rem; color: var(--text-muted); margin-bottom:0.75rem;">برای کپی سریع شماره کارت، روی کارت بانکی زیر ضربه بزنید:</p>
                                 <div class="credit-card" onclick="copyCardNumber()">
                                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-                                        <span style="font-size:0.85rem; font-weight:bold; letter-spacing:1px; color:#DCD3C4;"><?php echo htmlspecialchars($saved_bank); ?></span>
+                                        <span style="font-size:0.85rem; font-weight:bold; letter-spacing:1px; color:#B4B2BE;"><?php echo htmlspecialchars($saved_bank); ?></span>
                                         <span style="font-size:1.1rem;">💳</span>
                                     </div>
                                     <div class="credit-card-chip"></div>
@@ -1825,7 +1825,7 @@ $ad_fa_status = static function ($status): string {
                             <!-- نمایش دکمه پرداخت مستقیم بلو لینک اختصاصی هر پلن -->
                             <div id="online-pay-div" class="hidden" style="text-align: center; border-right: 1px dashed var(--border); padding-right: 1.5rem;">
                                 <p style="font-size:0.85rem; color: var(--text-muted); margin-bottom:1rem;">یا می‌توانید مستقیماً به صورت آنلاین از طریق بلو لینک زیر پرداخت را انجام دهید:</p>
-                                <a href="#" id="online-pay-link" target="_blank" class="btn btn-success" style="background: linear-gradient(135deg, #F5BC82 0%, #F5BC82 100%); border: none; padding: 1rem; width: 100%; font-size:0.95rem;">
+                                <a href="#" id="online-pay-link" target="_blank" class="btn btn-success" style="background: linear-gradient(135deg, #FDE68A 0%, #FDE68A 100%); border: none; padding: 1rem; width: 100%; font-size:0.95rem;">
                                     💳 پرداخت آنلاین با بلو لینک ⚡
                                 </a>
                             </div>
@@ -1866,20 +1866,20 @@ $ad_fa_status = static function ($status): string {
                     <div class="card" style="margin-top:1.5rem;">
                         <h2 style="margin-bottom:1rem;">📋 سوابق اشتراک‌ها و پرداخت‌ها</h2>
                         <?php if (!empty($payment_history)): ?>
-                        <h3 style="font-size:0.9rem; color:#DCD3C4; margin-bottom:0.75rem; border-bottom:1px dashed var(--border); padding-bottom:0.4rem;">💳 تراکش‌های پرداخت</h3>
+                        <h3 style="font-size:0.9rem; color:#B4B2BE; margin-bottom:0.75rem; border-bottom:1px dashed var(--border); padding-bottom:0.4rem;">💳 تراکش‌های پرداخت</h3>
                         <div style="overflow-x:auto; max-height:300px; overflow-y:auto;">
                         <table style="width:100%; font-size:0.8rem;"><thead><tr style="border-bottom:1px solid var(--border);"><th style="padding:0.5rem; text-align:right;">پلن</th><th style="padding:0.5rem; text-align:right;">مبلغ</th><th style="padding:0.5rem; text-align:right;">وضعت</th><th style="padding:0.5rem; text-align:right;">تاریخ</th></tr></thead><tbody>
                                 <?php foreach ($payment_history as $ph): ?>
-                                <tr style="border-bottom:1px solid rgba(10,15,26,0.048);"><td style="padding:0.5rem;"><?php echo htmlspecialchars($ph['plan_title'] ?? '-'); ?></td><td style="padding:0.5rem;"><?php echo \WHCM\Domain\TextFormat::fa_num($ph['amount']); ?> تومان</td><td style="padding:0.5rem;"><?php if ($ph['status']==='approved') echo '<span class="badge badge-success" style="font-size:0.7rem;">تاید شده ✔</span>'; elseif ($ph['status']==='rejected') echo '<span class="badge badge-failed" style="font-size:0.7rem;">رد شده ✖</span>'; else echo '<span class="badge badge-pending" style="font-size:0.7rem;">در انتظار تاید ⏳</span>'; ?></td><td style="padding:0.5rem; color:var(--text-muted); font-size:0.75rem;"><?php echo $ad_fa_date($ph['created_at']); ?></td></tr>
+                                <tr style="border-bottom:1px solid rgba(15,15,20,0.048);"><td style="padding:0.5rem;"><?php echo htmlspecialchars($ph['plan_title'] ?? '-'); ?></td><td style="padding:0.5rem;"><?php echo \WHCM\Domain\TextFormat::fa_num($ph['amount']); ?> تومان</td><td style="padding:0.5rem;"><?php if ($ph['status']==='approved') echo '<span class="badge badge-success" style="font-size:0.7rem;">تاید شده ✔</span>'; elseif ($ph['status']==='rejected') echo '<span class="badge badge-failed" style="font-size:0.7rem;">رد شده ✖</span>'; else echo '<span class="badge badge-pending" style="font-size:0.7rem;">در انتظار تاید ⏳</span>'; ?></td><td style="padding:0.5rem; color:var(--text-muted); font-size:0.75rem;"><?php echo $ad_fa_date($ph['created_at']); ?></td></tr>
                                 <?php endforeach; ?>
                             </tbody></table></div>
                         <?php endif; ?>
                         <?php if (!empty($subscription_history)): ?>
-                        <h3 style="font-size:0.9rem; color:#DCD3C4; margin:1.25rem 0 0.75rem; border-bottom:1px dashed var(--border); padding-bottom:0.4rem;">💎 سابق اشتراک‌ها</h3>
+                        <h3 style="font-size:0.9rem; color:#B4B2BE; margin:1.25rem 0 0.75rem; border-bottom:1px dashed var(--border); padding-bottom:0.4rem;">💎 سابق اشتراک‌ها</h3>
                         <div style="overflow-x:auto; max-height:300px; overflow-y:auto;">
                         <table style="width:100%; font-size:0.8rem;"><thead><tr style="border-bottom:1px solid var(--border);"><th style="padding:0.5rem; text-align:right;">پلن</th><th style="padding:0.5rem; text-align:right;">شروع</th><th style="padding:0.5rem; text-align:right;">پاین</th><th style="padding:0.5rem; text-align:right;">وضعت</th></tr></thead><tbody>
                                 <?php foreach ($subscription_history as $sh): ?>
-                                <tr style="border-bottom:1px solid rgba(10,15,26,0.048);"><td style="padding:0.5rem;"><?php echo htmlspecialchars($sh['plan_title'] ?? '-'); ?></td><td style="padding:0.5rem; font-size:0.75rem;"><?php echo $ad_fa_date($sh['start_date'], false); ?></td><td style="padding:0.5rem; font-size:0.75rem;"><?php echo $ad_fa_date($sh['end_date'], false); ?></td><td style="padding:0.5rem;"><?php if ($sh['status']==='active') echo '<span class="badge badge-success" style="font-size:0.7rem;">فعال ✔</span>'; else echo '<span class="badge badge-failed" style="font-size:0.7rem;">منقضی ✖</span>'; ?></td></tr>
+                                <tr style="border-bottom:1px solid rgba(15,15,20,0.048);"><td style="padding:0.5rem;"><?php echo htmlspecialchars($sh['plan_title'] ?? '-'); ?></td><td style="padding:0.5rem; font-size:0.75rem;"><?php echo $ad_fa_date($sh['start_date'], false); ?></td><td style="padding:0.5rem; font-size:0.75rem;"><?php echo $ad_fa_date($sh['end_date'], false); ?></td><td style="padding:0.5rem;"><?php if ($sh['status']==='active') echo '<span class="badge badge-success" style="font-size:0.7rem;">فعال ✔</span>'; else echo '<span class="badge badge-failed" style="font-size:0.7rem;">منقضی ✖</span>'; ?></td></tr>
                                 <?php endforeach; ?>
                             </tbody></table></div>
                         <?php endif; ?>
@@ -1921,10 +1921,10 @@ $ad_fa_status = static function ($status): string {
 
     <!-- مدال گفتگو و مدیریت حرفه‌ای تیکت توسط مستأجر -->
     <div id="ticketModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1200; align-items:center; justify-content:center; padding:1rem; overflow-y:auto;">
-        <div class="card" style="width:100%; max-width:580px; margin:auto; position:relative; background:#1E1A14; border:1px solid #E9C77E; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,0.8);">
-            <button onclick="closeTicketModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; color:#DCD3C4; font-size:1.4rem; cursor:pointer;">✖</button>
+        <div class="card" style="width:100%; max-width:580px; margin:auto; position:relative; background:#1C1C28; border:1px solid #A5B4FC; border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,0.8);">
+            <button onclick="closeTicketModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; color:#B4B2BE; font-size:1.4rem; cursor:pointer;">✖</button>
             
-            <div style="border-bottom:1px dashed #2B241B; padding-bottom:1rem; margin-bottom:1.25rem;">
+            <div style="border-bottom:1px dashed #2A2A38; padding-bottom:1rem; margin-bottom:1.25rem;">
                 <span id="t-modal-status" class="badge" style="float:left; margin-top:2px;"></span>
                 <h3 id="t-modal-subject" style="color:white; margin:0; font-size:1.15rem; font-weight:900;"></h3>
             </div>
@@ -1938,13 +1938,13 @@ $ad_fa_status = static function ($status): string {
                 <?php echo $csrf_field; ?>
                 <input type="hidden" name="ticket_id" id="t-reply-id">
                 <div class="form-group" style="margin-bottom:0.75rem;">
-                    <textarea name="reply" rows="3" required placeholder="پاسخ یا توضیحات تکمیلی خود را بنویسید..." style="width:100%; border-radius:10px; background:#1E1A14; color:white; border:1px solid #2B241B; padding:0.75rem;"></textarea>
+                    <textarea name="reply" rows="3" required placeholder="پاسخ یا توضیحات تکمیلی خود را بنویسید..." style="width:100%; border-radius:10px; background:#1C1C28; color:white; border:1px solid #2A2A38; padding:0.75rem;"></textarea>
                 </div>
                 <div class="form-group">
-                    <label style="font-size:0.8rem; color:#DCD3C4;">پیوست تصویر (اختیاری):</label>
+                    <label style="font-size:0.8rem; color:#B4B2BE;">پیوست تصویر (اختیاری):</label>
                     <input type="file" name="attachment" accept="image/*,.pdf" style="padding:0.4rem; font-size:0.8rem;">
                 </div>
-                <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.85rem; color:#F5BC82; margin-bottom:0.75rem; cursor:pointer;"><input type="checkbox" name="close_after_reply" value="1"> ارسال و بستن همزمان تیکت</label>
+                <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.85rem; color:#FDE68A; margin-bottom:0.75rem; cursor:pointer;"><input type="checkbox" name="close_after_reply" value="1"> ارسال و بستن همزمان تیکت</label>
                 <button type="submit" class="btn btn-success" style="width:100%; padding:0.75rem;">ارسال پاسخ جدید به پشتیبانی ✔</button>
             </form>
 
@@ -1952,7 +1952,7 @@ $ad_fa_status = static function ($status): string {
             <form action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard/close-ticket'); ?>" method="POST" style="margin:0;">
                 <?php echo $csrf_field; ?>
                 <input type="hidden" name="ticket_id" id="t-close-id">
-                <button type="submit" class="btn btn-danger" style="width:100%; padding:0.6rem; font-size:0.85rem; background:rgba(228,104,111,0.2); border:1px solid #E4686F; color:#E4686F;">بستن این تیکت (مختومه کردن)</button>
+                <button type="submit" class="btn btn-danger" style="width:100%; padding:0.6rem; font-size:0.85rem; background:rgba(248,113,113,0.2); border:1px solid #F87171; color:#F87171;">بستن این تیکت (مختومه کردن)</button>
             </form>
         </div>
     </div>
