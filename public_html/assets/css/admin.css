@@ -63,6 +63,15 @@ body{
 .ad-archive-card{border-style:dashed!important}
 .ad-manual-create{border-color:rgba(66,153,225,.3)!important;background:linear-gradient(160deg,rgba(66,153,225,.04),var(--bg-surface))!important}
 .ad-manual-form,.ad-status-form,.ad-delete-form{display:grid;gap:.55rem;align-content:start}
+.ad-manual-form-modern{display:flex;flex-direction:column;gap:1rem}
+.ad-form-row-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.ad-form-field{display:flex;flex-direction:column;gap:0.4rem}
+.ad-form-field label{font-size:12px;font-weight:600;color:#E9C77E;margin-bottom:0}
+.ad-form-field input[type="text"],.ad-form-field input[type="url"],.ad-form-field input:not([type]){padding:0.65rem 0.85rem;border-radius:8px;border:1px solid #2B241B;background:#1E1A14;color:#F5EFE3;font-family:inherit;font-size:13px;outline:0;transition:border-color 150ms,box-shadow 150ms}
+.ad-form-field input:focus{border-color:#D6AC63;box-shadow:0 0 0 3px rgba(214,172,99,.16)}
+.ad-form-field input::placeholder{color:#7A7062}
+.ad-form-field input[type="file"]{padding:0.5rem}
+@media (max-width:640px){.ad-form-row-2col{grid-template-columns:1fr;gap:.75rem}}
 .ad-date-range{
   display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;
   padding:.65rem .85rem;border-radius:var(--radius-sm);
@@ -107,15 +116,17 @@ body{
 .ad-creative-head h4{font-size:12.5px}
 .ad-creative-head span{color:var(--text-muted);font-size:10.5px}
 
-/* پوسته‌سازی عناصر اینلاین قدیمی */
+/* پوسته‌سازی عناصر اینلاین */
 #admin-bell-popup{
-  background:#fff!important;
-  border:1px solid var(--border-color)!important;
-  border-radius:var(--radius-lg)!important;
-  box-shadow:var(--shadow-pop)!important;
+  background:#171310!important;
+  border:1px solid #2B241B!important;
+  border-radius:10px!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 1px rgba(214,172,99,.08)!important;
 }
-#admin-bell-popup strong{color:var(--text)!important}
+#admin-bell-popup strong{color:#F5EFE3!important}
 .close-btn{background:var(--bg-surface)!important}
+
+.ad-manual-placement-fixed{display:none!important}
 
 /* ریسپانسیو ادمین */
 @media (min-width:1920px){
@@ -134,6 +145,4 @@ body{
   .grid,.grid-stats,.stats-grid,.dashboard-grid{grid-template-columns:1fr}
   table{min-width:600px}
 }
-@media (orientation:landscape) and (max-height:700px) and (max-width:992px){
-  .drawer-menu{width:min(60vw,280px)}
-}
+

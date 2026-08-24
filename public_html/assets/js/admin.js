@@ -3,13 +3,19 @@
    سامانه مدیریت کانال‌ها و انتشار خودکار پُست‌یار
    ========================================================================== */
 
-/* ===== بستن و باز کردن منوی کشویی موبایل ===== */
-function toggleDrawer() {
-    var drawer = document.getElementById('drawer-menu');
-    var overlay = document.getElementById('drawer-overlay');
-    if (drawer && overlay) {
-        drawer.classList.toggle('show');
-        overlay.classList.toggle('show');
+/* ===== دراور منوی بیشتر (موبایل) ===== */
+function toggleMobileMoreMenu() {
+    var overlay = document.getElementById('mobileMoreOverlay');
+    var drawer = document.getElementById('mobileMoreDrawer');
+    var isOpen = drawer && drawer.classList.contains('open');
+    if (isOpen) {
+        if (overlay) overlay.classList.remove('active');
+        if (drawer) drawer.classList.remove('open');
+        document.body.style.overflow = '';
+    } else {
+        if (overlay) overlay.classList.add('active');
+        if (drawer) drawer.classList.add('open');
+        document.body.style.overflow = 'hidden';
     }
 }
 
@@ -31,6 +37,12 @@ function switchSection(sectionId) {
     for (var k = 0; k < targets.length; k++) {
         targets[k].classList.add('active');
     }
+    // بازآغازی تقویم جلالی هنگام ورود به بخش تبلیغات
+    if (sectionId === 'ads' && window.jalaliDatepicker) {
+        setTimeout(function() {
+            try { jalaliDatepicker.startWatch({showTodayBtn: true, showEmptyBtn: true}); } catch(e) {}
+        }, 50);
+    }
     if (window.SafeStorage && typeof SafeStorage.setItem === 'function') {
         SafeStorage.setItem('last_admin_tab', sectionId);
     } else {
@@ -40,19 +52,7 @@ function switchSection(sectionId) {
 
 /* ===== راه‌اندازی اولیه پنل ادمین ===== */
 function initAdminPanel() {
-    var hamburger = document.querySelector('.hamburger-btn');
-    if (hamburger) {
-        hamburger.addEventListener('click', toggleDrawer);
-    }
-    var overlay = document.getElementById('drawer-overlay');
-    if (overlay) {
-        overlay.addEventListener('click', toggleDrawer);
-    }
-    var closeBtn = document.querySelector('.drawer-menu .close-btn');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', toggleDrawer);
-    }
-    var menuItems = document.querySelectorAll('.menu-item');
+    var menuItems = document.querySelectorAll('.g-sidebar .menu-item');
     for (var i = 0; i < menuItems.length; i++) {
         var item = menuItems[i];
         var target = item.getAttribute('data-target');
@@ -61,9 +61,6 @@ function initAdminPanel() {
                 var clickedItem = e.currentTarget;
                 var sectionId = clickedItem.getAttribute('data-target');
                 switchSection(sectionId);
-                if (clickedItem.getAttribute('data-toggle-drawer') === 'true') {
-                    toggleDrawer();
-                }
             });
         }
     }

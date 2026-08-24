@@ -29,62 +29,100 @@
 </head>
 <body>
 
-    <!-- نوار تب پایین ادمین (موبایل/تبلت) -->
-    <nav class="mobile-nav" aria-label="ناوبری موبایل مدیریت">
-        <div class="mobile-nav-item active" data-target="dashboard">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-            <span>داشبورد</span>
+    <!-- دراور منوی بیشتر (موبایل) - مشابه داشبورد کاربر -->
+    <div class="mobile-more-overlay" id="mobileMoreOverlay" onclick="toggleMobileMoreMenu()"></div>
+    <div class="mobile-more-drawer" id="mobileMoreDrawer">
+        <div class="mobile-more-handle"></div>
+        <div class="mobile-more-title"><?php echo $is_support ? 'پنل پشتیبانی' : 'منوی مدیریت'; ?></div>
+        <div class="mobile-more-grid">
+            <?php if (!$is_support): ?>
+            <div class="mobile-more-item" data-target="dashboard" onclick="switchSection('dashboard'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">📊</span>
+                <span>وضعیت کلی</span>
+            </div>
+            <div class="mobile-more-item" data-target="users" onclick="switchSection('users'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">👥</span>
+                <span>کاربران</span>
+            </div>
+            <div class="mobile-more-item" data-target="payments" onclick="switchSection('payments'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">💳</span>
+                <span>تایید فیش</span>
+            </div>
+            <div class="mobile-more-item" data-target="subscriptions" onclick="switchSection('subscriptions'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">🎫</span>
+                <span>اشتراک‌ها</span>
+            </div>
+            <div class="mobile-more-item" data-target="plans" onclick="switchSection('plans'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">💎</span>
+                <span>پلن‌ها</span>
+            </div>
+            <div class="mobile-more-item" data-target="ads" onclick="switchSection('ads'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">📣</span>
+                <span>تبلیغات</span>
+            </div>
+            <div class="mobile-more-item" data-target="admin-gold" onclick="switchSection('admin-gold'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">🪙</span>
+                <span>ربات طلا</span>
+            </div>
+            <div class="mobile-more-item" data-target="admin-ai" onclick="switchSection('admin-ai'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">🧠</span>
+                <span>هوش مصنوعی</span>
+            </div>
+            <div class="mobile-more-item" data-target="discounts" onclick="switchSection('discounts'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">🎁</span>
+                <span>تخفیف‌ها</span>
+            </div>
+            <div class="mobile-more-item" data-target="admin-responder" onclick="switchSection('admin-responder'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">🤖</span>
+                <span>پاسخگوی هوشمند</span>
+            </div>
+            <div class="mobile-more-item" data-target="admin-woo" onclick="switchSection('admin-woo'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">🛍</span>
+                <span>ووکامرس</span>
+            </div>
+            <div class="mobile-more-item" data-target="broadcast" onclick="switchSection('broadcast'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">📢</span>
+                <span>اعلان همگانی</span>
+            </div>
+            <div class="mobile-more-item" data-target="bank" onclick="switchSection('bank'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">🏦</span>
+                <span>کارت بانکی</span>
+            </div>
+            <div class="mobile-more-item" data-target="provider-settings" onclick="switchSection('provider-settings'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">🔌</span>
+                <span>درگاه پرداخت</span>
+            </div>
+            <div class="mobile-more-item" data-target="referral-settings" onclick="switchSection('referral-settings'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">🎯</span>
+                <span>زیرمجموعه</span>
+            </div>
+            <div class="mobile-more-item" data-target="sms-settings" onclick="switchSection('sms-settings'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">📱</span>
+                <span>پیامک</span>
+            </div>
+            <div class="mobile-more-item" data-target="email-settings" onclick="switchSection('email-settings'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">📧</span>
+                <span>ایمیل</span>
+            </div>
+            <?php endif; ?>
+            <div class="mobile-more-item" data-target="tickets" onclick="switchSection('tickets'); toggleMobileMoreMenu();">
+                <span class="mobile-more-icon">🎫</span>
+                <span>تیکت‌ها</span>
+            </div>
+            <?php if (!$is_support): ?>
+            <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" class="mobile-more-item mobile-more-admin">
+                <span class="mobile-more-icon">🏠</span>
+                <span>داشبورد کاربری</span>
+            </a>
+            <?php endif; ?>
+            <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/logout'); ?>" class="mobile-more-item mobile-more-logout" onsubmit="return confirm('آیا می‌خواهید از حساب خارج شوید؟');">
+                <?php echo \WHCM\Core\Csrf::field(); ?>
+                <button type="submit" style="all:unset; display:flex; align-items:center; gap:.5rem; width:100%; cursor:pointer;">
+                    <span class="mobile-more-icon">🚪</span>
+                    <span>خروج از حساب</span>
+                </button>
+            </form>
         </div>
-        <div class="mobile-nav-item" data-target="users">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            <span>کاربران</span>
-        </div>
-        <div class="mobile-nav-item" data-target="payments">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h.01M11 15h.01M3 4h18a2 2 0 012 2v12a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2z"></path></svg>
-            <span>پرداخت‌ها</span>
-        </div>
-        <div class="mobile-nav-item" data-target="tickets">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
-            <span>تیکت‌ها</span>
-        </div>
-        <div class="mobile-nav-item" onclick="var h=document.querySelector('.hamburger-btn'); if(h){h.click();}">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            <span>بیشتر</span>
-        </div>
-    </nav>
-
-    <!-- کشوی منوی مدیریت در موبایل (Drawer) -->
-    <div class="drawer-overlay" id="drawer-overlay"></div>
-    <div class="drawer-menu" id="drawer-menu">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid var(--border); padding-bottom:0.75rem;">
-            <span style="font-weight:bold; color:var(--primary); font-size:1rem;"><?php echo $is_support ? 'پنل پشتیبانی' : 'منوی مدیریت پُست‌یار'; ?></span>
-            <button class="close-btn" style="position:static;">✖</button>
-        </div>
-        <?php if (!$is_support): ?>
-        <div class="menu-item active" data-target="dashboard" data-toggle-drawer="true" onclick="switchSection('dashboard')">📊 وضعیت کلی و آمارگیری حرفه‌ای</div>
-        <div class="menu-item" data-target="users" data-toggle-drawer="true" onclick="switchSection('users')">👥 مدیریت کاربران و هدیه اشتراک</div>
-        <div class="menu-item" data-target="payments" data-toggle-drawer="true" onclick="switchSection('payments')">💳 تایید فیش‌های واریزی</div>
-        <div class="menu-item" data-target="subscriptions" data-toggle-drawer="true" onclick="switchSection('subscriptions')">🎫 لیست اشتراک‌های فعال</div>
-        <div class="menu-item" data-target="plans" data-toggle-drawer="true" onclick="switchSection('plans')">💎 مدیریت پلن‌های اشتراکی</div>
-        <div class="menu-item" data-target="ads" data-toggle-drawer="true" onclick="switchSection('ads')">📣 مدیریت تبلیغات</div>
-        <div class="menu-item" data-target="admin-gold" data-toggle-drawer="true" onclick="switchSection('admin-gold')">🪙 تنظیمات ربات طلا و سکه</div>
-        <div class="menu-item" data-target="admin-ai" data-toggle-drawer="true" onclick="switchSection('admin-ai')">🧠 تنظیمات سراسری هوش مصنوعی</div>
-        <div class="menu-item" data-target="discounts" data-toggle-drawer="true" onclick="switchSection('discounts')">🎁 کدهای تخفیف</div>
-        <div class="menu-item" data-target="admin-responder" data-toggle-drawer="true" onclick="switchSection('admin-responder')">🤖 تنظیمات پاسخگوی هوشمند</div>
-        <div class="menu-item" data-target="admin-woo" data-toggle-drawer="true" onclick="switchSection('admin-woo')">🛍 تنظیمات اتصال ووکامرس</div>
-        <div class="menu-item" data-target="broadcast" data-toggle-drawer="true" onclick="switchSection('broadcast')">📢 ارسال اعلان همگانی</div>
-        <div class="menu-item" data-target="bank" data-toggle-drawer="true" onclick="switchSection('bank')">💳 تنظیمات کارت بانکی</div>
-        <div class="menu-item" data-target="provider-settings" data-toggle-drawer="true" onclick="switchSection('provider-settings')">🔌 تنظیمات درگاه‌های پرداخت</div>
-        <div class="menu-item" data-target="referral-settings" data-toggle-drawer="true" onclick="switchSection('referral-settings')">🎯 تنظیمات زیرمجموعه‌گیری</div>
-        <div class="menu-item" data-target="sms-settings" data-toggle-drawer="true" onclick="switchSection('sms-settings')">📱 تنظیمات پنل‌های پیامک</div>
-        <div class="menu-item" data-target="email-settings" data-toggle-drawer="true" onclick="switchSection('email-settings')">📧 تنظیمات ایمیل</div>
-        <?php endif; ?>
-        <div class="menu-item <?php echo $is_support ? 'active' : ''; ?>" data-target="tickets" data-toggle-drawer="true" onclick="switchSection('tickets')">🎫 تیکت‌های پشتیبانی</div>
-        <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/logout'); ?>" class="logout-form"
-      onsubmit="return confirm('آیا می‌خواهید از حساب خارج شوید؟');">
-    <?php echo \WHCM\Core\Csrf::field(); ?>
-    <button type="submit" class="menu-item logout-btn" style="margin-top:0.5rem; padding-top:0;">🚪 خروج از حساب</button>
-</form>
     </div>
 
     <!-- هدر Gentelella ادمین -->
@@ -134,10 +172,32 @@
             </div>
             <a href="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/dashboard'); ?>" class="admin-badge" style="text-decoration:none;">🏠 داشبورد کاربری</a>
             <div class="admin-badge"><?php echo $is_support ? '🎧 پشتیبان' : '👑 مدیر ارشد'; ?></div>
-            <!-- دکمه بازکردن همبرگری کشویی موبایل -->
-            <button class="hamburger-btn" aria-label="منوی موبایل">☰</button>
         </div>
     </header>
+
+    <!-- نوار تب پایین موبایل -->
+    <nav class="mobile-nav">
+        <div class="mobile-nav-item active" data-target="dashboard">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            <span>وضعیت</span>
+        </div>
+        <div class="mobile-nav-item" data-target="users">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            <span>کاربران</span>
+        </div>
+        <div class="mobile-nav-item" data-target="payments">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h.01M11 15h.01M3 4h18a2 2 0 012 2v12a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2z"></path></svg>
+            <span>فیش‌ها</span>
+        </div>
+        <div class="mobile-nav-item" data-target="tickets">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
+            <span>تیکت‌ها</span>
+        </div>
+        <div class="mobile-nav-item" onclick="toggleMobileMoreMenu()">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <span>بیشتر</span>
+        </div>
+    </nav>
 
     <!-- کانتینر اصلی محتوا -->
     <div class="wrapper g-main">
@@ -279,15 +339,34 @@ $ad_admin_status = static function($status): string {
 <div class="card ad-admin-card ad-manual-create" style="margin-top:1rem;">
                     <h3>➕ ثبت مستقیم تبلیغ توسط مدیر</h3>
                     <p>این بخش برای ثبت و فعال‌سازی مستقیم تبلیغ توسط مدیر است. تاریخ‌ها را به شمسی وارد کنید.</p>
-                    <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/ads/manual-create'); ?>" enctype="multipart/form-data" class="ad-manual-form">
+                    <form method="post" action="<?php echo \WHCM\Core\Bootstrap::getRouteUrl('/hnnh/ads/manual-create'); ?>" enctype="multipart/form-data" class="ad-manual-form-modern">
                         <?php echo $csrf_field; ?>
-                        <input required name="title" maxlength="180" placeholder="عنوان تبلیغ">
-                        <input required name="destination_url" maxlength="2048" placeholder="نشانی مقصد">
-                        <input required type="text" id="manual_ad_starts_at" name="starts_at" data-jdp data-ad-admin-date="start" inputmode="numeric" autocomplete="off" readonly placeholder="انتخاب تاریخ و ساعت شروع">
-                        <input required type="text" id="manual_ad_ends_at" name="ends_at" data-jdp data-ad-admin-date="end" inputmode="numeric" autocomplete="off" readonly placeholder="انتخاب تاریخ و ساعت پایان">
-                        <input required type="file" name="manual_ad_image" accept="image/jpeg,image/png,image/webp,image/gif">
-                        <div class="ad-manual-placement-fixed"><strong>جایگاه نمایش:</strong><span>جایگاه اصلی بالای صفحه</span><input type="hidden" name="placements[]" value="global_top"></div>
-                        <button class="primary-btn" type="submit">ثبت و فعال‌سازی تبلیغ</button>
+                        <input type="hidden" name="placements[]" value="global_top">
+                        <div class="ad-form-row-2col">
+                            <div class="ad-form-field">
+                                <label>عنوان تبلیغ</label>
+                                <input required name="title" maxlength="180" placeholder="مثلاً: فروش ویژه عید">
+                            </div>
+                            <div class="ad-form-field">
+                                <label>نشانی مقصد (URL)</label>
+                                <input required name="destination_url" maxlength="2048" placeholder="https://example.com" dir="ltr">
+                            </div>
+                        </div>
+                        <div class="ad-form-row-2col">
+                            <div class="ad-form-field">
+                                <label>تاریخ و ساعت شروع</label>
+                                <input required type="text" id="manual_ad_starts_at" name="starts_at" data-jdp data-ad-admin-date="start" inputmode="numeric" autocomplete="off" readonly placeholder="انتخاب تاریخ و ساعت شروع">
+                            </div>
+                            <div class="ad-form-field">
+                                <label>تاریخ و ساعت پایان</label>
+                                <input required type="text" id="manual_ad_ends_at" name="ends_at" data-jdp data-ad-admin-date="end" inputmode="numeric" autocomplete="off" readonly placeholder="انتخاب تاریخ و ساعت پایان">
+                            </div>
+                        </div>
+                        <div class="ad-form-field">
+                            <label>تصویر تبلیغ (JPG, PNG, WebP, GIF)</label>
+                            <input required type="file" name="manual_ad_image" accept="image/jpeg,image/png,image/webp,image/gif">
+                        </div>
+                        <button class="primary-btn" type="submit" style="margin-top:0.5rem;">✨ ثبت و فعال‌سازی تبلیغ</button>
                     </form>
                 </div>
 
