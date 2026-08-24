@@ -1,0 +1,52 @@
+name: Postyar UX hotfix
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch runtime UI
+        shell: python
+        run: |
+          from pathlib import Path
+          root=Path('.')
+          # Dashboard mobile navigation: five primary actions + full More drawer.
+          p=root/'postyar-private/app/Views/dashboard.php'
+          s=p.read_text(encoding='utf-8')
+          marker='<!-- POSTYAR-MOBILE-NAV-V3 -->'
+          nav='''\n    <!-- POSTYAR-MOBILE-NAV-V3 -->\n    <nav class="mobile-nav" aria-label="ناوبری سریع موبایل">\n      <div class="mobile-nav-item active" data-target="dashboard" onclick="switchSection('dashboard')"><span aria-hidden="true">⌂</span><span>وضعیت</span></div>\n      <div class="mobile-nav-item" data-target="publish" onclick="switchSection('publish')"><span aria-hidden="true">✎</span><span>ارسال</span></div>\n      <div class="mobile-nav-item" data-target="channels" onclick="switchSection('channels')"><span aria-hidden="true">◉</span><span>کانال‌ها</span></div>\n      <div class="mobile-nav-item" data-target="ads" onclick="switchSection('ads')"><span aria-hidden="true">▣</span><span>تبلیغات</span></div>\n      <div class="mobile-nav-item" onclick="toggleMobileMoreMenu()"><span aria-hidden="true">☰</span><span>بیشتر</span></div>\n    </nav>\n'''
+          if marker not in s:
+              s=s.replace('</header>', '</header>'+nav, 1)
+              p.write_text(s,encoding='utf-8')
+          # Make the dashboard sidebar toggle work even without legacy Gentelella JS.
+          pjs=root/'public_html/assets/js/dashboard.js'
+          js=pjs.read_text(encoding='utf-8')
+          marker2='POSTYAR-DASHBOARD-MOBILE-V3'
+          patch='''\n\n/* POSTYAR-DASHBOARD-MOBILE-V3 */\n(function(){\n function ready(fn){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fn,{once:true});else fn();}\n ready(function(){\n  var sidebar=document.getElementById('g-sidebar'),toggle=document.getElementById('g-sidebar-toggle');\n  if(sidebar&&toggle&&!toggle.dataset.v3){toggle.dataset.v3='1';var back=document.createElement('div');back.className='sidebar-backdrop';document.body.appendChild(back);function close(){sidebar.classList.remove('open','is-open','mobile-open');back.classList.remove('is-open');document.body.classList.remove('sidebar-open');toggle.setAttribute('aria-expanded','false')}function open(){sidebar.classList.add('open');back.classList.add('is-open');document.body.classList.add('sidebar-open');toggle.setAttribute('aria-expanded','true')}toggle.addEventListener('click',function(e){e.preventDefault();sidebar.classList.contains('open')?close():open()});back.addEventListener('click',close);sidebar.querySelectorAll('.menu-item[data-target]').forEach(function(x){x.addEventListener('click',function(){if(window.matchMedia('(max-width:1023px)').matches)close()})});}\n  document.querySelectorAll('.mobile-nav .mobile-nav-item[data-target]').forEach(function(x){if(x.dataset.v3)return;x.dataset.v3='1';x.addEventListener('click',function(){document.querySelectorAll('.mobile-nav .mobile-nav-item').forEach(function(y){y.classList.remove('active')});x.classList.add('active')})});\n  document.querySelectorAll('table').forEach(function(t){if(!t.tHead)return;var h=Array.prototype.map.call(t.tHead.rows[0].cells,function(c){return(c.textContent||'').trim()});t.querySelectorAll('tbody tr').forEach(function(r){r.querySelectorAll('td').forEach(function(c,i){if(!c.dataset.label)c.dataset.label=h[i]||'اطلاعات'})})});\n });\n})();\n'''
+          if marker2 not in js:
+              pjs.write_text(js.rstrip()+patch,encoding='utf-8')
+          # Mirror runtime JS.
+          dst=root/'postyar-private/public/assets/js/dashboard.js'
+          if dst.exists(): dst.write_text(pjs.read_text(encoding='utf-8'),encoding='utf-8')
+          # Robust landing auth/menu fallback.
+          hp=root/'public_html/assets/js/home.js'; hs=hp.read_text(encoding='utf-8'); hm='POSTYAR-LANDING-V3'
+          hpatch='''\n\n/* POSTYAR-LANDING-V3 */\n(function(){\n function ready(fn){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fn,{once:true});else fn();}\n ready(function(){var n=document.getElementById('navbar');if(!n)return;var shell=n.querySelector('.max-w-7xl>div>div');if(shell){var kids=Array.prototype.slice.call(shell.children);if(kids[1])kids[1].classList.add('landing-desktop-menu');if(kids[2])kids[2].classList.add('landing-actions')}var toggle=document.getElementById('mobileToggle'),menu=document.getElementById('mobileMenu');if(toggle&&menu&&!toggle.dataset.v3){toggle.dataset.v3='1';toggle.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();var open=!menu.classList.contains('hidden');menu.classList.toggle('hidden',open);menu.classList.toggle('flex',!open);menu.classList.toggle('is-open',!open);toggle.setAttribute('aria-expanded',String(!open))},true)}n.querySelectorAll('[onclick*="openModal"]').forEach(function(b){var oc=b.getAttribute('onclick')||'';b.dataset.authAction=oc.indexOf('register')>-1?'register':'login';b.removeAttribute('onclick')});document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-auth-action]');if(!b)return;e.preventDefault();e.stopPropagation();if(window.openModal)window.openModal(b.dataset.authAction)},true)});\n})();\n'''
+          if hm not in hs: hp.write_text(hs.rstrip()+hpatch,encoding='utf-8')
+          dst=root/'postyar-private/public/assets/js/home.js'
+          if dst.exists(): dst.write_text(hp.read_text(encoding='utf-8'),encoding='utf-8')
+          # Fresh cache generation.
+          sw=root/'public_html/service-worker.js'; ss=sw.read_text(encoding='utf-8').replace('postyar-pwa-v12','postyar-pwa-v13'); sw.write_text(ss,encoding='utf-8')
+          # Self-delete workflow after successful patch.
+          (root/'.github/workflows/ux-hotfix.yml').unlink()
+      - name: Commit
+        run: |
+          git config user.name "postyar-ui-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "fix: complete mobile navigation and landing interactions" || exit 0
+          git push
